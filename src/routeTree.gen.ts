@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as VocabularyRouteImport } from './routes/vocabulary'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as GamesMemoryRouteImport } from './routes/games.memory'
 
 const VocabularyRoute = VocabularyRouteImport.update({
   id: '/vocabulary',
@@ -28,35 +29,44 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GamesMemoryRoute = GamesMemoryRouteImport.update({
+  id: '/games/memory',
+  path: '/games/memory',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
   '/vocabulary': typeof VocabularyRoute
+  '/games/memory': typeof GamesMemoryRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
   '/vocabulary': typeof VocabularyRoute
+  '/games/memory': typeof GamesMemoryRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
   '/vocabulary': typeof VocabularyRoute
+  '/games/memory': typeof GamesMemoryRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/vocabulary'
+  fullPaths: '/' | '/dashboard' | '/vocabulary' | '/games/memory'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/vocabulary'
-  id: '__root__' | '/' | '/dashboard' | '/vocabulary'
+  to: '/' | '/dashboard' | '/vocabulary' | '/games/memory'
+  id: '__root__' | '/' | '/dashboard' | '/vocabulary' | '/games/memory'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DashboardRoute: typeof DashboardRoute
   VocabularyRoute: typeof VocabularyRoute
+  GamesMemoryRoute: typeof GamesMemoryRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,6 +92,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/games/memory': {
+      id: '/games/memory'
+      path: '/games/memory'
+      fullPath: '/games/memory'
+      preLoaderRoute: typeof GamesMemoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -89,6 +106,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRoute: DashboardRoute,
   VocabularyRoute: VocabularyRoute,
+  GamesMemoryRoute: GamesMemoryRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

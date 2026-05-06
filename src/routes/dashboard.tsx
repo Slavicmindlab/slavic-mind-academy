@@ -48,7 +48,7 @@ function Dashboard() {
           <div className="mt-8 grid md:grid-cols-3 gap-4">
             <ShortcutCard icon={BookOpen} title="Vocabulary" body="1,240 words across 6 categories" to="/vocabulary" />
             <ShortcutCard icon={Brain} title="Polish cases" body="Mianownik → Wołacz drills" to="/dashboard" />
-            <ShortcutCard icon={Gamepad2} title="Mind games" body="8 ways to play with Polish" to="/dashboard" />
+            <ShortcutCard icon={Gamepad2} title="Mind games" body="Memory Match — pair PL ↔ BG words" to="/games/memory" />
           </div>
 
           <Quests />
