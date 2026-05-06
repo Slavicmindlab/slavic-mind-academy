@@ -72,14 +72,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "Slavic Mind" },
+      { name: "description", content: "SlavicMind blends Polish learning, Slavic philology, vocabulary systems, grammar, and mind games into a modern interactive study experience." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "Slavic Mind" },
+      { property: "og:description", content: "SlavicMind blends Polish learning, Slavic philology, vocabulary systems, grammar, and mind games into a modern interactive study experience." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Slavic Mind" },
+      { name: "twitter:description", content: "SlavicMind blends Polish learning, Slavic philology, vocabulary systems, grammar, and mind games into a modern interactive study experience." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e7823e0a-65c0-4603-a234-d505bf4acad6/id-preview-b7728456--434e5a7f-5664-4015-b7bb-bd977f97bb2a.lovable.app-1778088145040.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e7823e0a-65c0-4603-a234-d505bf4acad6/id-preview-b7728456--434e5a7f-5664-4015-b7bb-bd977f97bb2a.lovable.app-1778088145040.png" },
     ],
     links: [
       {
