@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
-import { WORDS, type Word } from "@/data/vocabulary";
+import { WORDS, CATEGORIES as ALL_CATEGORIES, type Word } from "@/data/vocabulary";
 import { Search, Volume2, Star, Filter } from "lucide-react";
 
 export const Route = createFileRoute("/vocabulary")({
@@ -14,7 +14,7 @@ export const Route = createFileRoute("/vocabulary")({
   component: Vocabulary,
 });
 
-const CATEGORIES = ["All", "Greetings", "Food", "Travel", "Family", "Verbs", "Time"] as const;
+const CATEGORIES = ["All", ...ALL_CATEGORIES] as const;
 const LEVELS = ["All", "A1", "A2", "B1", "B2"] as const;
 
 function Vocabulary() {
@@ -95,7 +95,12 @@ function Vocabulary() {
                   <div className="text-sm"><span className="text-muted-foreground">BG · </span>{w.bg}</div>
                   <div className="text-sm"><span className="text-muted-foreground">EN · </span>{w.en}</div>
                 </div>
-                <div className="mt-5 flex items-center justify-between">
+                <div className="mt-4 flex flex-wrap items-center gap-2 text-[10px] uppercase tracking-widest text-muted-foreground">
+                  <span className="font-mono">{w.pos}</span>
+                  {w.gender !== "—" && <span className="font-mono text-rose">·{" "}{w.gender}.</span>}
+                  {w.plural !== "—" && <span className="font-mono">· pl. {w.plural}</span>}
+                </div>
+                <div className="mt-4 flex items-center justify-between">
                   <div className="flex gap-2">
                     <Pill>{w.category}</Pill>
                     <Pill tone="crimson">{w.difficulty}</Pill>
