@@ -10,13 +10,23 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VocabularyRouteImport } from './routes/vocabulary'
+import { Route as GamesRouteImport } from './routes/games'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as GamesSentenceRouteImport } from './routes/games.sentence'
+import { Route as GamesQuizRouteImport } from './routes/games.quiz'
 import { Route as GamesMemoryRouteImport } from './routes/games.memory'
+import { Route as GamesCrosswordRouteImport } from './routes/games.crossword'
+import { Route as GamesConjugationRouteImport } from './routes/games.conjugation'
 
 const VocabularyRoute = VocabularyRouteImport.update({
   id: '/vocabulary',
   path: '/vocabulary',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GamesRoute = GamesRouteImport.update({
+  id: '/games',
+  path: '/games',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -29,44 +39,107 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GamesSentenceRoute = GamesSentenceRouteImport.update({
+  id: '/sentence',
+  path: '/sentence',
+  getParentRoute: () => GamesRoute,
+} as any)
+const GamesQuizRoute = GamesQuizRouteImport.update({
+  id: '/quiz',
+  path: '/quiz',
+  getParentRoute: () => GamesRoute,
+} as any)
 const GamesMemoryRoute = GamesMemoryRouteImport.update({
-  id: '/games/memory',
-  path: '/games/memory',
-  getParentRoute: () => rootRouteImport,
+  id: '/memory',
+  path: '/memory',
+  getParentRoute: () => GamesRoute,
+} as any)
+const GamesCrosswordRoute = GamesCrosswordRouteImport.update({
+  id: '/crossword',
+  path: '/crossword',
+  getParentRoute: () => GamesRoute,
+} as any)
+const GamesConjugationRoute = GamesConjugationRouteImport.update({
+  id: '/conjugation',
+  path: '/conjugation',
+  getParentRoute: () => GamesRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
+  '/games': typeof GamesRouteWithChildren
   '/vocabulary': typeof VocabularyRoute
+  '/games/conjugation': typeof GamesConjugationRoute
+  '/games/crossword': typeof GamesCrosswordRoute
   '/games/memory': typeof GamesMemoryRoute
+  '/games/quiz': typeof GamesQuizRoute
+  '/games/sentence': typeof GamesSentenceRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
+  '/games': typeof GamesRouteWithChildren
   '/vocabulary': typeof VocabularyRoute
+  '/games/conjugation': typeof GamesConjugationRoute
+  '/games/crossword': typeof GamesCrosswordRoute
   '/games/memory': typeof GamesMemoryRoute
+  '/games/quiz': typeof GamesQuizRoute
+  '/games/sentence': typeof GamesSentenceRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
+  '/games': typeof GamesRouteWithChildren
   '/vocabulary': typeof VocabularyRoute
+  '/games/conjugation': typeof GamesConjugationRoute
+  '/games/crossword': typeof GamesCrosswordRoute
   '/games/memory': typeof GamesMemoryRoute
+  '/games/quiz': typeof GamesQuizRoute
+  '/games/sentence': typeof GamesSentenceRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/vocabulary' | '/games/memory'
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/games'
+    | '/vocabulary'
+    | '/games/conjugation'
+    | '/games/crossword'
+    | '/games/memory'
+    | '/games/quiz'
+    | '/games/sentence'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/vocabulary' | '/games/memory'
-  id: '__root__' | '/' | '/dashboard' | '/vocabulary' | '/games/memory'
+  to:
+    | '/'
+    | '/dashboard'
+    | '/games'
+    | '/vocabulary'
+    | '/games/conjugation'
+    | '/games/crossword'
+    | '/games/memory'
+    | '/games/quiz'
+    | '/games/sentence'
+  id:
+    | '__root__'
+    | '/'
+    | '/dashboard'
+    | '/games'
+    | '/vocabulary'
+    | '/games/conjugation'
+    | '/games/crossword'
+    | '/games/memory'
+    | '/games/quiz'
+    | '/games/sentence'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DashboardRoute: typeof DashboardRoute
+  GamesRoute: typeof GamesRouteWithChildren
   VocabularyRoute: typeof VocabularyRoute
-  GamesMemoryRoute: typeof GamesMemoryRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -76,6 +149,13 @@ declare module '@tanstack/react-router' {
       path: '/vocabulary'
       fullPath: '/vocabulary'
       preLoaderRoute: typeof VocabularyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/games': {
+      id: '/games'
+      path: '/games'
+      fullPath: '/games'
+      preLoaderRoute: typeof GamesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -92,22 +172,78 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/games/sentence': {
+      id: '/games/sentence'
+      path: '/sentence'
+      fullPath: '/games/sentence'
+      preLoaderRoute: typeof GamesSentenceRouteImport
+      parentRoute: typeof GamesRoute
+    }
+    '/games/quiz': {
+      id: '/games/quiz'
+      path: '/quiz'
+      fullPath: '/games/quiz'
+      preLoaderRoute: typeof GamesQuizRouteImport
+      parentRoute: typeof GamesRoute
+    }
     '/games/memory': {
       id: '/games/memory'
-      path: '/games/memory'
+      path: '/memory'
       fullPath: '/games/memory'
       preLoaderRoute: typeof GamesMemoryRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof GamesRoute
+    }
+    '/games/crossword': {
+      id: '/games/crossword'
+      path: '/crossword'
+      fullPath: '/games/crossword'
+      preLoaderRoute: typeof GamesCrosswordRouteImport
+      parentRoute: typeof GamesRoute
+    }
+    '/games/conjugation': {
+      id: '/games/conjugation'
+      path: '/conjugation'
+      fullPath: '/games/conjugation'
+      preLoaderRoute: typeof GamesConjugationRouteImport
+      parentRoute: typeof GamesRoute
     }
   }
 }
 
+interface GamesRouteChildren {
+  GamesConjugationRoute: typeof GamesConjugationRoute
+  GamesCrosswordRoute: typeof GamesCrosswordRoute
+  GamesMemoryRoute: typeof GamesMemoryRoute
+  GamesQuizRoute: typeof GamesQuizRoute
+  GamesSentenceRoute: typeof GamesSentenceRoute
+}
+
+const GamesRouteChildren: GamesRouteChildren = {
+  GamesConjugationRoute: GamesConjugationRoute,
+  GamesCrosswordRoute: GamesCrosswordRoute,
+  GamesMemoryRoute: GamesMemoryRoute,
+  GamesQuizRoute: GamesQuizRoute,
+  GamesSentenceRoute: GamesSentenceRoute,
+}
+
+const GamesRouteWithChildren = GamesRoute._addFileChildren(GamesRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRoute: DashboardRoute,
+  GamesRoute: GamesRouteWithChildren,
   VocabularyRoute: VocabularyRoute,
-  GamesMemoryRoute: GamesMemoryRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
