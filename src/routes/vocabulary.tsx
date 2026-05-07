@@ -163,6 +163,12 @@ function WordSheet({ word, onClose, fav, onFav }: { word: Word; onClose: () => v
           </button>
         </div>
 
+        <div className="mt-4 flex flex-wrap gap-2 text-[10px] uppercase tracking-widest">
+          <span className="px-2 py-1 rounded-full border border-border/70 font-mono">{word.pos}</span>
+          {word.gender !== "—" && <span className="px-2 py-1 rounded-full border border-rose/60 text-rose font-mono">gender · {word.gender}</span>}
+          {word.plural !== "—" && <span className="px-2 py-1 rounded-full border border-border/70 font-mono">plural · {word.plural}</span>}
+        </div>
+
         <div className="mt-6 grid grid-cols-2 gap-3">
           <div className="p-4 rounded-lg bg-surface/60 border border-border/60">
             <div className="text-[10px] uppercase tracking-widest text-muted-foreground">Български</div>
