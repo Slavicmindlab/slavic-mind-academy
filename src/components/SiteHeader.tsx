@@ -5,7 +5,7 @@ const nav = [
   { to: "/", label: "Home" },
   { to: "/dashboard", label: "Dashboard" },
   { to: "/vocabulary", label: "Vocabulary" },
-  { to: "/games/memory", label: "Mind games" },
+  { to: "/games", label: "Mind games" },
 ];
 
 export function SiteHeader() {
@@ -41,7 +41,7 @@ export function SiteHeader() {
         </nav>
         <div className="flex items-center gap-2">
           <Link
-            to="/games/memory"
+            to="/games"
             className="hidden sm:inline-flex text-sm px-4 py-2 rounded-md bg-crimson-gradient text-ivory hover:opacity-90 transition shadow-glow"
           >
             Play
