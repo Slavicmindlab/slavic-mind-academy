@@ -3,6 +3,8 @@ import { useMemo, useState } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { WORDS, CATEGORIES as ALL_CATEGORIES, type Word } from "@/data/vocabulary";
 import { Search, Volume2, Star, Filter } from "lucide-react";
+import { SpeakButton } from "@/components/SpeakButton";
+import { speak } from "@/lib/speak";
 
 export const Route = createFileRoute("/vocabulary")({
   head: () => ({
@@ -105,7 +107,7 @@ function Vocabulary() {
                     <Pill>{w.category}</Pill>
                     <Pill tone="crimson">{w.difficulty}</Pill>
                   </div>
-                  <Volume2 className="h-4 w-4 text-muted-foreground group-hover:text-crimson transition" />
+                  <SpeakButton text={w.pl} lang="pl-PL" />
                 </div>
               </button>
             ))}
@@ -187,7 +189,10 @@ function WordSheet({ word, onClose, fav, onFav }: { word: Word; onClose: () => v
         </div>
 
         <div className="mt-8 flex gap-3">
-          <button className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-lg border border-border/70 hover:bg-surface-2 transition text-sm">
+          <button
+            onClick={() => speak(word.pl, "pl-PL")}
+            className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-lg border border-border/70 hover:bg-surface-2 transition text-sm"
+          >
             <Volume2 className="h-4 w-4" /> Listen
           </button>
           <button onClick={onClose} className="flex-1 px-4 py-3 rounded-lg bg-crimson-gradient text-ivory text-sm shadow-glow hover:opacity-95 transition">
