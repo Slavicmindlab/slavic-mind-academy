@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Ornament } from "@/components/SlavicMindLogo";
 import { WORDS, type Word } from "@/data/vocabulary";
+import { addXp, recordGamePlay } from "@/lib/progress";
 import { ArrowLeft, Timer, Sparkles, RotateCcw, Check, X } from "lucide-react";
 
 export const Route = createFileRoute("/games/quiz")({
@@ -86,6 +87,14 @@ function TimedQuiz() {
   };
 
   const xp = useMemo(() => score + bestStreak * 5, [score, bestStreak]);
+
+  useEffect(() => {
+    if (finished && xp > 0) {
+      addXp(xp, "Timed Quiz");
+      recordGamePlay("quiz", score);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [finished]);
 
   return (
     <div className="min-h-screen bg-background">

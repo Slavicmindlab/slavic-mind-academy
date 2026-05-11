@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Ornament, CornerKnot } from "@/components/SlavicMindLogo";
 import { WORDS, type Word } from "@/data/vocabulary";
+import { addXp, recordGamePlay } from "@/lib/progress";
 import { RotateCcw, Timer, Zap, Trophy, ArrowLeft, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/games/memory")({
@@ -49,6 +50,14 @@ function MemoryGame() {
     const t = setInterval(() => setSeconds((s) => s + 1), 1000);
     return () => clearInterval(t);
   }, [running, won]);
+
+  useEffect(() => {
+    if (!won) return;
+    const reward = Math.max(20, pairs * 20 - moves * 2);
+    addXp(reward, "Memory Match");
+    recordGamePlay("memory", reward);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [won]);
 
   useEffect(() => {
     if (flipped.length !== 2) return;

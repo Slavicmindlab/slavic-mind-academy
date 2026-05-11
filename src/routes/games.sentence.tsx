@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Ornament } from "@/components/SlavicMindLogo";
 import { SENTENCES, type SentencePuzzle } from "@/data/vocabulary";
+import { addXp, recordGamePlay } from "@/lib/progress";
 import { ArrowLeft, RotateCcw, Sparkles, Check } from "lucide-react";
 
 export const Route = createFileRoute("/games/sentence")({
@@ -40,6 +41,8 @@ function SentenceBuilder() {
   useEffect(() => {
     if (correct && !solvedIds.has(puzzle.id)) {
       setXp((x) => x + 30);
+      addXp(30, "Sentence Builder");
+      recordGamePlay("sentence", 30);
       setSolvedIds((s) => new Set(s).add(puzzle.id));
     }
   }, [correct, puzzle.id, solvedIds]);
