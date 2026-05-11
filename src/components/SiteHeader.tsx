@@ -1,5 +1,6 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { SlavicMindLogo } from "@/components/SlavicMindLogo";
+import { SoundToggle } from "@/components/SoundToggle";
 
 const nav = [
   { to: "/", label: "Home" },
@@ -40,6 +41,7 @@ export function SiteHeader() {
           })}
         </nav>
         <div className="flex items-center gap-2">
+          <SoundToggle />
           <Link
             to="/games"
             className="hidden sm:inline-flex text-sm px-4 py-2 rounded-md bg-crimson-gradient text-ivory hover:opacity-90 transition shadow-glow"
