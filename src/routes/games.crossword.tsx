@@ -4,6 +4,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { Ornament } from "@/components/SlavicMindLogo";
 import { SpeakButton } from "@/components/SpeakButton";
 import { speak } from "@/lib/speak";
+import { addXp, recordGamePlay } from "@/lib/progress";
 import { ArrowLeft, RotateCcw, Sparkles, Trophy, Lightbulb, Timer as TimerIcon, Eraser } from "lucide-react";
 
 export const Route = createFileRoute("/games/crossword")({
@@ -94,9 +95,11 @@ function Crossword() {
   // XP: base 200 − time penalty − hint penalty (min 30)
   const xp = won ? Math.max(30, 200 - Math.floor(seconds / 5) - hintsUsed * HINT_COST) : 0;
 
-  // Speak winning words
+  // Speak winning words + award XP
   useEffect(() => {
     if (!won) return;
+    addXp(xp, "Crossword");
+    recordGamePlay("crossword", xp);
     const id = setTimeout(() => speak(ENTRIES.map((e) => e.answer).join(", "), "pl-PL", 0.85), 400);
     return () => clearTimeout(id);
   }, [won]);

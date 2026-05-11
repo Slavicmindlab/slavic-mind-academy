@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Ornament } from "@/components/SlavicMindLogo";
 import { CONJUGATIONS } from "@/data/vocabulary";
+import { addXp, recordGamePlay } from "@/lib/progress";
 import { ArrowLeft, RotateCcw, Sparkles, Check } from "lucide-react";
 
 export const Route = createFileRoute("/games/conjugation")({
@@ -45,7 +46,11 @@ function Conjugation() {
   const allRight = PRONOUNS.every((p) => correctness[p.key] === true);
 
   const next = () => {
-    if (allRight) setXp((x) => x + 60);
+    if (allRight) {
+      setXp((x) => x + 60);
+      addXp(60, "Conjugation Drill");
+      recordGamePlay("conjugation", 60);
+    }
     setIdx((i) => (i + 1) % CONJUGATIONS.length);
   };
 
