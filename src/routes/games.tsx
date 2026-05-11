@@ -1,13 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Ornament } from "@/components/SlavicMindLogo";
-import { Brain, Grid3x3, Timer, Layers, Repeat, ArrowRight } from "lucide-react";
+import { Brain, Grid3x3, Timer, Layers, Repeat, ArrowRight, Shuffle, Headphones } from "lucide-react";
 
 export const Route = createFileRoute("/games")({
   head: () => ({
     meta: [
       { title: "Mind games — SlavicMind" },
-      { name: "description", content: "Crosswords, memory match, timed quizzes, sentence building and conjugation drills for Polish learners." },
+      { name: "description", content: "Crosswords, memory match, timed quizzes, sentence building, conjugation, translation match and listening for Polish learners." },
     ],
   }),
   component: GamesHub,
@@ -18,17 +18,23 @@ const GAMES = [
     body: "Pair Polish words with their Bulgarian twins. A quiet test of recall.",
     tag: "Recall · 4–8 pairs" },
   { to: "/games/crossword", icon: Grid3x3, name: "Crossword", n: "02",
-    body: "A small philological puzzle: clues in Bulgarian, answers in Polish. Timed, with hints.",
+    body: "A small philological puzzle: clues in Bulgarian, answers in Polish.",
     tag: "Logic · timed · XP" },
   { to: "/games/quiz", icon: Timer, name: "Timed Quiz", n: "03",
     body: "Sixty seconds. Twelve words. Translate as many as your mind allows.",
     tag: "Speed · 60s" },
   { to: "/games/sentence", icon: Layers, name: "Sentence Builder", n: "04",
     body: "Reassemble Polish sentences from scattered tokens. Word order, alive.",
-    tag: "Syntax · 5 puzzles" },
+    tag: "Syntax · 7 puzzles" },
   { to: "/games/conjugation", icon: Repeat, name: "Conjugation Drill", n: "05",
     body: "Six pronouns. One verb at a time. Fill the present tense paradigm.",
     tag: "Grammar · drill" },
+  { to: "/games/match", icon: Shuffle, name: "Translation Match", n: "06",
+    body: "Connect Polish words to their Bulgarian meanings, one tap at a time.",
+    tag: "Recall · 6 words" },
+  { to: "/games/listening", icon: Headphones, name: "Listening", n: "07",
+    body: "Hear a Polish word, pick the right meaning. Trains the ear.",
+    tag: "Audio · 8 rounds" },
 ];
 
 function GamesHub() {
