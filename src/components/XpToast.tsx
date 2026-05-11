@@ -8,11 +8,12 @@ export function XpToast() {
   const [toasts, setToasts] = useState<Toast[]>([]);
 
   useEffect(() => {
-    return onXpGain((amount, reason) => {
+    const off = onXpGain((amount, reason) => {
       const id = Date.now() + Math.random();
       setToasts((prev) => [...prev, { id, amount, reason }]);
       setTimeout(() => setToasts((prev) => prev.filter((t) => t.id !== id)), 2400);
     });
+    return () => { off(); };
   }, []);
 
   return (
