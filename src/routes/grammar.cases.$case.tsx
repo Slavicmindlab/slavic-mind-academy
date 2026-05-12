@@ -1,7 +1,8 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
-import { CASES, WORDS } from "@/data/vocabulary";
+import { CASES } from "@/data/vocabulary";
+import { DECLENSIONS, type CaseSlug } from "@/data/grammar";
 import { SpeakButton } from "@/components/SpeakButton";
 import { addXp, recordGrammarDrill } from "@/lib/progress";
 import { ArrowLeft, Check, X, Sparkles } from "lucide-react";
@@ -153,14 +154,43 @@ function CaseDetail() {
             )}
           </div>
 
-          {/* Sample words from vocabulary tagged with relevant POS */}
-          <div className="mt-10 text-xs uppercase tracking-widest text-muted-foreground">Try declining these nouns mentally</div>
-          <div className="mt-3 flex flex-wrap gap-2">
-            {WORDS.filter((w) => w.pos === "noun").slice(0, 12).map((w) => (
-              <span key={w.id} className="px-3 py-1.5 rounded-full border border-border/60 bg-surface/40 text-sm">
-                {w.pl} <span className="text-rose font-mono text-xs">·{w.gender}</span>
-              </span>
-            ))}
+          {/* Full declension paradigms */}
+          <div className="mt-10">
+            <div className="text-xs uppercase tracking-[0.3em] text-rose">Paradigms · sample nouns</div>
+            <h3 className="mt-2 font-serif text-2xl">Full declension</h3>
+            <div className="mt-5 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {DECLENSIONS.map((d) => {
+                const sg = d.singular[slug as CaseSlug];
+                const pl = d.plural[slug as CaseSlug];
+                return (
+                  <div key={d.lemma} className="rounded-2xl border border-border/70 bg-card-gradient p-5">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="font-serif text-xl">{d.lemma}</div>
+                        <div className="text-xs text-muted-foreground">{d.bg} · {d.en} · <span className="font-mono text-rose">{d.gender}</span></div>
+                      </div>
+                      <SpeakButton text={d.lemma} />
+                    </div>
+                    <div className="mt-4 grid grid-cols-2 gap-2 text-sm">
+                      <div className="rounded-md border border-border/60 bg-surface/40 p-2">
+                        <div className="text-[10px] uppercase tracking-widest text-muted-foreground">singular</div>
+                        <div className="mt-1 flex items-center justify-between gap-2">
+                          <span className="font-serif text-lg text-ivory">{sg}</span>
+                          <SpeakButton text={sg} />
+                        </div>
+                      </div>
+                      <div className="rounded-md border border-border/60 bg-surface/40 p-2">
+                        <div className="text-[10px] uppercase tracking-widest text-muted-foreground">plural</div>
+                        <div className="mt-1 flex items-center justify-between gap-2">
+                          <span className="font-serif text-lg text-ivory">{pl}</span>
+                          <SpeakButton text={pl} />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>

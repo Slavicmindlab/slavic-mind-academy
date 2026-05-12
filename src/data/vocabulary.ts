@@ -279,6 +279,52 @@ export const WORDS: Word[] = [
   w("li5", "bohater", "герой", "hero / protagonist", "boh-HAH-ter", "noun", "m", "bohaterowie", "Bohater romantyczny.", "Романтичен герой.", "Literature", "B1"),
   w("li6", "metafora", "метафора", "metaphor", "meh-tah-FOH-rah", "noun", "f", "metafory", "Piękna metafora.", "Красива метафора.", "Literature", "B2"),
   w("li7", "tłumaczenie", "превод", "translation", "twoo-mah-CHEH-nyeh", "noun", "n", "tłumaczenia", "Polskie tłumaczenie.", "Полски превод.", "Literature", "B1"),
+
+  // Daily speech & connectors
+  w("d1", "tak", "да", "yes", "tahk", "phrase", "—", "—", "Tak, oczywiście.", "Да, разбира се.", "Daily speech", "A1"),
+  w("d2", "nie", "не", "no", "nyeh", "phrase", "—", "—", "Nie, dziękuję.", "Не, благодаря.", "Daily speech", "A1"),
+  w("d3", "może", "може би", "maybe", "MOH-zheh", "adverb", "—", "—", "Może jutro pójdziemy.", "Може би утре ще отидем.", "Daily speech", "A1"),
+  w("d4", "zawsze", "винаги", "always", "ZAHV-sheh", "adverb", "—", "—", "Zawsze piję kawę rano.", "Винаги пия кафе сутрин.", "Daily speech", "A2"),
+  w("d5", "nigdy", "никога", "never", "NEEG-di", "adverb", "—", "—", "Nigdy nie kłamię.", "Никога не лъжа.", "Daily speech", "A2"),
+  w("d6", "często", "често", "often", "CHEN-stoh", "adverb", "—", "—", "Często chodzę do kina.", "Често ходя на кино.", "Daily speech", "A2"),
+  w("d7", "naprawdę", "наистина", "really", "nah-PRAHV-dyeh", "adverb", "—", "—", "Naprawdę mi przykro.", "Наистина съжалявам.", "Daily speech", "A2"),
+  w("d8", "spoko", "спокойно", "no worries (slang)", "SPOH-koh", "phrase", "—", "—", "Spoko, daj spokój.", "Спокойно, остави.", "Slang", "A2"),
+  w("d9", "super", "супер", "great", "SOO-per", "adjective", "—", "—", "Super pomysł!", "Супер идея!", "Daily speech", "A1"),
+  w("d10", "ekstra", "екстра", "awesome", "EKS-trah", "adjective", "—", "—", "Ekstra koncert.", "Екстра концерт.", "Slang", "A2"),
+
+  // Verbs (extra)
+  w("v1", "wstawać", "ставам", "to get up", "fstah-VAHCH", "verb", "—", "—", "Wstaję o siódmej.", "Ставам в седем.", "Verbs", "A2"),
+  w("v2", "spać", "спя", "to sleep", "spahch", "verb", "—", "—", "Śpię osiem godzin.", "Спя осем часа.", "Verbs", "A1"),
+  w("v3", "biegać", "тичам", "to run", "BYEH-gahch", "verb", "—", "—", "Biegam w parku.", "Тичам в парка.", "Verbs", "A2"),
+  w("v4", "pływać", "плувам", "to swim", "PWI-vahch", "verb", "—", "—", "Pływam w jeziorze.", "Плувам в езерото.", "Verbs", "A2"),
+  w("v5", "myśleć", "мисля", "to think", "MISH-lech", "verb", "—", "—", "Myślę o tobie.", "Мисля за теб.", "Verbs", "A2"),
+  w("v6", "śmiać się", "смея се", "to laugh", "shmyatch sheh", "verb", "—", "—", "Śmieję się głośno.", "Смея се на глас.", "Verbs", "A2"),
+  w("v7", "płakać", "плача", "to cry", "PWAH-kahch", "verb", "—", "—", "Dziecko płacze.", "Детето плаче.", "Verbs", "A2"),
+  w("v8", "śpiewać", "пея", "to sing", "SHPYE-vahch", "verb", "—", "—", "Śpiewam w chórze.", "Пея в хор.", "Verbs", "A2"),
+  w("v9", "tańczyć", "танцувам", "to dance", "TAHN-chich", "verb", "—", "—", "Tańczymy razem.", "Танцуваме заедно.", "Verbs", "A2"),
+  w("v10", "podróżować", "пътувам", "to travel", "poh-droo-ZHOH-vahch", "verb", "—", "—", "Lubię podróżować.", "Обичам да пътувам.", "Verbs", "A2"),
+
+  // Time
+  w("t1", "dzisiaj", "днес", "today", "JEE-shahy", "adverb", "—", "—", "Dzisiaj jest piątek.", "Днес е петък.", "Time", "A1"),
+  w("t2", "jutro", "утре", "tomorrow", "YOO-troh", "adverb", "—", "—", "Jutro mam egzamin.", "Утре имам изпит.", "Time", "A1"),
+  w("t3", "wczoraj", "вчера", "yesterday", "FCHOH-rahy", "adverb", "—", "—", "Wczoraj padał deszcz.", "Вчера валеше дъжд.", "Time", "A1"),
+  w("t4", "tydzień", "седмица", "week", "TI-djeny", "noun", "m", "tygodnie", "Cały tydzień pracuję.", "Цяла седмица работя.", "Time", "A2"),
+  w("t5", "miesiąc", "месец", "month", "MYEH-shonts", "noun", "m", "miesiące", "Polski miesiąc.", "Полски месец.", "Time", "A2"),
+  w("t6", "rok", "година", "year", "rohk", "noun", "m", "lata", "Mam dwadzieścia lat.", "На двадесет години съм.", "Time", "A1"),
+
+  // Travel & nature
+  w("tr10", "lotnisko", "летище", "airport", "loht-NEES-koh", "noun", "n", "lotniska", "Lotnisko Chopina w Warszawie.", "Летище Шопен във Варшава.", "Travel", "A2"),
+  w("tr11", "dworzec", "гара", "train station", "DVOH-zhets", "noun", "m", "dworce", "Spotkajmy się na dworcu.", "Да се срещнем на гарата.", "Travel", "A2"),
+  w("tr12", "bilet", "билет", "ticket", "BEE-let", "noun", "m", "bilety", "Kupiłem bilet.", "Купих билет.", "Travel", "A1"),
+  w("tr13", "walizka", "куфар", "suitcase", "vah-LEEZ-kah", "noun", "f", "walizki", "Pakuję walizkę.", "Опаковам куфара.", "Travel", "A2"),
+  w("tr14", "morze", "море", "sea", "MOH-zheh", "noun", "n", "morza", "Bałtyckie morze.", "Балтийско море.", "Nature", "A1"),
+  w("tr15", "góry", "планина", "mountains", "GOO-ri", "noun", "—", "—", "Tatry to piękne góry.", "Татрите са красиви планини.", "Nature", "A2"),
+
+  // Emotions
+  w("e10", "radość", "радост", "joy", "RAH-doshch", "noun", "f", "—", "Czuję wielką radość.", "Чувствам голяма радост.", "Emotions", "B1"),
+  w("e11", "smutek", "тъга", "sadness", "SMOO-tek", "noun", "m", "—", "Smutek mija powoli.", "Тъгата отминава бавно.", "Emotions", "B1"),
+  w("e12", "strach", "страх", "fear", "strakh", "noun", "m", "—", "Mam strach przed burzą.", "Страх ме е от буря.", "Emotions", "A2"),
+  w("e13", "tęsknota", "тъга по дома", "longing / homesickness", "tens-KNOH-tah", "noun", "f", "—", "Czuję tęsknotę za domem.", "Чувствам тъга по дома.", "Emotions", "B2"),
 ];
 
 export const CATEGORIES: WordCategory[] = [

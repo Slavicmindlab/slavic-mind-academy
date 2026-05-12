@@ -56,7 +56,7 @@ function Hero() {
           <div className="animate-fade-up delay-500 mt-16 grid grid-cols-3 gap-6 max-w-xl">
             {[
               { k: "7", v: "Polish cases" },
-              { k: "1k+", v: "Words & phrases" },
+              { k: "230+", v: "Words & phrases" },
               { k: "8", v: "Mind games" },
             ].map((s) => (
               <div key={s.v}>

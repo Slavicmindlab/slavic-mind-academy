@@ -10,6 +10,7 @@ const nav = [
   { to: "/vocabulary", label: "Vocabulary" },
   { to: "/grammar", label: "Grammar" },
   { to: "/games", label: "Mind games" },
+  { to: "/stories", label: "Stories" },
 ];
 
 export function SiteHeader() {
