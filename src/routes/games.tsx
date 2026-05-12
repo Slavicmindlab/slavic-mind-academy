@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Ornament } from "@/components/SlavicMindLogo";
-import { Brain, Grid3x3, Timer, Layers, Repeat, ArrowRight, Shuffle, Headphones } from "lucide-react";
+import { Brain, Grid3x3, Timer, Layers, Repeat, ArrowRight, Shuffle, Headphones, Link2 } from "lucide-react";
 
 export const Route = createFileRoute("/games")({
   head: () => ({
@@ -35,6 +35,9 @@ const GAMES = [
   { to: "/games/listening", icon: Headphones, name: "Listening", n: "07",
     body: "Hear a Polish word, pick the right meaning. Trains the ear.",
     tag: "Audio · 8 rounds" },
+  { to: "/games/wordchain", icon: Link2, name: "Word Chain", n: "08",
+    body: "Each new word starts with the last letter of the previous. Vocabulary on a thread.",
+    tag: "Lexicon · endless" },
 ];
 
 function GamesHub() {
