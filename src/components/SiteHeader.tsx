@@ -7,6 +7,7 @@ import { Flame, Zap } from "lucide-react";
 const nav = [
   { to: "/", label: "Home" },
   { to: "/dashboard", label: "Dashboard" },
+  { to: "/daily", label: "Daily" },
   { to: "/vocabulary", label: "Vocabulary" },
   { to: "/grammar", label: "Grammar" },
   { to: "/games", label: "Mind games" },
