@@ -22,11 +22,90 @@ function Landing() {
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
       <Hero />
+      <DailyStrip />
       <Features />
       <CasesPreview />
       <CTA />
       <Footer />
     </div>
+  );
+}
+
+type Greet = { pl: string; bg: string; en: string; icon: typeof Sun };
+function getGreeting(): Greet {
+  const h = new Date().getHours();
+  if (h < 5) return { pl: "Dobranoc", bg: "Лека нощ", en: "Good night", icon: Moon };
+  if (h < 11) return { pl: "Dzień dobry", bg: "Добро утро", en: "Good morning", icon: Sunrise };
+  if (h < 18) return { pl: "Dzień dobry", bg: "Добър ден", en: "Good day", icon: Sun };
+  if (h < 22) return { pl: "Dobry wieczór", bg: "Добър вечер", en: "Good evening", icon: Moon };
+  return { pl: "Dobranoc", bg: "Лека нощ", en: "Good night", icon: Moon };
+}
+
+const TIPS = [
+  { pl: "słuchać + dopełniacz", bg: "Глаголът „słuchać\" винаги е с родителен падеж: słucham muzyki." },
+  { pl: "być + narzędnik", bg: "Професиите се изразяват с творителен: Jestem studentem." },
+  { pl: "myśleć o + miejscownik", bg: "Темата на мислене върви с местен: Myślę o tobie." },
+  { pl: "pomagać + celownik", bg: "Помагаш на някого — дателен: pomagam mamie." },
+  { pl: "czekać na + biernik", bg: "Чакаш нещо — винителен с „na\": czekam na autobus." },
+  { pl: "interesować się + narzędnik", bg: "Интересуваш се от нещо — творителен: literaturą." },
+];
+
+function DailyStrip() {
+  const greet = useMemo(() => getGreeting(), []);
+  const Icon = greet.icon;
+  // Deterministic daily picks (so SSR + first paint match, then refresh after mount)
+  const dayIndex = useMemo(() => {
+    const d = new Date();
+    return d.getFullYear() * 1000 + (d.getMonth() + 1) * 31 + d.getDate();
+  }, []);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  const word = WORDS[dayIndex % WORDS.length];
+  const tip = TIPS[dayIndex % TIPS.length];
+
+  return (
+    <section className="relative border-t border-border/60 bg-surface/30">
+      <div className="mx-auto max-w-7xl px-6 py-10 grid md:grid-cols-3 gap-4">
+        <div className="rounded-2xl border border-border/70 bg-card-gradient p-6">
+          <div className="flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-crimson">
+            <Icon className="h-4 w-4" /> {mounted ? "Dziś" : "Today"}
+          </div>
+          <div className="mt-3 font-serif text-3xl">{greet.pl}!</div>
+          <div className="mt-1 text-sm text-muted-foreground">{greet.bg} · {greet.en}</div>
+          <div className="mt-4 flex items-center gap-2">
+            <SpeakButton text={greet.pl} />
+            <span className="text-xs text-muted-foreground">tap to hear</span>
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-border/70 bg-card-gradient p-6">
+          <div className="text-xs uppercase tracking-[0.3em] text-rose">Słowo dnia · word of the day</div>
+          <div className="mt-3 flex items-baseline gap-3 flex-wrap">
+            <div className="font-serif text-3xl">{word.pl}</div>
+            <div className="font-mono text-xs text-muted-foreground">/{word.pronunciation}/</div>
+          </div>
+          <div className="mt-2 text-sm text-muted-foreground">{word.bg} · {word.en}</div>
+          <div className="mt-4 flex items-center gap-3">
+            <SpeakButton text={word.pl} />
+            <Link to="/vocabulary" className="text-xs text-crimson inline-flex items-center gap-1">
+              Open vocabulary <ArrowRight className="h-3 w-3" />
+            </Link>
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-border/70 bg-card-gradient p-6">
+          <div className="flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-crimson">
+            <Quote className="h-3.5 w-3.5" /> Wskazówka · grammar tip
+          </div>
+          <div className="mt-3 font-serif text-2xl">{tip.pl}</div>
+          <p className="mt-2 text-sm text-muted-foreground">{tip.bg}</p>
+          <Link to="/grammar/verbs" className="mt-4 inline-flex items-center gap-1 text-xs text-crimson">
+            Verbs &amp; cases <ArrowRight className="h-3 w-3" />
+          </Link>
+        </div>
+      </div>
+    </section>
   );
 }
 
