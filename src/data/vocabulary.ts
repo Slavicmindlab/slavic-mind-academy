@@ -372,15 +372,67 @@ export const WORDS: Word[] = [
   w("cu5", "pierogi", "пироги", "pierogi (filled dumplings)", "pyeh-ROH-ghee", "noun", "—", "—", "Pierogi z kapustą i grzybami.", "Пироги със зеле и гъби.", "Cultural", "A1"),
   w("cu6", "Mickiewicz", "Мицкевич", "Adam Mickiewicz (national poet)", "meets-KYE-veech", "noun", "m", "—", "Mickiewicz to wieszcz narodowy.", "Мицкевич е национален поет.", "Cultural", "B1"),
   w("cu7", "Solidarność", "Солидарност (движение)", "Solidarity (movement, 1980)", "soh-lee-DAR-noshch", "noun", "f", "—", "Solidarność zmieniła Polskę.", "Солидарност промени Полша.", "Cultural", "B2"),
+
+  // School & University
+  w("sc1", "uczeń", "ученик", "pupil", "OO-cheny", "noun", "m", "uczniowie", "Uczeń pisze test.", "Ученикът пише тест.", "School", "A1"),
+  w("sc2", "nauczyciel", "учител", "teacher", "now-CHI-chel", "noun", "m", "nauczyciele", "Nauczyciel tłumaczy gramatykę.", "Учителят обяснява граматиката.", "School", "A1"),
+  w("sc3", "tablica", "дъска", "blackboard", "tah-BLEE-tsah", "noun", "f", "tablice", "Pisz na tablicy.", "Пиши на дъската.", "School", "A1"),
+  w("sc4", "lekcja", "урок", "lesson", "LEK-tsyah", "noun", "f", "lekcje", "Mam teraz lekcję polskiego.", "Сега имам урок по полски.", "School", "A1"),
+  w("sc5", "zeszyt", "тетрадка", "notebook", "ZEH-shit", "noun", "m", "zeszyty", "Zostawiłem zeszyt w domu.", "Забравих тетрадката вкъщи.", "School", "A2"),
+  w("sc6", "ocena", "оценка", "grade", "oh-TSEH-nah", "noun", "f", "oceny", "Dostałem dobrą ocenę.", "Получих добра оценка.", "School", "A2"),
+  w("sc7", "wykład", "лекция", "lecture", "VI-kwahd", "noun", "m", "wykłady", "Wykład trwa półtorej godziny.", "Лекцията продължава час и половина.", "University", "B1"),
+  w("sc8", "egzamin", "изпит", "exam", "eg-ZAH-meen", "noun", "m", "egzaminy", "Jutro mam egzamin.", "Утре имам изпит.", "University", "A2"),
+  w("sc9", "praca dyplomowa", "дипломна работа", "thesis", "PRAH-tsah dip-loh-MOH-vah", "phrase", "f", "—", "Piszę pracę dyplomową o Mickiewiczu.", "Пиша дипломна работа за Мицкевич.", "University", "B2"),
+  w("sc10", "biblioteka", "библиотека", "library", "bib-lyo-TEH-kah", "noun", "f", "biblioteki", "Spotykamy się w bibliotece.", "Срещаме се в библиотеката.", "University", "A1"),
+  w("sc11", "filologia słowiańska", "славянска филология", "Slavic philology", "fee-loh-LOH-gyah swoh-VYAN-skah", "phrase", "f", "—", "Studiuję filologię słowiańską.", "Уча славянска филология.", "University", "B1"),
+
+  // Jobs (extra)
+  w("jb1", "lekarz", "лекар", "doctor", "LEH-kazh", "noun", "m", "lekarze", "Mój brat jest lekarzem.", "Брат ми е лекар.", "Jobs", "A1"),
+  w("jb2", "inżynier", "инженер", "engineer", "een-ZHI-nyer", "noun", "m", "inżynierowie", "Pracuje jako inżynier.", "Работи като инженер.", "Jobs", "A2"),
+  w("jb3", "kelner", "сервитьор", "waiter", "KEL-ner", "noun", "m", "kelnerzy", "Kelner przynosi menu.", "Сервитьорът носи менюто.", "Jobs", "A2"),
+  w("jb4", "programista", "програмист", "programmer", "proh-grah-MEES-tah", "noun", "m", "programiści", "Programista pije kawę.", "Програмистът пие кафе.", "Jobs", "A2"),
+  w("jb5", "tłumacz", "преводач", "translator", "TWOO-mach", "noun", "m", "tłumacze", "Pracuję jako tłumacz polsko-bułgarski.", "Работя като полско-български преводач.", "Jobs", "B1"),
+
+  // Drinks (extra)
+  w("dr1", "herbata", "чай", "tea", "her-BAH-tah", "noun", "f", "herbaty", "Piję herbatę z cytryną.", "Пия чай с лимон.", "Drinks", "A1"),
+  w("dr2", "kawa", "кафе", "coffee", "KAH-vah", "noun", "f", "kawy", "Poproszę kawę z mlekiem.", "Едно кафе с мляко, моля.", "Drinks", "A1"),
+  w("dr3", "piwo", "бира", "beer", "PEE-voh", "noun", "n", "piwa", "Polskie piwo jest dobre.", "Полската бира е добра.", "Drinks", "A1"),
+  w("dr4", "wódka", "водка", "vodka", "VOOD-kah", "noun", "f", "wódki", "Wódka żubrówka to klasyk.", "Зубровка е класика.", "Drinks", "A2"),
+  w("dr5", "sok pomarańczowy", "портокалов сок", "orange juice", "sok poh-mah-rahn-CHOH-vi", "phrase", "m", "—", "Wypiję sok pomarańczowy.", "Ще изпия портокалов сок.", "Drinks", "A1"),
+
+  // Music
+  w("mu1", "muzyka", "музика", "music", "MOO-zi-kah", "noun", "f", "—", "Słucham muzyki klasycznej.", "Слушам класическа музика.", "Music", "A1"),
+  w("mu2", "pieśń", "песен", "song (literary)", "pyeshny", "noun", "f", "pieśni", "To stara polska pieśń ludowa.", "Това е стара полска народна песен.", "Music", "B1"),
+  w("mu3", "zespół", "група", "band", "ZES-poow", "noun", "m", "zespoły", "Mój ulubiony zespół to Republika.", "Любимата ми група е Република.", "Music", "A2"),
+  w("mu4", "Chopin", "Шопен", "Chopin", "SHO-pen", "noun", "m", "—", "Chopin to duma Polski.", "Шопен е гордост за Полша.", "Music", "A1"),
+  w("mu5", "koncert", "концерт", "concert", "KON-tsert", "noun", "m", "koncerty", "Idziemy na koncert.", "Отиваме на концерт.", "Music", "A1"),
+  w("mu6", "skrzypce", "цигулка", "violin", "SKSHIP-tseh", "noun", "—", "—", "Gra na skrzypcach.", "Свири на цигулка.", "Music", "B1"),
+  w("mu7", "fortepian", "пиано", "piano", "for-TEH-pyan", "noun", "m", "fortepiany", "Chopin pisał na fortepian.", "Шопен пишеше за пиано.", "Music", "A2"),
+
+  // Poetry & Literature
+  w("po1", "wiersz", "стихотворение", "poem", "vyersh", "noun", "m", "wiersze", "Czytam wiersz Tuwima.", "Чета стихотворение от Тувим.", "Poetry", "A2"),
+  w("po2", "poeta", "поет", "poet", "poh-EH-tah", "noun", "m", "poeci", "Mickiewicz to wielki poeta.", "Мицкевич е велик поет.", "Poetry", "B1"),
+  w("po3", "rym", "рима", "rhyme", "rim", "noun", "m", "rymy", "Ten wiersz ma piękne rymy.", "Това стихотворение има красиви рими.", "Poetry", "B1"),
+  w("po4", "powieść", "роман", "novel", "POH-vyeshch", "noun", "f", "powieści", "Czytam powieść Sienkiewicza.", "Чета роман от Сенкевич.", "Literature", "B1"),
+  w("po5", "rozdział", "глава", "chapter", "ROZ-djahw", "noun", "m", "rozdziały", "Pierwszy rozdział jest najtrudniejszy.", "Първата глава е най-трудната.", "Literature", "A2"),
+  w("po6", "ojczyzna", "родина", "homeland (poetic)", "oy-CHIZ-nah", "noun", "f", "—", "„Litwo, ojczyzno moja!\"", "„Литво, отечество мое!\"", "Poetry", "B2"),
+  w("po7", "tęsknić", "тъгувам", "to long for", "TENS-kneetch", "verb", "—", "—", "Tęsknię za rodziną.", "Тъгувам за семейството си.", "Poetry", "B1"),
+
+  // Daily phrases (extra)
+  w("dp1", "co słychać?", "какво ново?", "what's up?", "tso SWI-hach", "phrase", "—", "—", "Cześć! Co słychać?", "Здрасти! Какво ново?", "Daily speech", "A1"),
+  w("dp2", "nie ma sprawy", "няма проблем", "no problem", "nyeh mah SPRAH-vi", "phrase", "—", "—", "Dzięki! — Nie ma sprawy.", "Благодаря! — Няма проблем.", "Daily speech", "A1"),
+  w("dp3", "smacznego", "добър апетит", "bon appétit", "smach-NEH-go", "phrase", "—", "—", "Smacznego!", "Добър апетит!", "Daily speech", "A1"),
+  w("dp4", "na zdrowie", "наздраве", "cheers / bless you", "nah ZDROH-vyeh", "phrase", "—", "—", "Na zdrowie!", "Наздраве!", "Daily speech", "A1"),
+  w("dp5", "powodzenia", "успех", "good luck", "poh-vo-DZEH-nyah", "phrase", "—", "—", "Powodzenia na egzaminie!", "Успех на изпита!", "Daily speech", "A1"),
 ];
 
 export const CATEGORIES: WordCategory[] = [
   "Greetings", "Phrases", "Daily speech", "Slang",
   "Verbs", "Adjectives",
   "Food", "Drinks", "Travel", "Transportation",
-  "Family", "University", "Jobs", "Emotions", "Time",
+  "Family", "School", "University", "Jobs", "Emotions", "Time",
   "Colors", "Animals", "Pets", "Clothing", "Technology",
-  "Body", "Weather", "Nature", "Literature",
+  "Body", "Weather", "Nature", "Literature", "Poetry", "Music",
   "Idioms", "Jokes", "Memes", "Internet", "Cultural",
 ];
 
