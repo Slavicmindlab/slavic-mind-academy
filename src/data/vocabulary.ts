@@ -23,7 +23,12 @@ export type WordCategory =
   | "Technology"
   | "Body"
   | "Weather"
-  | "Nature";
+  | "Nature"
+  | "Idioms"
+  | "Jokes"
+  | "Memes"
+  | "Internet"
+  | "Cultural";
 
 export type Gender = "m" | "f" | "n" | "—";
 export type PartOfSpeech = "noun" | "verb" | "adjective" | "phrase" | "adverb";
@@ -325,6 +330,45 @@ export const WORDS: Word[] = [
   w("e11", "smutek", "тъга", "sadness", "SMOO-tek", "noun", "m", "—", "Smutek mija powoli.", "Тъгата отминава бавно.", "Emotions", "B1"),
   w("e12", "strach", "страх", "fear", "strakh", "noun", "m", "—", "Mam strach przed burzą.", "Страх ме е от буря.", "Emotions", "A2"),
   w("e13", "tęsknota", "тъга по дома", "longing / homesickness", "tens-KNOH-tah", "noun", "f", "—", "Czuję tęsknotę za domem.", "Чувствам тъга по дома.", "Emotions", "B2"),
+
+  // Idioms
+  w("id1", "rzucać grochem o ścianę", "говоря на стената", "to talk to a brick wall", "ZHOO-tsach GROH-hem o SHCHA-neh", "phrase", "—", "—", "To jak rzucać grochem o ścianę.", "Все едно говориш на стената.", "Idioms", "B1"),
+  w("id2", "mieć muchy w nosie", "сърдит съм без причина", "to be in a bad mood (lit. flies in the nose)", "myech MOO-hi v NOH-sheh", "phrase", "—", "—", "Dziś masz muchy w nosie.", "Днес си сърдит без причина.", "Idioms", "B1"),
+  w("id3", "bułka z masłem", "лесна работа", "a piece of cake (lit. bread roll with butter)", "BOO-wkah z MAH-swem", "phrase", "—", "—", "Ten test to bułka z masłem.", "Този тест е фасулска работа.", "Idioms", "A2"),
+  w("id4", "wyjść na ludzi", "ставам човек", "to make something of oneself", "viyshch nah LOO-dzhi", "phrase", "—", "—", "Wreszcie wyszedł na ludzi.", "Най-сетне стана човек.", "Idioms", "B2"),
+  w("id5", "nie mój cyrk, nie moje małpy", "не е мой проблем", "not my circus, not my monkeys", "nyeh mooy tsirk", "phrase", "—", "—", "Nie mój cyrk, nie moje małpy.", "Не е мой проблем, не са мои маймуни.", "Idioms", "B1"),
+  w("id6", "głodny jak wilk", "гладен като вълк", "hungry as a wolf", "GWOHD-ni yak vilk", "phrase", "—", "—", "Jestem głodny jak wilk!", "Гладен съм като вълк!", "Idioms", "A2"),
+
+  // Jokes
+  w("jk1", "Co robi pies w bibliotece? — Czyta między wierszami.", "Какво прави кучето в библиотеката? — Чете между редовете.", "What does the dog do at the library? — Reads between the lines.", "—", "phrase", "—", "—", "Co robi pies w bibliotece? Czyta między wierszami.", "Какво прави кучето в библиотеката? Чете между редовете.", "Jokes", "B1"),
+  w("jk2", "Dlaczego programista poszedł do lasu? — Po drewno na stos wywołań.", "Защо програмистът отишъл в гората? — За дърва за стека.", "Why did the programmer go to the forest? — For wood for the call stack.", "—", "phrase", "—", "—", "Dlaczego programista poszedł do lasu?", "Защо програмистът отишъл в гората?", "Jokes", "B2"),
+  w("jk3", "— Halo, czy to straż pożarna? — Nie, to żona.", "— Ало, пожарната ли е? — Не, жена ти е.", "— Hello, is this the fire brigade? — No, it's your wife.", "—", "phrase", "—", "—", "Halo, czy to straż pożarna? Nie, to żona.", "Ало, пожарната ли е? Не, жена ти е.", "Jokes", "A2"),
+  w("jk4", "Polak, Niemiec i Rusek wchodzą do baru…", "Поляк, германец и руснак влизат в бар…", "A Pole, a German and a Russian walk into a bar…", "—", "phrase", "—", "—", "Polak, Niemiec i Rusek wchodzą do baru…", "Поляк, германец и руснак влизат в бар…", "Jokes", "B1"),
+
+  // Memes
+  w("mm1", "No i chuj", "ами това е (груб мем)", "well, that's that (vulgar meme)", "no ee hooy", "phrase", "—", "—", "Próbowałem, no i chuj.", "Опитах, ами това е.", "Memes", "B2"),
+  w("mm2", "Janusz biznesu", "типичен дребен бизнесмен", "stereotypical small businessman (meme)", "YAH-noosh beez-NEH-soo", "phrase", "m", "—", "Klasyczny Janusz biznesu.", "Класически дребен бизнесмен.", "Memes", "B1"),
+  w("mm3", "sucharek", "плосък виц", "dad joke (lit. little cracker)", "soo-HAH-rek", "noun", "m", "sucharki", "Ale sucharek!", "Какъв плосък виц!", "Memes", "A2"),
+  w("mm4", "boomer", "бумър", "boomer (gen)", "BOO-mer", "noun", "m", "boomerzy", "Typowy boomer.", "Типичен бумър.", "Memes", "A2"),
+  w("mm5", "cringe", "крийндж", "cringe", "krindzh", "adjective", "—", "—", "Ale cringe.", "Какъв крийндж.", "Memes", "A1"),
+
+  // Internet
+  w("in1", "siema", "здрасти (нет)", "hi (internet slang)", "SHEH-mah", "phrase", "—", "—", "Siema, co tam?", "Здрасти, какво става?", "Internet", "A1"),
+  w("in2", "pozdro", "поздрав (кратко)", "cheers (slang)", "POZ-droh", "phrase", "—", "—", "Pozdro dla ekipy!", "Поздрав на бандата!", "Internet", "A2"),
+  w("in3", "spoko", "спокойно", "chill / okay", "SPOH-koh", "adverb", "—", "—", "Spoko, ogarnę to.", "Спокойно, ще се справя.", "Internet", "A1"),
+  w("in4", "ogarnąć", "оправям, разбирам", "to handle / to figure out", "oh-GAR-nontsh", "verb", "—", "—", "Muszę to ogarnąć przed jutrem.", "Трябва да го оправя до утре.", "Internet", "A2"),
+  w("in5", "lajk", "лайк", "like (social media)", "layk", "noun", "m", "lajki", "Daj lajka!", "Дай един лайк!", "Internet", "A1"),
+  w("in6", "hejt", "хейт", "hate (online)", "heyt", "noun", "m", "—", "Dostała dużo hejtu.", "Получи много хейт.", "Internet", "A2"),
+  w("in7", "scrollować", "скролвам", "to scroll", "skrol-OH-vatsh", "verb", "—", "—", "Scrolluję cały wieczór.", "Скролвам цяла вечер.", "Internet", "A1"),
+
+  // Cultural
+  w("cu1", "Wigilia", "Бъдни вечер", "Christmas Eve (Polish tradition)", "vee-GHEE-lyah", "noun", "f", "—", "Wigilia w Polsce zaczyna się o zmroku.", "Бъдни вечер в Полша започва по здрач.", "Cultural", "A2"),
+  w("cu2", "opłatek", "обреден хляб (Коледа)", "Christmas wafer (PL tradition)", "oh-PWAH-tek", "noun", "m", "opłatki", "Dzielimy się opłatkiem.", "Споделяме обреден хляб.", "Cultural", "B1"),
+  w("cu3", "imieniny", "имен ден", "name day (more important than birthday in PL)", "ee-myeh-NEE-ni", "noun", "—", "—", "Dziś moje imieniny!", "Днес е моят имен ден!", "Cultural", "A2"),
+  w("cu4", "barszcz", "червена борш супа", "borscht (red beet soup)", "barshch", "noun", "m", "—", "Barszcz z uszkami na Wigilię.", "Борш с малки кнедли за Бъдни вечер.", "Cultural", "A2"),
+  w("cu5", "pierogi", "пироги", "pierogi (filled dumplings)", "pyeh-ROH-ghee", "noun", "—", "—", "Pierogi z kapustą i grzybami.", "Пироги със зеле и гъби.", "Cultural", "A1"),
+  w("cu6", "Mickiewicz", "Мицкевич", "Adam Mickiewicz (national poet)", "meets-KYE-veech", "noun", "m", "—", "Mickiewicz to wieszcz narodowy.", "Мицкевич е национален поет.", "Cultural", "B1"),
+  w("cu7", "Solidarność", "Солидарност (движение)", "Solidarity (movement, 1980)", "soh-lee-DAR-noshch", "noun", "f", "—", "Solidarność zmieniła Polskę.", "Солидарност промени Полша.", "Cultural", "B2"),
 ];
 
 export const CATEGORIES: WordCategory[] = [
@@ -334,6 +378,7 @@ export const CATEGORIES: WordCategory[] = [
   "Family", "University", "Jobs", "Emotions", "Time",
   "Colors", "Animals", "Pets", "Clothing", "Technology",
   "Body", "Weather", "Nature", "Literature",
+  "Idioms", "Jokes", "Memes", "Internet", "Cultural",
 ];
 
 export const WORD_OF_DAY: Word = WORDS.find((x) => x.id === "e1") ?? WORDS[0];
