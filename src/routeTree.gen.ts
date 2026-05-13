@@ -26,6 +26,7 @@ import { Route as GamesQuizRouteImport } from './routes/games.quiz'
 import { Route as GamesMemoryRouteImport } from './routes/games.memory'
 import { Route as GamesMatchRouteImport } from './routes/games.match'
 import { Route as GamesListeningRouteImport } from './routes/games.listening'
+import { Route as GamesFillblankRouteImport } from './routes/games.fillblank'
 import { Route as GamesCrosswordRouteImport } from './routes/games.crossword'
 import { Route as GamesConjugationRouteImport } from './routes/games.conjugation'
 import { Route as GamesBattleRouteImport } from './routes/games.battle'
@@ -116,6 +117,11 @@ const GamesListeningRoute = GamesListeningRouteImport.update({
   path: '/listening',
   getParentRoute: () => GamesRoute,
 } as any)
+const GamesFillblankRoute = GamesFillblankRouteImport.update({
+  id: '/fillblank',
+  path: '/fillblank',
+  getParentRoute: () => GamesRoute,
+} as any)
 const GamesCrosswordRoute = GamesCrosswordRouteImport.update({
   id: '/crossword',
   path: '/crossword',
@@ -148,6 +154,7 @@ export interface FileRoutesByFullPath {
   '/games/battle': typeof GamesBattleRoute
   '/games/conjugation': typeof GamesConjugationRoute
   '/games/crossword': typeof GamesCrosswordRoute
+  '/games/fillblank': typeof GamesFillblankRoute
   '/games/listening': typeof GamesListeningRoute
   '/games/match': typeof GamesMatchRoute
   '/games/memory': typeof GamesMemoryRoute
@@ -171,6 +178,7 @@ export interface FileRoutesByTo {
   '/games/battle': typeof GamesBattleRoute
   '/games/conjugation': typeof GamesConjugationRoute
   '/games/crossword': typeof GamesCrosswordRoute
+  '/games/fillblank': typeof GamesFillblankRoute
   '/games/listening': typeof GamesListeningRoute
   '/games/match': typeof GamesMatchRoute
   '/games/memory': typeof GamesMemoryRoute
@@ -195,6 +203,7 @@ export interface FileRoutesById {
   '/games/battle': typeof GamesBattleRoute
   '/games/conjugation': typeof GamesConjugationRoute
   '/games/crossword': typeof GamesCrosswordRoute
+  '/games/fillblank': typeof GamesFillblankRoute
   '/games/listening': typeof GamesListeningRoute
   '/games/match': typeof GamesMatchRoute
   '/games/memory': typeof GamesMemoryRoute
@@ -220,6 +229,7 @@ export interface FileRouteTypes {
     | '/games/battle'
     | '/games/conjugation'
     | '/games/crossword'
+    | '/games/fillblank'
     | '/games/listening'
     | '/games/match'
     | '/games/memory'
@@ -243,6 +253,7 @@ export interface FileRouteTypes {
     | '/games/battle'
     | '/games/conjugation'
     | '/games/crossword'
+    | '/games/fillblank'
     | '/games/listening'
     | '/games/match'
     | '/games/memory'
@@ -266,6 +277,7 @@ export interface FileRouteTypes {
     | '/games/battle'
     | '/games/conjugation'
     | '/games/crossword'
+    | '/games/fillblank'
     | '/games/listening'
     | '/games/match'
     | '/games/memory'
@@ -410,6 +422,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GamesListeningRouteImport
       parentRoute: typeof GamesRoute
     }
+    '/games/fillblank': {
+      id: '/games/fillblank'
+      path: '/fillblank'
+      fullPath: '/games/fillblank'
+      preLoaderRoute: typeof GamesFillblankRouteImport
+      parentRoute: typeof GamesRoute
+    }
     '/games/crossword': {
       id: '/games/crossword'
       path: '/crossword'
@@ -445,6 +464,7 @@ interface GamesRouteChildren {
   GamesBattleRoute: typeof GamesBattleRoute
   GamesConjugationRoute: typeof GamesConjugationRoute
   GamesCrosswordRoute: typeof GamesCrosswordRoute
+  GamesFillblankRoute: typeof GamesFillblankRoute
   GamesListeningRoute: typeof GamesListeningRoute
   GamesMatchRoute: typeof GamesMatchRoute
   GamesMemoryRoute: typeof GamesMemoryRoute
@@ -457,6 +477,7 @@ const GamesRouteChildren: GamesRouteChildren = {
   GamesBattleRoute: GamesBattleRoute,
   GamesConjugationRoute: GamesConjugationRoute,
   GamesCrosswordRoute: GamesCrosswordRoute,
+  GamesFillblankRoute: GamesFillblankRoute,
   GamesListeningRoute: GamesListeningRoute,
   GamesMatchRoute: GamesMatchRoute,
   GamesMemoryRoute: GamesMemoryRoute,
