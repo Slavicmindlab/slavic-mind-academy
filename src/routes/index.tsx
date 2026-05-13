@@ -1,6 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useMemo, useState } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
-import { ArrowRight, Sparkles, Brain, Trophy, Languages, BookOpen, Gamepad2, Flame } from "lucide-react";
+import { SpeakButton } from "@/components/SpeakButton";
+import { WORDS } from "@/data/vocabulary";
+import { ArrowRight, Sparkles, Brain, Trophy, Languages, BookOpen, Gamepad2, Flame, Sunrise, Sun, Moon, Quote } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
