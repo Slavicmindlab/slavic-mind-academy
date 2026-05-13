@@ -28,7 +28,10 @@ export type WordCategory =
   | "Jokes"
   | "Memes"
   | "Internet"
-  | "Cultural";
+  | "Cultural"
+  | "School"
+  | "Music"
+  | "Poetry";
 
 export type Gender = "m" | "f" | "n" | "—";
 export type PartOfSpeech = "noun" | "verb" | "adjective" | "phrase" | "adverb";
