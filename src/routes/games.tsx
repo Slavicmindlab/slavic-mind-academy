@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Ornament } from "@/components/SlavicMindLogo";
-import { Brain, Grid3x3, Timer, Layers, Repeat, ArrowRight, Shuffle, Headphones, Link2, Swords } from "lucide-react";
+import { Brain, Grid3x3, Timer, Layers, Repeat, ArrowRight, Shuffle, Headphones, Link2, Swords, PencilLine } from "lucide-react";
 
 export const Route = createFileRoute("/games")({
   head: () => ({
