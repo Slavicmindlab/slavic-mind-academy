@@ -14,6 +14,7 @@ import { Route as StoriesRouteImport } from './routes/stories'
 import { Route as GrammarRouteImport } from './routes/grammar'
 import { Route as GamesRouteImport } from './routes/games'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as DailyRouteImport } from './routes/daily'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as StoriesIdRouteImport } from './routes/stories.$id'
 import { Route as GrammarVerbsRouteImport } from './routes/grammar.verbs'
@@ -27,6 +28,7 @@ import { Route as GamesMatchRouteImport } from './routes/games.match'
 import { Route as GamesListeningRouteImport } from './routes/games.listening'
 import { Route as GamesCrosswordRouteImport } from './routes/games.crossword'
 import { Route as GamesConjugationRouteImport } from './routes/games.conjugation'
+import { Route as GamesBattleRouteImport } from './routes/games.battle'
 import { Route as GrammarCasesCaseRouteImport } from './routes/grammar.cases.$case'
 
 const VocabularyRoute = VocabularyRouteImport.update({
@@ -52,6 +54,11 @@ const GamesRoute = GamesRouteImport.update({
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DailyRoute = DailyRouteImport.update({
+  id: '/daily',
+  path: '/daily',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -119,6 +126,11 @@ const GamesConjugationRoute = GamesConjugationRouteImport.update({
   path: '/conjugation',
   getParentRoute: () => GamesRoute,
 } as any)
+const GamesBattleRoute = GamesBattleRouteImport.update({
+  id: '/battle',
+  path: '/battle',
+  getParentRoute: () => GamesRoute,
+} as any)
 const GrammarCasesCaseRoute = GrammarCasesCaseRouteImport.update({
   id: '/cases/$case',
   path: '/cases/$case',
@@ -127,11 +139,13 @@ const GrammarCasesCaseRoute = GrammarCasesCaseRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/daily': typeof DailyRoute
   '/dashboard': typeof DashboardRoute
   '/games': typeof GamesRouteWithChildren
   '/grammar': typeof GrammarRouteWithChildren
   '/stories': typeof StoriesRouteWithChildren
   '/vocabulary': typeof VocabularyRoute
+  '/games/battle': typeof GamesBattleRoute
   '/games/conjugation': typeof GamesConjugationRoute
   '/games/crossword': typeof GamesCrosswordRoute
   '/games/listening': typeof GamesListeningRoute
@@ -148,11 +162,13 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/daily': typeof DailyRoute
   '/dashboard': typeof DashboardRoute
   '/games': typeof GamesRouteWithChildren
   '/grammar': typeof GrammarRouteWithChildren
   '/stories': typeof StoriesRouteWithChildren
   '/vocabulary': typeof VocabularyRoute
+  '/games/battle': typeof GamesBattleRoute
   '/games/conjugation': typeof GamesConjugationRoute
   '/games/crossword': typeof GamesCrosswordRoute
   '/games/listening': typeof GamesListeningRoute
@@ -170,11 +186,13 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/daily': typeof DailyRoute
   '/dashboard': typeof DashboardRoute
   '/games': typeof GamesRouteWithChildren
   '/grammar': typeof GrammarRouteWithChildren
   '/stories': typeof StoriesRouteWithChildren
   '/vocabulary': typeof VocabularyRoute
+  '/games/battle': typeof GamesBattleRoute
   '/games/conjugation': typeof GamesConjugationRoute
   '/games/crossword': typeof GamesCrosswordRoute
   '/games/listening': typeof GamesListeningRoute
@@ -193,11 +211,13 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/daily'
     | '/dashboard'
     | '/games'
     | '/grammar'
     | '/stories'
     | '/vocabulary'
+    | '/games/battle'
     | '/games/conjugation'
     | '/games/crossword'
     | '/games/listening'
@@ -214,11 +234,13 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/daily'
     | '/dashboard'
     | '/games'
     | '/grammar'
     | '/stories'
     | '/vocabulary'
+    | '/games/battle'
     | '/games/conjugation'
     | '/games/crossword'
     | '/games/listening'
@@ -235,11 +257,13 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/daily'
     | '/dashboard'
     | '/games'
     | '/grammar'
     | '/stories'
     | '/vocabulary'
+    | '/games/battle'
     | '/games/conjugation'
     | '/games/crossword'
     | '/games/listening'
@@ -257,6 +281,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DailyRoute: typeof DailyRoute
   DashboardRoute: typeof DashboardRoute
   GamesRoute: typeof GamesRouteWithChildren
   GrammarRoute: typeof GrammarRouteWithChildren
@@ -299,6 +324,13 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/daily': {
+      id: '/daily'
+      path: '/daily'
+      fullPath: '/daily'
+      preLoaderRoute: typeof DailyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -392,6 +424,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GamesConjugationRouteImport
       parentRoute: typeof GamesRoute
     }
+    '/games/battle': {
+      id: '/games/battle'
+      path: '/battle'
+      fullPath: '/games/battle'
+      preLoaderRoute: typeof GamesBattleRouteImport
+      parentRoute: typeof GamesRoute
+    }
     '/grammar/cases/$case': {
       id: '/grammar/cases/$case'
       path: '/cases/$case'
@@ -403,6 +442,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface GamesRouteChildren {
+  GamesBattleRoute: typeof GamesBattleRoute
   GamesConjugationRoute: typeof GamesConjugationRoute
   GamesCrosswordRoute: typeof GamesCrosswordRoute
   GamesListeningRoute: typeof GamesListeningRoute
@@ -414,6 +454,7 @@ interface GamesRouteChildren {
 }
 
 const GamesRouteChildren: GamesRouteChildren = {
+  GamesBattleRoute: GamesBattleRoute,
   GamesConjugationRoute: GamesConjugationRoute,
   GamesCrosswordRoute: GamesCrosswordRoute,
   GamesListeningRoute: GamesListeningRoute,
@@ -456,6 +497,7 @@ const StoriesRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DailyRoute: DailyRoute,
   DashboardRoute: DashboardRoute,
   GamesRoute: GamesRouteWithChildren,
   GrammarRoute: GrammarRouteWithChildren,
