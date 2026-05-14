@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { ClientOnly } from "@/components/ClientOnly";
 import { useEffect, useMemo, useState } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Ornament, CornerKnot } from "@/components/SlavicMindLogo";
@@ -13,7 +14,7 @@ export const Route = createFileRoute("/games/memory")({
       { name: "description", content: "A Polish ↔ Bulgarian memory matching game. Train recall while having fun." },
     ],
   }),
-  component: MemoryGame,
+  component: () => (<ClientOnly><MemoryGame /></ClientOnly>),
 });
 
 type Card = {

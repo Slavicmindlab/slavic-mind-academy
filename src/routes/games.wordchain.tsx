@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { ClientOnly } from "@/components/ClientOnly";
 import { useEffect, useMemo, useState } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SpeakButton } from "@/components/SpeakButton";
@@ -13,7 +14,7 @@ export const Route = createFileRoute("/games/wordchain")({
       { name: "description", content: "Chain Polish words: each new word starts with the last letter of the previous." },
     ],
   }),
-  component: WordChainGame,
+  component: () => (<ClientOnly><WordChainGame /></ClientOnly>),
 });
 
 function lastLetter(s: string) {

@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { ClientOnly } from "@/components/ClientOnly";
 import { useMemo, useState } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Ornament } from "@/components/SlavicMindLogo";
@@ -14,7 +15,7 @@ export const Route = createFileRoute("/daily")({
       { name: "description", content: "Word of the day, daily quests, micro-quizzes — the cozy ritual of learning Polish." },
     ],
   }),
-  component: Daily,
+  component: () => (<ClientOnly><Daily /></ClientOnly>),
 });
 
 // Deterministic word-of-day from date

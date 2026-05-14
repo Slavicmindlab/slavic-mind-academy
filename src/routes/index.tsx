@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SpeakButton } from "@/components/SpeakButton";
+import { ClientOnly } from "@/components/ClientOnly";
 import { WORDS } from "@/data/vocabulary";
 import { ArrowRight, Sparkles, Brain, Trophy, Languages, BookOpen, Gamepad2, Flame, Sunrise, Sun, Moon, Quote } from "lucide-react";
 
@@ -22,7 +23,7 @@ function Landing() {
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
       <Hero />
-      <DailyStrip />
+      <ClientOnly fallback={<div className="h-[260px] border-t border-border/60 bg-surface/30" />}><DailyStrip /></ClientOnly>
       <Features />
       <CasesPreview />
       <CTA />

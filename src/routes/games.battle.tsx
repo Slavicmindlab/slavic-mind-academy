@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { ClientOnly } from "@/components/ClientOnly";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { WORDS, type Word } from "@/data/vocabulary";
@@ -13,7 +14,7 @@ export const Route = createFileRoute("/games/battle")({
       { name: "description", content: "Rapid-fire Polish→Bulgarian translation battle. Three lives, escalating XP, no mercy." },
     ],
   }),
-  component: Battle,
+  component: () => (<ClientOnly><Battle /></ClientOnly>),
 });
 
 function shuffle<T>(arr: T[]): T[] {
