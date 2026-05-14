@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { ClientOnly } from "@/components/ClientOnly";
 import { useEffect, useMemo, useState } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Ornament } from "@/components/SlavicMindLogo";
@@ -13,7 +14,7 @@ export const Route = createFileRoute("/games/quiz")({
       { name: "description", content: "60 seconds, 12 Polish words. Translate as many as you can." },
     ],
   }),
-  component: TimedQuiz,
+  component: () => (<ClientOnly><TimedQuiz /></ClientOnly>),
 });
 
 const ROUND_SECONDS = 60;

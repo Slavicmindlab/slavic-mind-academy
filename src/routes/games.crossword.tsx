@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { ClientOnly } from "@/components/ClientOnly";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Ornament } from "@/components/SlavicMindLogo";
@@ -14,7 +15,7 @@ export const Route = createFileRoute("/games/crossword")({
       { name: "description", content: "Polish ↔ Bulgarian crossword with timed hints and XP rewards." },
     ],
   }),
-  component: Crossword,
+  component: () => (<ClientOnly><Crossword /></ClientOnly>),
 });
 
 type Entry = {

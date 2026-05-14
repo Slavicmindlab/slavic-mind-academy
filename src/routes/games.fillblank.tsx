@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { ClientOnly } from "@/components/ClientOnly";
 import { useEffect, useMemo, useState } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Ornament } from "@/components/SlavicMindLogo";
@@ -13,7 +14,7 @@ export const Route = createFileRoute("/games/fillblank")({
       { name: "description", content: "Pick the correct Polish word to complete each sentence — cases, prepositions, verb forms." },
     ],
   }),
-  component: FillBlankGame,
+  component: () => (<ClientOnly><FillBlankGame /></ClientOnly>),
 });
 
 type Item = {

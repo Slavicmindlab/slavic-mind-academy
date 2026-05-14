@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { ClientOnly } from "@/components/ClientOnly";
 import { useEffect, useMemo, useState } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Ornament } from "@/components/SlavicMindLogo";
@@ -14,7 +15,7 @@ export const Route = createFileRoute("/games/listening")({
       { name: "description", content: "Hear a Polish word and pick its meaning." },
     ],
   }),
-  component: Listening,
+  component: () => (<ClientOnly><Listening /></ClientOnly>),
 });
 
 const ROUND = 8;

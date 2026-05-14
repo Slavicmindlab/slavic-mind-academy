@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { ClientOnly } from "@/components/ClientOnly";
 import { useEffect, useMemo, useState } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Ornament } from "@/components/SlavicMindLogo";
@@ -13,7 +14,7 @@ export const Route = createFileRoute("/games/sentence")({
       { name: "description", content: "Reassemble Polish sentences from scattered tokens." },
     ],
   }),
-  component: SentenceBuilder,
+  component: () => (<ClientOnly><SentenceBuilder /></ClientOnly>),
 });
 
 function shuffle<T>(arr: T[]): T[] {
