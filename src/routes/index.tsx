@@ -23,7 +23,7 @@ function Landing() {
     <div className="min-h-screen bg-background text-foreground">
       <SiteHeader />
       <Hero />
-      <DailyStrip />
+      <ClientOnly fallback={<div className="h-[260px] border-t border-border/60 bg-surface/30" />}><DailyStrip /></ClientOnly>
       <Features />
       <CasesPreview />
       <CTA />
