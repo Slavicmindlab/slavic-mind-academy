@@ -56,7 +56,9 @@ function GrammarHub() {
               { to: "/grammar/conjugation", title: "Conjugation", body: "All four groups: present, past, aspect pairs, audio." },
               { to: "/grammar/aspect",      title: "Verb aspect",  body: "Imperfective ↔ perfective with paired examples." },
               { to: "/grammar/verbs",       title: "Verbs & cases", body: "Which case or preposition each verb requires." },
+              { to: "/grammar/connections", title: "Verb ↔ Case map", body: "Searchable: słuchać + dopełniacz, pomagać + celownik, interesować się + narzędnik." },
               { to: "/games/conjugation",   title: "Conjugation drill", body: "Practice present tense across six pronouns." },
+              { to: "/games/fillblank",     title: "Fill the blank",    body: "Pick the right case form to complete a Polish sentence." },
               { to: "/games/sentence",      title: "Sentence syntax",   body: "Reorder tokens into grammatical sentences." },
               { to: "/stories",             title: "Stories",           body: "Short readings with parallel translation." },
             ].map((x) => (
