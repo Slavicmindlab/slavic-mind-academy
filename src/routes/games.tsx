@@ -1,50 +1,78 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Ornament } from "@/components/SlavicMindLogo";
-import { Brain, Grid3x3, Timer, Layers, Repeat, ArrowRight, Shuffle, Headphones, Link2, Swords, PencilLine } from "lucide-react";
+import { ClientOnly } from "@/components/ClientOnly";
+import { useProgress } from "@/lib/progress";
+import {
+  Brain, Grid3x3, Timer, Layers, Repeat, ArrowRight, Shuffle,
+  Headphones, Link2, Swords, PencilLine, Trophy, Flame, Sparkles,
+} from "lucide-react";
 
 export const Route = createFileRoute("/games")({
   head: () => ({
     meta: [
       { title: "Mind games — SlavicMind" },
-      { name: "description", content: "Crosswords, memory match, timed quizzes, sentence building, conjugation, translation match and listening for Polish learners." },
+      { name: "description", content: "Ten interactive Polish mind games: memory, crossword, timed quizzes, sentence building, conjugation, translation, listening, battles & more." },
     ],
   }),
   component: GamesHub,
 });
 
-const GAMES = [
-  { to: "/games/memory", icon: Brain, name: "Memory Match", n: "01",
+type GameDef = {
+  id: string;
+  to: string;
+  icon: any;
+  name: string;
+  bgName: string;
+  n: string;
+  body: string;
+  tag: string;
+  family: "Recall" | "Logic" | "Speed" | "Syntax" | "Grammar" | "Audio" | "Lexicon";
+  difficulty: 1 | 2 | 3;
+};
+
+const GAMES: GameDef[] = [
+  { id: "memory",      to: "/games/memory",      icon: Brain,      n: "01", name: "Memory Match",      bgName: "Памет",
     body: "Pair Polish words with their Bulgarian twins. A quiet test of recall.",
-    tag: "Recall · 4–8 pairs" },
-  { to: "/games/crossword", icon: Grid3x3, name: "Crossword", n: "02",
+    tag: "4–8 pairs",         family: "Recall", difficulty: 1 },
+  { id: "crossword",   to: "/games/crossword",   icon: Grid3x3,    n: "02", name: "Crossword",         bgName: "Кръстословица",
     body: "A small philological puzzle: clues in Bulgarian, answers in Polish.",
-    tag: "Logic · timed · XP" },
-  { to: "/games/quiz", icon: Timer, name: "Timed Quiz", n: "03",
+    tag: "Logic · timed",     family: "Logic",  difficulty: 3 },
+  { id: "quiz",        to: "/games/quiz",        icon: Timer,      n: "03", name: "Timed Quiz",        bgName: "Бърз тест",
     body: "Sixty seconds. Twelve words. Translate as many as your mind allows.",
-    tag: "Speed · 60s" },
-  { to: "/games/sentence", icon: Layers, name: "Sentence Builder", n: "04",
+    tag: "60 seconds",        family: "Speed",  difficulty: 2 },
+  { id: "sentence",    to: "/games/sentence",    icon: Layers,     n: "04", name: "Sentence Builder",  bgName: "Изречения",
     body: "Reassemble Polish sentences from scattered tokens. Word order, alive.",
-    tag: "Syntax · 7 puzzles" },
-  { to: "/games/conjugation", icon: Repeat, name: "Conjugation Drill", n: "05",
+    tag: "7 puzzles",         family: "Syntax", difficulty: 2 },
+  { id: "conjugation", to: "/games/conjugation", icon: Repeat,     n: "05", name: "Conjugation Drill", bgName: "Спрежение",
     body: "Six pronouns. One verb at a time. Fill the present tense paradigm.",
-    tag: "Grammar · drill" },
-  { to: "/games/match", icon: Shuffle, name: "Translation Match", n: "06",
+    tag: "Grammar drill",     family: "Grammar", difficulty: 3 },
+  { id: "match",       to: "/games/match",       icon: Shuffle,    n: "06", name: "Translation Match", bgName: "Превод",
     body: "Connect Polish words to their Bulgarian meanings, one tap at a time.",
-    tag: "Recall · 6 words" },
-  { to: "/games/listening", icon: Headphones, name: "Listening", n: "07",
+    tag: "6 words",           family: "Recall", difficulty: 1 },
+  { id: "listening",   to: "/games/listening",   icon: Headphones, n: "07", name: "Listening",         bgName: "Слушане",
     body: "Hear a Polish word, pick the right meaning. Trains the ear.",
-    tag: "Audio · 8 rounds" },
-  { to: "/games/wordchain", icon: Link2, name: "Word Chain", n: "08",
+    tag: "8 rounds",          family: "Audio",  difficulty: 2 },
+  { id: "wordchain",   to: "/games/wordchain",   icon: Link2,      n: "08", name: "Word Chain",        bgName: "Верига",
     body: "Each new word starts with the last letter of the previous. Vocabulary on a thread.",
-    tag: "Lexicon · endless" },
-  { to: "/games/battle", icon: Swords, name: "Vocabulary Battle", n: "09",
+    tag: "Endless",           family: "Lexicon", difficulty: 2 },
+  { id: "battle",      to: "/games/battle",      icon: Swords,     n: "09", name: "Vocabulary Battle", bgName: "Битка",
     body: "Eight seconds per word. Three lives. Combo your way through Polish vocabulary.",
-    tag: "Speed · combo XP" },
-  { to: "/games/fillblank", icon: PencilLine, name: "Fill the blank", n: "10",
+    tag: "Combo XP",          family: "Speed",  difficulty: 3 },
+  { id: "fillblank",   to: "/games/fillblank",   icon: PencilLine, n: "10", name: "Fill the blank",    bgName: "Падежи",
     body: "Pick the right case, preposition or verb form to complete a Polish sentence.",
-    tag: "Grammar · cases" },
+    tag: "Cases",             family: "Grammar", difficulty: 3 },
 ];
+
+const FAMILY_TONE: Record<GameDef["family"], string> = {
+  Recall:  "border-rose/40 text-rose",
+  Logic:   "border-crimson/40 text-crimson",
+  Speed:   "border-gold/40 text-gold",
+  Syntax:  "border-rose/40 text-rose",
+  Grammar: "border-crimson/40 text-crimson",
+  Audio:   "border-gold/40 text-gold",
+  Lexicon: "border-rose/40 text-rose",
+};
 
 function GamesHub() {
   return (
@@ -58,38 +86,110 @@ function GamesHub() {
             <h1 className="mt-3 font-serif text-4xl md:text-6xl">Mind games</h1>
             <Ornament className="mx-auto mt-4 w-72 text-crimson" />
             <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
-              Five small studios for the Slavic mind. Each one trains a different
-              muscle of language — memory, logic, speed, syntax, grammar.
+              Ten small studios for the Slavic mind. Each trains a different muscle —
+              memory, logic, speed, syntax, grammar, ear.
             </p>
           </div>
 
+          <ClientOnly fallback={<div className="mt-10" />}>
+            <HubStats />
+          </ClientOnly>
+
           <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {GAMES.map((g) => (
-              <Link
+              <ClientOnly
                 key={g.to}
-                to={g.to}
-                className="group relative rounded-2xl border border-border/70 bg-card-gradient p-7 hover:border-crimson/60 hover:-translate-y-0.5 transition-all overflow-hidden"
+                fallback={<GameCard g={g} best={0} />}
               >
-                <div className="absolute -top-16 -right-16 h-40 w-40 rounded-full bg-crimson/10 blur-3xl opacity-0 group-hover:opacity-100 transition" />
-                <div className="flex items-start justify-between">
-                  <div className="h-11 w-11 rounded-lg border border-border/70 bg-surface/60 grid place-items-center text-crimson">
-                    <g.icon className="h-5 w-5" />
-                  </div>
-                  <span className="font-mono text-xs text-muted-foreground">{g.n}</span>
-                </div>
-                <h3 className="mt-6 font-serif text-2xl">{g.name}</h3>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{g.body}</p>
-                <div className="mt-6 flex items-center justify-between">
-                  <span className="text-[10px] uppercase tracking-widest text-rose">{g.tag}</span>
-                  <span className="inline-flex items-center gap-1 text-xs text-crimson opacity-0 group-hover:opacity-100 transition">
-                    Play <ArrowRight className="h-3 w-3" />
-                  </span>
-                </div>
-              </Link>
+                <GameCardLive g={g} />
+              </ClientOnly>
             ))}
           </div>
         </div>
       </div>
     </div>
+  );
+}
+
+function HubStats() {
+  const p = useProgress();
+  const totalBest = Object.values(p.bestScores).reduce((a, b) => a + b, 0);
+  const played = Object.keys(p.bestScores).length;
+  return (
+    <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <Stat icon={Trophy}   label="Games played"   value={`${played}/${GAMES.length}`} tone="crimson" />
+      <Stat icon={Sparkles} label="Total best XP"  value={`+${totalBest}`}             tone="gold" />
+      <Stat icon={Flame}    label="Streak"         value={String(p.streak)}            tone="crimson" />
+      <Stat icon={Timer}    label="XP today"       value={`+${p.xpToday}`}             tone="gold" />
+    </div>
+  );
+}
+
+function Stat({ icon: Icon, label, value, tone }: { icon: any; label: string; value: string; tone: "crimson" | "gold" }) {
+  return (
+    <div className="rounded-xl border border-border/70 bg-card-gradient px-4 py-3 flex items-center justify-between">
+      <div className="flex items-center gap-2 text-xs text-muted-foreground uppercase tracking-widest">
+        <Icon className={`h-4 w-4 ${tone === "gold" ? "text-gold" : "text-crimson"}`} /> {label}
+      </div>
+      <div className={`font-mono text-lg ${tone === "gold" ? "text-gold" : "text-ivory"}`}>{value}</div>
+    </div>
+  );
+}
+
+function GameCardLive({ g }: { g: GameDef }) {
+  const p = useProgress();
+  const best = p.bestScores[g.id] ?? 0;
+  return <GameCard g={g} best={best} />;
+}
+
+function GameCard({ g, best }: { g: GameDef; best: number }) {
+  const tone = FAMILY_TONE[g.family];
+  return (
+    <Link
+      to={g.to}
+      className="group relative rounded-2xl border border-border/70 bg-card-gradient p-7 hover:border-crimson/60 hover:-translate-y-0.5 transition-all overflow-hidden"
+    >
+      <div className="absolute -top-16 -right-16 h-44 w-44 rounded-full bg-crimson/10 blur-3xl opacity-0 group-hover:opacity-100 transition" />
+      <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-crimson/50 to-transparent opacity-0 group-hover:opacity-100 transition" />
+
+      <div className="flex items-start justify-between">
+        <div className="h-12 w-12 rounded-xl border border-border/70 bg-surface/60 grid place-items-center text-crimson group-hover:shadow-glow transition">
+          <g.icon className="h-5 w-5" />
+        </div>
+        <div className="text-right">
+          <span className="font-mono text-[10px] text-muted-foreground">№ {g.n}</span>
+          <div className="mt-1 flex justify-end gap-0.5">
+            {[1, 2, 3].map((d) => (
+              <span
+                key={d}
+                className={`h-1.5 w-3 rounded-full ${d <= g.difficulty ? "bg-crimson" : "bg-border/70"}`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <h3 className="mt-6 font-serif text-2xl leading-tight">{g.name}</h3>
+      <div className="mt-0.5 text-[11px] uppercase tracking-widest text-muted-foreground">{g.bgName}</div>
+      <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{g.body}</p>
+
+      <div className="mt-6 flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2">
+          <span className={`text-[10px] uppercase tracking-widest px-2 py-1 rounded-full border ${tone}`}>
+            {g.family}
+          </span>
+          <span className="text-[10px] uppercase tracking-widest text-muted-foreground">{g.tag}</span>
+        </div>
+        {best > 0 ? (
+          <span className="inline-flex items-center gap-1 text-[11px] font-mono text-gold">
+            <Trophy className="h-3 w-3" /> +{best}
+          </span>
+        ) : (
+          <span className="inline-flex items-center gap-1 text-xs text-crimson opacity-0 group-hover:opacity-100 transition">
+            Play <ArrowRight className="h-3 w-3" />
+          </span>
+        )}
+      </div>
+    </Link>
   );
 }

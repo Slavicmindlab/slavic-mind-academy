@@ -18,6 +18,7 @@ import { Route as DailyRouteImport } from './routes/daily'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as StoriesIdRouteImport } from './routes/stories.$id'
 import { Route as GrammarVerbsRouteImport } from './routes/grammar.verbs'
+import { Route as GrammarConnectionsRouteImport } from './routes/grammar.connections'
 import { Route as GrammarConjugationRouteImport } from './routes/grammar.conjugation'
 import { Route as GrammarAspectRouteImport } from './routes/grammar.aspect'
 import { Route as GamesWordchainRouteImport } from './routes/games.wordchain'
@@ -75,6 +76,11 @@ const StoriesIdRoute = StoriesIdRouteImport.update({
 const GrammarVerbsRoute = GrammarVerbsRouteImport.update({
   id: '/verbs',
   path: '/verbs',
+  getParentRoute: () => GrammarRoute,
+} as any)
+const GrammarConnectionsRoute = GrammarConnectionsRouteImport.update({
+  id: '/connections',
+  path: '/connections',
   getParentRoute: () => GrammarRoute,
 } as any)
 const GrammarConjugationRoute = GrammarConjugationRouteImport.update({
@@ -163,6 +169,7 @@ export interface FileRoutesByFullPath {
   '/games/wordchain': typeof GamesWordchainRoute
   '/grammar/aspect': typeof GrammarAspectRoute
   '/grammar/conjugation': typeof GrammarConjugationRoute
+  '/grammar/connections': typeof GrammarConnectionsRoute
   '/grammar/verbs': typeof GrammarVerbsRoute
   '/stories/$id': typeof StoriesIdRoute
   '/grammar/cases/$case': typeof GrammarCasesCaseRoute
@@ -187,6 +194,7 @@ export interface FileRoutesByTo {
   '/games/wordchain': typeof GamesWordchainRoute
   '/grammar/aspect': typeof GrammarAspectRoute
   '/grammar/conjugation': typeof GrammarConjugationRoute
+  '/grammar/connections': typeof GrammarConnectionsRoute
   '/grammar/verbs': typeof GrammarVerbsRoute
   '/stories/$id': typeof StoriesIdRoute
   '/grammar/cases/$case': typeof GrammarCasesCaseRoute
@@ -212,6 +220,7 @@ export interface FileRoutesById {
   '/games/wordchain': typeof GamesWordchainRoute
   '/grammar/aspect': typeof GrammarAspectRoute
   '/grammar/conjugation': typeof GrammarConjugationRoute
+  '/grammar/connections': typeof GrammarConnectionsRoute
   '/grammar/verbs': typeof GrammarVerbsRoute
   '/stories/$id': typeof StoriesIdRoute
   '/grammar/cases/$case': typeof GrammarCasesCaseRoute
@@ -238,6 +247,7 @@ export interface FileRouteTypes {
     | '/games/wordchain'
     | '/grammar/aspect'
     | '/grammar/conjugation'
+    | '/grammar/connections'
     | '/grammar/verbs'
     | '/stories/$id'
     | '/grammar/cases/$case'
@@ -262,6 +272,7 @@ export interface FileRouteTypes {
     | '/games/wordchain'
     | '/grammar/aspect'
     | '/grammar/conjugation'
+    | '/grammar/connections'
     | '/grammar/verbs'
     | '/stories/$id'
     | '/grammar/cases/$case'
@@ -286,6 +297,7 @@ export interface FileRouteTypes {
     | '/games/wordchain'
     | '/grammar/aspect'
     | '/grammar/conjugation'
+    | '/grammar/connections'
     | '/grammar/verbs'
     | '/stories/$id'
     | '/grammar/cases/$case'
@@ -364,6 +376,13 @@ declare module '@tanstack/react-router' {
       path: '/verbs'
       fullPath: '/grammar/verbs'
       preLoaderRoute: typeof GrammarVerbsRouteImport
+      parentRoute: typeof GrammarRoute
+    }
+    '/grammar/connections': {
+      id: '/grammar/connections'
+      path: '/connections'
+      fullPath: '/grammar/connections'
+      preLoaderRoute: typeof GrammarConnectionsRouteImport
       parentRoute: typeof GrammarRoute
     }
     '/grammar/conjugation': {
@@ -491,6 +510,7 @@ const GamesRouteWithChildren = GamesRoute._addFileChildren(GamesRouteChildren)
 interface GrammarRouteChildren {
   GrammarAspectRoute: typeof GrammarAspectRoute
   GrammarConjugationRoute: typeof GrammarConjugationRoute
+  GrammarConnectionsRoute: typeof GrammarConnectionsRoute
   GrammarVerbsRoute: typeof GrammarVerbsRoute
   GrammarCasesCaseRoute: typeof GrammarCasesCaseRoute
 }
@@ -498,6 +518,7 @@ interface GrammarRouteChildren {
 const GrammarRouteChildren: GrammarRouteChildren = {
   GrammarAspectRoute: GrammarAspectRoute,
   GrammarConjugationRoute: GrammarConjugationRoute,
+  GrammarConnectionsRoute: GrammarConnectionsRoute,
   GrammarVerbsRoute: GrammarVerbsRoute,
   GrammarCasesCaseRoute: GrammarCasesCaseRoute,
 }
