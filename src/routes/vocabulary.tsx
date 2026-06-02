@@ -11,7 +11,7 @@ export const Route = createFileRoute("/vocabulary")({
   head: () => ({
     meta: [
       { title: "Vocabulary — SlavicMind" },
-      { name: "description", content: "180+ Polish words across 24 categories: pronunciation, grammar, examples." },
+      { name: "description", content: "490+ real Polish words across 30+ categories with Bulgarian and English translations, pronunciation, and example sentences." },
     ],
   }),
   component: Vocabulary,
