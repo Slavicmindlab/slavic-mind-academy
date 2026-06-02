@@ -6,6 +6,7 @@ import { useProgress } from "@/lib/progress";
 import {
   Brain, Grid3x3, Timer, Layers, Repeat, ArrowRight, Shuffle,
   Headphones, Link2, Swords, PencilLine, Trophy, Flame, Sparkles,
+  Castle, Crown,
 } from "lucide-react";
 
 export const Route = createFileRoute("/games")({
@@ -94,6 +95,41 @@ function GamesHub() {
           <ClientOnly fallback={<div className="mt-10" />}>
             <HubStats />
           </ClientOnly>
+
+          <Link
+            to="/quest"
+            className="group relative mt-12 block overflow-hidden rounded-3xl border border-crimson/40 bg-gradient-to-br from-crimson/20 via-background to-background p-7 md:p-10 hover:border-crimson/70 transition-all"
+          >
+            <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-crimson/20 blur-3xl" />
+            <div className="absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-gold/10 blur-3xl" />
+            <div className="relative grid md:grid-cols-[1fr_auto] gap-6 items-center">
+              <div>
+                <div className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.4em] text-crimson">
+                  <Crown className="h-3.5 w-3.5 text-gold" /> SlavicMind Games · New platform
+                </div>
+                <h2 className="mt-3 font-serif text-3xl md:text-5xl leading-tight">
+                  Case Quest <span className="text-muted-foreground italic">— The Seven Kingdoms</span>
+                </h2>
+                <p className="mt-3 max-w-xl text-sm md:text-base text-muted-foreground leading-relaxed">
+                  Step into a fantasy Slavic world where every Polish case is a kingdom. Decline nouns,
+                  slay dragons, and earn crowns from <em>Mianownik</em> to <em>Wołacz</em>.
+                </p>
+                <div className="mt-5 flex flex-wrap gap-2 text-[10px] uppercase tracking-widest">
+                  {["Mianownik", "Dopełniacz", "Celownik", "Biernik", "Narzędnik", "Miejscownik", "Wołacz"].map((k) => (
+                    <span key={k} className="rounded-full border border-border/70 bg-surface/60 px-3 py-1 text-muted-foreground">
+                      🏰 {k}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div className="flex md:flex-col items-center gap-3">
+                <Castle className="h-16 w-16 text-crimson" />
+                <span className="inline-flex items-center gap-2 rounded-full bg-crimson px-6 py-2.5 text-sm font-serif text-ivory group-hover:bg-crimson/90 transition">
+                  Enter the realm <ArrowRight className="h-4 w-4" />
+                </span>
+              </div>
+            </div>
+          </Link>
 
           <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {GAMES.map((g) => (
