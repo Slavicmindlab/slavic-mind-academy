@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VocabularyRouteImport } from './routes/vocabulary'
 import { Route as StoriesRouteImport } from './routes/stories'
+import { Route as QuestRouteImport } from './routes/quest'
 import { Route as GrammarRouteImport } from './routes/grammar'
 import { Route as GamesRouteImport } from './routes/games'
 import { Route as DashboardRouteImport } from './routes/dashboard'
@@ -41,6 +42,11 @@ const VocabularyRoute = VocabularyRouteImport.update({
 const StoriesRoute = StoriesRouteImport.update({
   id: '/stories',
   path: '/stories',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuestRoute = QuestRouteImport.update({
+  id: '/quest',
+  path: '/quest',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GrammarRoute = GrammarRouteImport.update({
@@ -155,6 +161,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRoute
   '/games': typeof GamesRouteWithChildren
   '/grammar': typeof GrammarRouteWithChildren
+  '/quest': typeof QuestRoute
   '/stories': typeof StoriesRouteWithChildren
   '/vocabulary': typeof VocabularyRoute
   '/games/battle': typeof GamesBattleRoute
@@ -180,6 +187,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRoute
   '/games': typeof GamesRouteWithChildren
   '/grammar': typeof GrammarRouteWithChildren
+  '/quest': typeof QuestRoute
   '/stories': typeof StoriesRouteWithChildren
   '/vocabulary': typeof VocabularyRoute
   '/games/battle': typeof GamesBattleRoute
@@ -206,6 +214,7 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/games': typeof GamesRouteWithChildren
   '/grammar': typeof GrammarRouteWithChildren
+  '/quest': typeof QuestRoute
   '/stories': typeof StoriesRouteWithChildren
   '/vocabulary': typeof VocabularyRoute
   '/games/battle': typeof GamesBattleRoute
@@ -233,6 +242,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/games'
     | '/grammar'
+    | '/quest'
     | '/stories'
     | '/vocabulary'
     | '/games/battle'
@@ -258,6 +268,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/games'
     | '/grammar'
+    | '/quest'
     | '/stories'
     | '/vocabulary'
     | '/games/battle'
@@ -283,6 +294,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/games'
     | '/grammar'
+    | '/quest'
     | '/stories'
     | '/vocabulary'
     | '/games/battle'
@@ -309,6 +321,7 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   GamesRoute: typeof GamesRouteWithChildren
   GrammarRoute: typeof GrammarRouteWithChildren
+  QuestRoute: typeof QuestRoute
   StoriesRoute: typeof StoriesRouteWithChildren
   VocabularyRoute: typeof VocabularyRoute
 }
@@ -327,6 +340,13 @@ declare module '@tanstack/react-router' {
       path: '/stories'
       fullPath: '/stories'
       preLoaderRoute: typeof StoriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quest': {
+      id: '/quest'
+      path: '/quest'
+      fullPath: '/quest'
+      preLoaderRoute: typeof QuestRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/grammar': {
@@ -543,6 +563,7 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   GamesRoute: GamesRouteWithChildren,
   GrammarRoute: GrammarRouteWithChildren,
+  QuestRoute: QuestRoute,
   StoriesRoute: StoriesRouteWithChildren,
   VocabularyRoute: VocabularyRoute,
 }
