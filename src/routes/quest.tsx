@@ -45,8 +45,10 @@ const LORE: Record<CaseSlug, Lore> = {
     dragon: "Bezimienny — the Nameless One",
     oath: "Every thing has a name. Name it, and it becomes real.",
     prompts: [
-      { template: "To jest ___.", bg: "Това е ___." },
+      { template: "To jest mój ___.", bg: "Това е моят ___." },
       { template: "Tu mieszka ___.", bg: "Тук живее ___." },
+      { template: "Idzie ___ — uważaj!", bg: "Идва ___ — внимавай!" },
+      { template: "Wrócił ___ z wojny.", bg: "___ се върна от войната." },
     ],
   },
   dopelniacz: {
@@ -57,10 +59,11 @@ const LORE: Record<CaseSlug, Lore> = {
     dragon: "Niedoboru — the Lack-Wyrm",
     oath: "What is missing still has shape. Speak it.",
     prompts: [
-      { template: "Szukam ___.", bg: "Търся ___." },
-      { template: "Nie ma ___.", bg: "Няма ___." },
-      { template: "Boję się ___.", bg: "Страхувам се от ___." },
-      { template: "Słucham ___.", bg: "Слушам ___." },
+      { template: "Nie ma już ___.", bg: "Вече няма ___." },
+      { template: "Boję się ___ w lesie.", bg: "Страхувам се от ___ в гората." },
+      { template: "Słucham ___ wieczorem.", bg: "Слушам ___ вечерта." },
+      { template: "Szukam ___ od rana.", bg: "Търся ___ от сутринта." },
+      { template: "Wracam z ___.", bg: "Връщам се от ___." },
     ],
   },
   celownik: {
@@ -71,9 +74,10 @@ const LORE: Record<CaseSlug, Lore> = {
     dragon: "Daromór — the Giftless King",
     oath: "Give, and the receiver bends the word.",
     prompts: [
-      { template: "Pomagam ___.", bg: "Помагам на ___." },
-      { template: "Dziękuję ___.", bg: "Благодаря на ___." },
-      { template: "Ufam ___.", bg: "Вярвам на ___." },
+      { template: "Pomagam ___ w kuchni.", bg: "Помагам на ___ в кухнята." },
+      { template: "Dziękuję ___ za wszystko.", bg: "Благодаря на ___ за всичко." },
+      { template: "Ufam tylko ___.", bg: "Вярвам само на ___." },
+      { template: "Kupiłem prezent ___.", bg: "Купих подарък на ___." },
     ],
   },
   biernik: {
@@ -84,9 +88,11 @@ const LORE: Record<CaseSlug, Lore> = {
     dragon: "Czyniciel — the Doer of Endings",
     oath: "Strike, and the thing struck changes its tail.",
     prompts: [
-      { template: "Widzę ___.", bg: "Виждам ___." },
-      { template: "Mam ___.", bg: "Имам ___." },
-      { template: "Lubię ___.", bg: "Харесвам ___." },
+      { template: "Pokonałem ___!", bg: "Победих ___!" },
+      { template: "Oglądam ___ wieczorem.", bg: "Гледам ___ вечерта." },
+      { template: "Kupiłem ___ na obiad.", bg: "Купих ___ за обяд." },
+      { template: "Znalazłem legendarnego ___.", bg: "Намерих легендарен ___." },
+      { template: "Lubię ___ najbardziej.", bg: "Харесвам ___ най-много." },
     ],
   },
   narzednik: {
@@ -97,9 +103,11 @@ const LORE: Record<CaseSlug, Lore> = {
     dragon: "Bezbroń — the Toolless Beast",
     oath: "By which means? With what? That answer wears -em or -ą.",
     prompts: [
+      { template: "Walczę srebrnym ___.", bg: "Бия се със сребърен ___." },
+      { template: "Gram z ___ co wieczór.", bg: "Играя с ___ всяка вечер." },
+      { template: "Jadę do Krakowa ___.", bg: "Пътувам до Краков с ___." },
+      { template: "Jestem ___ filologii.", bg: "Аз съм ___ по филология." },
       { template: "Interesuję się ___.", bg: "Интересувам се от ___." },
-      { template: "Jestem ___.", bg: "Аз съм ___." },
-      { template: "Zajmuję się ___.", bg: "Занимавам се с ___." },
     ],
   },
   miejscownik: {
@@ -110,9 +118,10 @@ const LORE: Record<CaseSlug, Lore> = {
     dragon: "Bezdroża — the Pathless Wraith",
     oath: "A locative answers ‘where?’ — but only after a preposition.",
     prompts: [
-      { template: "Myślę o ___.", bg: "Мисля за ___." },
-      { template: "Mówię o ___.", bg: "Говоря за ___." },
-      { template: "Marzę o ___.", bg: "Мечтая за ___." },
+      { template: "Myślę o ___ całą noc.", bg: "Мисля за ___ цяла нощ." },
+      { template: "Mówimy o ___ na zajęciach.", bg: "Говорим за ___ в час." },
+      { template: "Marzę o ___ od dziecka.", bg: "Мечтая за ___ от дете." },
+      { template: "Mieszkam w ___ od września.", bg: "Живея в ___ от септември." },
     ],
   },
   wolacz: {
@@ -123,8 +132,11 @@ const LORE: Record<CaseSlug, Lore> = {
     dragon: "Niemy — the Silent One",
     oath: "Call the name, and the name will answer.",
     prompts: [
-      { template: "O ___ , wracaj!", bg: "О, ___, върни се!" },
-      { template: "Drogi ___, słuchaj!", bg: "Скъпи ___, слушай!" },
+      { template: "___, zgubiłem klucze!", bg: "___, изгубих ключовете!" },
+      { template: "Drogi ___, posłuchaj mnie.", bg: "Скъпи ___, чуй ме." },
+      { template: "Panie ___, mam pytanie!", bg: "Господин ___, имам въпрос!" },
+      { template: "___, potwór za tobą!", bg: "___, чудовище зад теб!" },
+      { template: "___, wracaj do domu!", bg: "___, върни се вкъщи!" },
     ],
   },
 };
