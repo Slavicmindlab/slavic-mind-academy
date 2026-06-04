@@ -77,6 +77,51 @@ export const DECLENSIONS: Declension[] = [
     singular: { mianownik: "imię", dopelniacz: "imienia", celownik: "imieniu", biernik: "imię", narzednik: "imieniem", miejscownik: "imieniu", wolacz: "imię" },
     plural:   { mianownik: "imiona", dopelniacz: "imion", celownik: "imionom", biernik: "imiona", narzednik: "imionami", miejscownik: "imionach", wolacz: "imiona" },
   },
+  {
+    lemma: "smok", gender: "m", bg: "змей", en: "dragon",
+    singular: { mianownik: "smok", dopelniacz: "smoka", celownik: "smokowi", biernik: "smoka", narzednik: "smokiem", miejscownik: "smoku", wolacz: "smoku" },
+    plural:   { mianownik: "smoki", dopelniacz: "smoków", celownik: "smokom", biernik: "smoki", narzednik: "smokami", miejscownik: "smokach", wolacz: "smoki" },
+  },
+  {
+    lemma: "miecz", gender: "m", bg: "меч", en: "sword",
+    singular: { mianownik: "miecz", dopelniacz: "miecza", celownik: "mieczowi", biernik: "miecz", narzednik: "mieczem", miejscownik: "mieczu", wolacz: "mieczu" },
+    plural:   { mianownik: "miecze", dopelniacz: "mieczy", celownik: "mieczom", biernik: "miecze", narzednik: "mieczami", miejscownik: "mieczach", wolacz: "miecze" },
+  },
+  {
+    lemma: "król", gender: "m", bg: "крал", en: "king",
+    singular: { mianownik: "król", dopelniacz: "króla", celownik: "królowi", biernik: "króla", narzednik: "królem", miejscownik: "królu", wolacz: "królu" },
+    plural:   { mianownik: "królowie", dopelniacz: "królów", celownik: "królom", biernik: "królów", narzednik: "królami", miejscownik: "królach", wolacz: "królowie" },
+  },
+  {
+    lemma: "mama", gender: "f", bg: "мама", en: "mom",
+    singular: { mianownik: "mama", dopelniacz: "mamy", celownik: "mamie", biernik: "mamę", narzednik: "mamą", miejscownik: "mamie", wolacz: "mamo" },
+    plural:   { mianownik: "mamy", dopelniacz: "mam", celownik: "mamom", biernik: "mamy", narzednik: "mamami", miejscownik: "mamach", wolacz: "mamy" },
+  },
+  {
+    lemma: "profesor", gender: "m", bg: "професор", en: "professor",
+    singular: { mianownik: "profesor", dopelniacz: "profesora", celownik: "profesorowi", biernik: "profesora", narzednik: "profesorem", miejscownik: "profesorze", wolacz: "profesorze" },
+    plural:   { mianownik: "profesorowie", dopelniacz: "profesorów", celownik: "profesorom", biernik: "profesorów", narzednik: "profesorami", miejscownik: "profesorach", wolacz: "profesorowie" },
+  },
+  {
+    lemma: "kebab", gender: "m", bg: "кебап", en: "kebab",
+    singular: { mianownik: "kebab", dopelniacz: "kebaba", celownik: "kebabowi", biernik: "kebaba", narzednik: "kebabem", miejscownik: "kebabie", wolacz: "kebabie" },
+    plural:   { mianownik: "kebaby", dopelniacz: "kebabów", celownik: "kebabom", biernik: "kebaby", narzednik: "kebabami", miejscownik: "kebabach", wolacz: "kebaby" },
+  },
+  {
+    lemma: "Wiedźmin", gender: "m", bg: "Вещерът", en: "the Witcher",
+    singular: { mianownik: "Wiedźmin", dopelniacz: "Wiedźmina", celownik: "Wiedźminowi", biernik: "Wiedźmina", narzednik: "Wiedźminem", miejscownik: "Wiedźminie", wolacz: "Wiedźminie" },
+    plural:   { mianownik: "Wiedźmini", dopelniacz: "Wiedźminów", celownik: "Wiedźminom", biernik: "Wiedźminów", narzednik: "Wiedźminami", miejscownik: "Wiedźminach", wolacz: "Wiedźmini" },
+  },
+  {
+    lemma: "przyjaciel", gender: "m", bg: "приятел", en: "friend",
+    singular: { mianownik: "przyjaciel", dopelniacz: "przyjaciela", celownik: "przyjacielowi", biernik: "przyjaciela", narzednik: "przyjacielem", miejscownik: "przyjacielu", wolacz: "przyjacielu" },
+    plural:   { mianownik: "przyjaciele", dopelniacz: "przyjaciół", celownik: "przyjaciołom", biernik: "przyjaciół", narzednik: "przyjaciółmi", miejscownik: "przyjaciołach", wolacz: "przyjaciele" },
+  },
+  {
+    lemma: "Kraków", gender: "m", bg: "Краков", en: "Krakow",
+    singular: { mianownik: "Kraków", dopelniacz: "Krakowa", celownik: "Krakowowi", biernik: "Kraków", narzednik: "Krakowem", miejscownik: "Krakowie", wolacz: "Kraków" },
+    plural:   { mianownik: "Krakowy", dopelniacz: "Krakowów", celownik: "Krakowom", biernik: "Krakowy", narzednik: "Krakowami", miejscownik: "Krakowach", wolacz: "Krakowy" },
+  },
 ];
 
 // ── Conjugation ─────────────────────────────────────────────────────────
