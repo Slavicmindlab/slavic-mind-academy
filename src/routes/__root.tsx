@@ -10,6 +10,7 @@ import {
 
 import appCss from "../styles.css?url";
 import { XpToast } from "@/components/XpToast";
+import { AuthBridge } from "@/components/AuthBridge";
 
 function NotFoundComponent() {
   return (
@@ -124,6 +125,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <AuthBridge />
       <Outlet />
       <XpToast />
     </QueryClientProvider>

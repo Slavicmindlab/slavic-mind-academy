@@ -14,7 +14,174 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          created_at: string
+          hero_name: string
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          hero_name?: string
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          hero_name?: string
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      user_achievements: {
+        Row: {
+          achievement: string
+          earned_at: string
+          user_id: string
+        }
+        Insert: {
+          achievement: string
+          earned_at?: string
+          user_id: string
+        }
+        Update: {
+          achievement?: string
+          earned_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_best_scores: {
+        Row: {
+          game_id: string
+          score: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          game_id: string
+          score?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          game_id?: string
+          score?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_favorites: {
+        Row: {
+          created_at: string
+          user_id: string
+          word_id: string
+        }
+        Insert: {
+          created_at?: string
+          user_id: string
+          word_id: string
+        }
+        Update: {
+          created_at?: string
+          user_id?: string
+          word_id?: string
+        }
+        Relationships: []
+      }
+      user_kingdoms: {
+        Row: {
+          attempts: number
+          best_score: number
+          boss_defeated: boolean
+          case_slug: string
+          cleared: boolean
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          attempts?: number
+          best_score?: number
+          boss_defeated?: boolean
+          case_slug: string
+          cleared?: boolean
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          attempts?: number
+          best_score?: number
+          boss_defeated?: boolean
+          case_slug?: string
+          cleared?: boolean
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_progress: {
+        Row: {
+          hero_name: string
+          last_active: string
+          streak: number
+          today_key: string
+          updated_at: string
+          user_id: string
+          xp: number
+          xp_today: number
+        }
+        Insert: {
+          hero_name?: string
+          last_active?: string
+          streak?: number
+          today_key?: string
+          updated_at?: string
+          user_id: string
+          xp?: number
+          xp_today?: number
+        }
+        Update: {
+          hero_name?: string
+          last_active?: string
+          streak?: number
+          today_key?: string
+          updated_at?: string
+          user_id?: string
+          xp?: number
+          xp_today?: number
+        }
+        Relationships: []
+      }
+      user_quests: {
+        Row: {
+          grammar_drill: number
+          learn_words: number
+          play_game: number
+          today_key: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          grammar_drill?: number
+          learn_words?: number
+          play_game?: number
+          today_key?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          grammar_drill?: number
+          learn_words?: number
+          play_game?: number
+          today_key?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
