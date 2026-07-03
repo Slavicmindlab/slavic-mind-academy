@@ -92,10 +92,13 @@ function Vocabulary() {
           {/* Grid */}
           <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {filtered.map((w) => (
-              <button
+              <div
                 key={w.id}
+                role="button"
+                tabIndex={0}
                 onClick={() => setActive(w)}
-                className="text-left group rounded-xl border border-border/70 bg-card-gradient p-6 hover:border-crimson/60 hover:-translate-y-0.5 transition-all"
+                onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setActive(w); } }}
+                className="cursor-pointer text-left group rounded-xl border border-border/70 bg-card-gradient p-6 hover:border-crimson/60 hover:-translate-y-0.5 transition-all"
               >
                 <div className="flex items-start justify-between">
                   <div>
@@ -104,7 +107,9 @@ function Vocabulary() {
                   </div>
                   <span
                     role="button"
+                    tabIndex={0}
                     onClick={(e) => { e.stopPropagation(); toggleFavorite(w.id); }}
+                    onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); e.stopPropagation(); toggleFavorite(w.id); } }}
                     className={`h-8 w-8 grid place-items-center rounded-full border transition ${favs.has(w.id) ? "border-crimson text-crimson" : "border-border/70 text-muted-foreground hover:text-ivory"}`}
                   >
                     <Star className="h-4 w-4" fill={favs.has(w.id) ? "currentColor" : "none"} />
@@ -126,7 +131,7 @@ function Vocabulary() {
                   </div>
                   <SpeakButton text={w.pl} lang="pl-PL" />
                 </div>
-              </button>
+              </div>
             ))}
           </div>
           {filtered.length === 0 && (

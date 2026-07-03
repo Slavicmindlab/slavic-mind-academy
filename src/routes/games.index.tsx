@@ -9,7 +9,7 @@ import {
   Castle, Crown,
 } from "lucide-react";
 
-export const Route = createFileRoute("/games")({
+export const Route = createFileRoute("/games/")({
   head: () => ({
     meta: [
       { title: "Mind games — SlavicMind" },
