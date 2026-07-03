@@ -13,6 +13,7 @@ import { Route as VocabularyRouteImport } from './routes/vocabulary'
 import { Route as StoriesRouteImport } from './routes/stories'
 import { Route as QuestRouteImport } from './routes/quest'
 import { Route as GrammarRouteImport } from './routes/grammar'
+import { Route as GamesRouteImport } from './routes/games'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as DailyRouteImport } from './routes/daily'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -55,6 +56,11 @@ const GrammarRoute = GrammarRouteImport.update({
   path: '/grammar',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GamesRoute = GamesRouteImport.update({
+  id: '/games',
+  path: '/games',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -76,9 +82,9 @@ const IndexRoute = IndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const GamesIndexRoute = GamesIndexRouteImport.update({
-  id: '/games/',
-  path: '/games/',
-  getParentRoute: () => rootRouteImport,
+  id: '/',
+  path: '/',
+  getParentRoute: () => GamesRoute,
 } as any)
 const StoriesIdRoute = StoriesIdRouteImport.update({
   id: '/$id',
@@ -106,54 +112,54 @@ const GrammarAspectRoute = GrammarAspectRouteImport.update({
   getParentRoute: () => GrammarRoute,
 } as any)
 const GamesWordchainRoute = GamesWordchainRouteImport.update({
-  id: '/games/wordchain',
-  path: '/games/wordchain',
-  getParentRoute: () => rootRouteImport,
+  id: '/wordchain',
+  path: '/wordchain',
+  getParentRoute: () => GamesRoute,
 } as any)
 const GamesSentenceRoute = GamesSentenceRouteImport.update({
-  id: '/games/sentence',
-  path: '/games/sentence',
-  getParentRoute: () => rootRouteImport,
+  id: '/sentence',
+  path: '/sentence',
+  getParentRoute: () => GamesRoute,
 } as any)
 const GamesQuizRoute = GamesQuizRouteImport.update({
-  id: '/games/quiz',
-  path: '/games/quiz',
-  getParentRoute: () => rootRouteImport,
+  id: '/quiz',
+  path: '/quiz',
+  getParentRoute: () => GamesRoute,
 } as any)
 const GamesMemoryRoute = GamesMemoryRouteImport.update({
-  id: '/games/memory',
-  path: '/games/memory',
-  getParentRoute: () => rootRouteImport,
+  id: '/memory',
+  path: '/memory',
+  getParentRoute: () => GamesRoute,
 } as any)
 const GamesMatchRoute = GamesMatchRouteImport.update({
-  id: '/games/match',
-  path: '/games/match',
-  getParentRoute: () => rootRouteImport,
+  id: '/match',
+  path: '/match',
+  getParentRoute: () => GamesRoute,
 } as any)
 const GamesListeningRoute = GamesListeningRouteImport.update({
-  id: '/games/listening',
-  path: '/games/listening',
-  getParentRoute: () => rootRouteImport,
+  id: '/listening',
+  path: '/listening',
+  getParentRoute: () => GamesRoute,
 } as any)
 const GamesFillblankRoute = GamesFillblankRouteImport.update({
-  id: '/games/fillblank',
-  path: '/games/fillblank',
-  getParentRoute: () => rootRouteImport,
+  id: '/fillblank',
+  path: '/fillblank',
+  getParentRoute: () => GamesRoute,
 } as any)
 const GamesCrosswordRoute = GamesCrosswordRouteImport.update({
-  id: '/games/crossword',
-  path: '/games/crossword',
-  getParentRoute: () => rootRouteImport,
+  id: '/crossword',
+  path: '/crossword',
+  getParentRoute: () => GamesRoute,
 } as any)
 const GamesConjugationRoute = GamesConjugationRouteImport.update({
-  id: '/games/conjugation',
-  path: '/games/conjugation',
-  getParentRoute: () => rootRouteImport,
+  id: '/conjugation',
+  path: '/conjugation',
+  getParentRoute: () => GamesRoute,
 } as any)
 const GamesBattleRoute = GamesBattleRouteImport.update({
-  id: '/games/battle',
-  path: '/games/battle',
-  getParentRoute: () => rootRouteImport,
+  id: '/battle',
+  path: '/battle',
+  getParentRoute: () => GamesRoute,
 } as any)
 const GrammarCasesCaseRoute = GrammarCasesCaseRouteImport.update({
   id: '/cases/$case',
@@ -166,6 +172,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/daily': typeof DailyRoute
   '/dashboard': typeof DashboardRoute
+  '/games': typeof GamesRouteWithChildren
   '/grammar': typeof GrammarRouteWithChildren
   '/quest': typeof QuestRoute
   '/stories': typeof StoriesRouteWithChildren
@@ -221,6 +228,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/daily': typeof DailyRoute
   '/dashboard': typeof DashboardRoute
+  '/games': typeof GamesRouteWithChildren
   '/grammar': typeof GrammarRouteWithChildren
   '/quest': typeof QuestRoute
   '/stories': typeof StoriesRouteWithChildren
@@ -250,6 +258,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/daily'
     | '/dashboard'
+    | '/games'
     | '/grammar'
     | '/quest'
     | '/stories'
@@ -304,6 +313,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/daily'
     | '/dashboard'
+    | '/games'
     | '/grammar'
     | '/quest'
     | '/stories'
@@ -332,21 +342,11 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   DailyRoute: typeof DailyRoute
   DashboardRoute: typeof DashboardRoute
+  GamesRoute: typeof GamesRouteWithChildren
   GrammarRoute: typeof GrammarRouteWithChildren
   QuestRoute: typeof QuestRoute
   StoriesRoute: typeof StoriesRouteWithChildren
   VocabularyRoute: typeof VocabularyRoute
-  GamesBattleRoute: typeof GamesBattleRoute
-  GamesConjugationRoute: typeof GamesConjugationRoute
-  GamesCrosswordRoute: typeof GamesCrosswordRoute
-  GamesFillblankRoute: typeof GamesFillblankRoute
-  GamesListeningRoute: typeof GamesListeningRoute
-  GamesMatchRoute: typeof GamesMatchRoute
-  GamesMemoryRoute: typeof GamesMemoryRoute
-  GamesQuizRoute: typeof GamesQuizRoute
-  GamesSentenceRoute: typeof GamesSentenceRoute
-  GamesWordchainRoute: typeof GamesWordchainRoute
-  GamesIndexRoute: typeof GamesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -379,6 +379,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GrammarRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/games': {
+      id: '/games'
+      path: '/games'
+      fullPath: '/games'
+      preLoaderRoute: typeof GamesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dashboard': {
       id: '/dashboard'
       path: '/dashboard'
@@ -409,10 +416,10 @@ declare module '@tanstack/react-router' {
     }
     '/games/': {
       id: '/games/'
-      path: '/games'
+      path: '/'
       fullPath: '/games/'
       preLoaderRoute: typeof GamesIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof GamesRoute
     }
     '/stories/$id': {
       id: '/stories/$id'
@@ -451,73 +458,73 @@ declare module '@tanstack/react-router' {
     }
     '/games/wordchain': {
       id: '/games/wordchain'
-      path: '/games/wordchain'
+      path: '/wordchain'
       fullPath: '/games/wordchain'
       preLoaderRoute: typeof GamesWordchainRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof GamesRoute
     }
     '/games/sentence': {
       id: '/games/sentence'
-      path: '/games/sentence'
+      path: '/sentence'
       fullPath: '/games/sentence'
       preLoaderRoute: typeof GamesSentenceRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof GamesRoute
     }
     '/games/quiz': {
       id: '/games/quiz'
-      path: '/games/quiz'
+      path: '/quiz'
       fullPath: '/games/quiz'
       preLoaderRoute: typeof GamesQuizRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof GamesRoute
     }
     '/games/memory': {
       id: '/games/memory'
-      path: '/games/memory'
+      path: '/memory'
       fullPath: '/games/memory'
       preLoaderRoute: typeof GamesMemoryRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof GamesRoute
     }
     '/games/match': {
       id: '/games/match'
-      path: '/games/match'
+      path: '/match'
       fullPath: '/games/match'
       preLoaderRoute: typeof GamesMatchRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof GamesRoute
     }
     '/games/listening': {
       id: '/games/listening'
-      path: '/games/listening'
+      path: '/listening'
       fullPath: '/games/listening'
       preLoaderRoute: typeof GamesListeningRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof GamesRoute
     }
     '/games/fillblank': {
       id: '/games/fillblank'
-      path: '/games/fillblank'
+      path: '/fillblank'
       fullPath: '/games/fillblank'
       preLoaderRoute: typeof GamesFillblankRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof GamesRoute
     }
     '/games/crossword': {
       id: '/games/crossword'
-      path: '/games/crossword'
+      path: '/crossword'
       fullPath: '/games/crossword'
       preLoaderRoute: typeof GamesCrosswordRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof GamesRoute
     }
     '/games/conjugation': {
       id: '/games/conjugation'
-      path: '/games/conjugation'
+      path: '/conjugation'
       fullPath: '/games/conjugation'
       preLoaderRoute: typeof GamesConjugationRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof GamesRoute
     }
     '/games/battle': {
       id: '/games/battle'
-      path: '/games/battle'
+      path: '/battle'
       fullPath: '/games/battle'
       preLoaderRoute: typeof GamesBattleRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof GamesRoute
     }
     '/grammar/cases/$case': {
       id: '/grammar/cases/$case'
@@ -528,6 +535,36 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface GamesRouteChildren {
+  GamesBattleRoute: typeof GamesBattleRoute
+  GamesConjugationRoute: typeof GamesConjugationRoute
+  GamesCrosswordRoute: typeof GamesCrosswordRoute
+  GamesFillblankRoute: typeof GamesFillblankRoute
+  GamesListeningRoute: typeof GamesListeningRoute
+  GamesMatchRoute: typeof GamesMatchRoute
+  GamesMemoryRoute: typeof GamesMemoryRoute
+  GamesQuizRoute: typeof GamesQuizRoute
+  GamesSentenceRoute: typeof GamesSentenceRoute
+  GamesWordchainRoute: typeof GamesWordchainRoute
+  GamesIndexRoute: typeof GamesIndexRoute
+}
+
+const GamesRouteChildren: GamesRouteChildren = {
+  GamesBattleRoute: GamesBattleRoute,
+  GamesConjugationRoute: GamesConjugationRoute,
+  GamesCrosswordRoute: GamesCrosswordRoute,
+  GamesFillblankRoute: GamesFillblankRoute,
+  GamesListeningRoute: GamesListeningRoute,
+  GamesMatchRoute: GamesMatchRoute,
+  GamesMemoryRoute: GamesMemoryRoute,
+  GamesQuizRoute: GamesQuizRoute,
+  GamesSentenceRoute: GamesSentenceRoute,
+  GamesWordchainRoute: GamesWordchainRoute,
+  GamesIndexRoute: GamesIndexRoute,
+}
+
+const GamesRouteWithChildren = GamesRoute._addFileChildren(GamesRouteChildren)
 
 interface GrammarRouteChildren {
   GrammarAspectRoute: typeof GrammarAspectRoute
@@ -564,21 +601,11 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   DailyRoute: DailyRoute,
   DashboardRoute: DashboardRoute,
+  GamesRoute: GamesRouteWithChildren,
   GrammarRoute: GrammarRouteWithChildren,
   QuestRoute: QuestRoute,
   StoriesRoute: StoriesRouteWithChildren,
   VocabularyRoute: VocabularyRoute,
-  GamesBattleRoute: GamesBattleRoute,
-  GamesConjugationRoute: GamesConjugationRoute,
-  GamesCrosswordRoute: GamesCrosswordRoute,
-  GamesFillblankRoute: GamesFillblankRoute,
-  GamesListeningRoute: GamesListeningRoute,
-  GamesMatchRoute: GamesMatchRoute,
-  GamesMemoryRoute: GamesMemoryRoute,
-  GamesQuizRoute: GamesQuizRoute,
-  GamesSentenceRoute: GamesSentenceRoute,
-  GamesWordchainRoute: GamesWordchainRoute,
-  GamesIndexRoute: GamesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
