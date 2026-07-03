@@ -18,6 +18,7 @@ import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as DailyRouteImport } from './routes/daily'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as GamesIndexRouteImport } from './routes/games.index'
 import { Route as StoriesIdRouteImport } from './routes/stories.$id'
 import { Route as GrammarVerbsRouteImport } from './routes/grammar.verbs'
 import { Route as GrammarConnectionsRouteImport } from './routes/grammar.connections'
@@ -79,6 +80,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const GamesIndexRoute = GamesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => GamesRoute,
 } as any)
 const StoriesIdRoute = StoriesIdRouteImport.update({
   id: '/$id',
@@ -186,6 +192,7 @@ export interface FileRoutesByFullPath {
   '/grammar/connections': typeof GrammarConnectionsRoute
   '/grammar/verbs': typeof GrammarVerbsRoute
   '/stories/$id': typeof StoriesIdRoute
+  '/games/': typeof GamesIndexRoute
   '/grammar/cases/$case': typeof GrammarCasesCaseRoute
 }
 export interface FileRoutesByTo {
@@ -193,7 +200,6 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/daily': typeof DailyRoute
   '/dashboard': typeof DashboardRoute
-  '/games': typeof GamesRouteWithChildren
   '/grammar': typeof GrammarRouteWithChildren
   '/quest': typeof QuestRoute
   '/stories': typeof StoriesRouteWithChildren
@@ -213,6 +219,7 @@ export interface FileRoutesByTo {
   '/grammar/connections': typeof GrammarConnectionsRoute
   '/grammar/verbs': typeof GrammarVerbsRoute
   '/stories/$id': typeof StoriesIdRoute
+  '/games': typeof GamesIndexRoute
   '/grammar/cases/$case': typeof GrammarCasesCaseRoute
 }
 export interface FileRoutesById {
@@ -241,6 +248,7 @@ export interface FileRoutesById {
   '/grammar/connections': typeof GrammarConnectionsRoute
   '/grammar/verbs': typeof GrammarVerbsRoute
   '/stories/$id': typeof StoriesIdRoute
+  '/games/': typeof GamesIndexRoute
   '/grammar/cases/$case': typeof GrammarCasesCaseRoute
 }
 export interface FileRouteTypes {
@@ -270,6 +278,7 @@ export interface FileRouteTypes {
     | '/grammar/connections'
     | '/grammar/verbs'
     | '/stories/$id'
+    | '/games/'
     | '/grammar/cases/$case'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -277,7 +286,6 @@ export interface FileRouteTypes {
     | '/auth'
     | '/daily'
     | '/dashboard'
-    | '/games'
     | '/grammar'
     | '/quest'
     | '/stories'
@@ -297,6 +305,7 @@ export interface FileRouteTypes {
     | '/grammar/connections'
     | '/grammar/verbs'
     | '/stories/$id'
+    | '/games'
     | '/grammar/cases/$case'
   id:
     | '__root__'
@@ -324,6 +333,7 @@ export interface FileRouteTypes {
     | '/grammar/connections'
     | '/grammar/verbs'
     | '/stories/$id'
+    | '/games/'
     | '/grammar/cases/$case'
   fileRoutesById: FileRoutesById
 }
@@ -403,6 +413,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/games/': {
+      id: '/games/'
+      path: '/'
+      fullPath: '/games/'
+      preLoaderRoute: typeof GamesIndexRouteImport
+      parentRoute: typeof GamesRoute
     }
     '/stories/$id': {
       id: '/stories/$id'
@@ -530,6 +547,7 @@ interface GamesRouteChildren {
   GamesQuizRoute: typeof GamesQuizRoute
   GamesSentenceRoute: typeof GamesSentenceRoute
   GamesWordchainRoute: typeof GamesWordchainRoute
+  GamesIndexRoute: typeof GamesIndexRoute
 }
 
 const GamesRouteChildren: GamesRouteChildren = {
@@ -543,6 +561,7 @@ const GamesRouteChildren: GamesRouteChildren = {
   GamesQuizRoute: GamesQuizRoute,
   GamesSentenceRoute: GamesSentenceRoute,
   GamesWordchainRoute: GamesWordchainRoute,
+  GamesIndexRoute: GamesIndexRoute,
 }
 
 const GamesRouteWithChildren = GamesRoute._addFileChildren(GamesRouteChildren)
@@ -591,13 +610,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
