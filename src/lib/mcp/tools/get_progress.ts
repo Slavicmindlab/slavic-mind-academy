@@ -8,13 +8,14 @@ export default defineTool({
   inputSchema: {},
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: async (_input, ctx) => {
-    if (!ctx.isAuthenticated())
+    const userId = ctx.getUserId();
+    if (!ctx.isAuthenticated() || !userId)
       return { content: [{ type: "text", text: "Not authenticated" }], isError: true };
     const supabase = supabaseForUser(ctx);
     const { data, error } = await supabase
       .from("user_progress")
       .select("xp, xp_today, streak, hero_name, last_active")
-      .eq("user_id", ctx.getUserId())
+      .eq("user_id", userId)
       .maybeSingle();
     if (error)
       return { content: [{ type: "text", text: error.message }], isError: true };
