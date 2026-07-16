@@ -13,12 +13,23 @@ export const Route = createFileRoute("/auth")({
       { name: "description", content: "Sign in to sync your Polish learning progress across all your devices in real time." },
     ],
   }),
+  validateSearch: (s: Record<string, unknown>) => ({
+    next: typeof s.next === "string" ? s.next : "",
+  }),
   component: AuthPage,
 });
+
+// Only permit same-origin relative paths — never open redirects or absolute URLs.
+function safeNext(raw: string): string {
+  if (!raw.startsWith("/") || raw.startsWith("//")) return "/dashboard";
+  return raw;
+}
 
 function AuthPage() {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
+  const { next } = Route.useSearch();
+  const target = safeNext(next);
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,8 +37,8 @@ function AuthPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!loading && user) navigate({ to: "/dashboard" });
-  }, [user, loading, navigate]);
+    if (!loading && user) navigate({ to: target });
+  }, [user, loading, navigate, target]);
 
   async function handleEmail(e: React.FormEvent) {
     e.preventDefault();
@@ -36,7 +47,7 @@ function AuthPage() {
       if (mode === "signup") {
         const { error } = await supabase.auth.signUp({
           email, password,
-          options: { emailRedirectTo: window.location.origin + "/dashboard" },
+          options: { emailRedirectTo: window.location.origin + target },
         });
         if (error) throw error;
       } else {
@@ -51,7 +62,7 @@ function AuthPage() {
   async function handleGoogle() {
     setError(null); setBusy(true);
     try {
-      const res = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin + "/dashboard" });
+      const res = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin + target });
       if (res.error) throw res.error;
     } catch (e) {
       setError(e instanceof Error ? e.message : "Google sign-in failed");

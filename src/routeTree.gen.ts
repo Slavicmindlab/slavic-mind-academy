@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as VocabularyRouteImport } from './routes/vocabulary'
 import { Route as StoriesRouteImport } from './routes/stories'
 import { Route as QuestRouteImport } from './routes/quest'
+import { Route as McpRouteImport } from './routes/mcp'
 import { Route as GrammarRouteImport } from './routes/grammar'
 import { Route as GamesRouteImport } from './routes/games'
 import { Route as DashboardRouteImport } from './routes/dashboard'
@@ -34,7 +35,11 @@ import { Route as GamesFillblankRouteImport } from './routes/games.fillblank'
 import { Route as GamesCrosswordRouteImport } from './routes/games.crossword'
 import { Route as GamesConjugationRouteImport } from './routes/games.conjugation'
 import { Route as GamesBattleRouteImport } from './routes/games.battle'
+import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as GrammarCasesCaseRouteImport } from './routes/grammar.cases.$case'
+import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
+import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
 
 const VocabularyRoute = VocabularyRouteImport.update({
   id: '/vocabulary',
@@ -49,6 +54,11 @@ const StoriesRoute = StoriesRouteImport.update({
 const QuestRoute = QuestRouteImport.update({
   id: '/quest',
   path: '/quest',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GrammarRoute = GrammarRouteImport.update({
@@ -161,10 +171,33 @@ const GamesBattleRoute = GamesBattleRouteImport.update({
   path: '/battle',
   getParentRoute: () => GamesRoute,
 } as any)
+const Char91DotwellKnownChar93OauthProtectedResourceRoute =
+  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
+    id: '/.well-known/oauth-protected-resource',
+    path: '/.well-known/oauth-protected-resource',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const Char91DotmcpChar93ListToolsRoute =
+  Char91DotmcpChar93ListToolsRouteImport.update({
+    id: '/.mcp/list-tools',
+    path: '/.mcp/list-tools',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const GrammarCasesCaseRoute = GrammarCasesCaseRouteImport.update({
   id: '/cases/$case',
   path: '/cases/$case',
   getParentRoute: () => GrammarRoute,
+} as any)
+const Char91DotmcpChar93InvokeToolToolRoute =
+  Char91DotmcpChar93InvokeToolToolRouteImport.update({
+    id: '/.mcp/invoke-tool/$tool',
+    path: '/.mcp/invoke-tool/$tool',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
+  id: '/.lovable/oauth/consent',
+  path: '/.lovable/oauth/consent',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -174,9 +207,12 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRoute
   '/games': typeof GamesRouteWithChildren
   '/grammar': typeof GrammarRouteWithChildren
+  '/mcp': typeof McpRoute
   '/quest': typeof QuestRoute
   '/stories': typeof StoriesRouteWithChildren
   '/vocabulary': typeof VocabularyRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/games/battle': typeof GamesBattleRoute
   '/games/conjugation': typeof GamesConjugationRoute
   '/games/crossword': typeof GamesCrosswordRoute
@@ -193,6 +229,8 @@ export interface FileRoutesByFullPath {
   '/grammar/verbs': typeof GrammarVerbsRoute
   '/stories/$id': typeof StoriesIdRoute
   '/games/': typeof GamesIndexRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/grammar/cases/$case': typeof GrammarCasesCaseRoute
 }
 export interface FileRoutesByTo {
@@ -201,9 +239,12 @@ export interface FileRoutesByTo {
   '/daily': typeof DailyRoute
   '/dashboard': typeof DashboardRoute
   '/grammar': typeof GrammarRouteWithChildren
+  '/mcp': typeof McpRoute
   '/quest': typeof QuestRoute
   '/stories': typeof StoriesRouteWithChildren
   '/vocabulary': typeof VocabularyRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/games/battle': typeof GamesBattleRoute
   '/games/conjugation': typeof GamesConjugationRoute
   '/games/crossword': typeof GamesCrosswordRoute
@@ -220,6 +261,8 @@ export interface FileRoutesByTo {
   '/grammar/verbs': typeof GrammarVerbsRoute
   '/stories/$id': typeof StoriesIdRoute
   '/games': typeof GamesIndexRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/grammar/cases/$case': typeof GrammarCasesCaseRoute
 }
 export interface FileRoutesById {
@@ -230,9 +273,12 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/games': typeof GamesRouteWithChildren
   '/grammar': typeof GrammarRouteWithChildren
+  '/mcp': typeof McpRoute
   '/quest': typeof QuestRoute
   '/stories': typeof StoriesRouteWithChildren
   '/vocabulary': typeof VocabularyRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/games/battle': typeof GamesBattleRoute
   '/games/conjugation': typeof GamesConjugationRoute
   '/games/crossword': typeof GamesCrosswordRoute
@@ -249,6 +295,8 @@ export interface FileRoutesById {
   '/grammar/verbs': typeof GrammarVerbsRoute
   '/stories/$id': typeof StoriesIdRoute
   '/games/': typeof GamesIndexRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/grammar/cases/$case': typeof GrammarCasesCaseRoute
 }
 export interface FileRouteTypes {
@@ -260,9 +308,12 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/games'
     | '/grammar'
+    | '/mcp'
     | '/quest'
     | '/stories'
     | '/vocabulary'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/games/battle'
     | '/games/conjugation'
     | '/games/crossword'
@@ -279,6 +330,8 @@ export interface FileRouteTypes {
     | '/grammar/verbs'
     | '/stories/$id'
     | '/games/'
+    | '/.lovable/oauth/consent'
+    | '/.mcp/invoke-tool/$tool'
     | '/grammar/cases/$case'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -287,9 +340,12 @@ export interface FileRouteTypes {
     | '/daily'
     | '/dashboard'
     | '/grammar'
+    | '/mcp'
     | '/quest'
     | '/stories'
     | '/vocabulary'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/games/battle'
     | '/games/conjugation'
     | '/games/crossword'
@@ -306,6 +362,8 @@ export interface FileRouteTypes {
     | '/grammar/verbs'
     | '/stories/$id'
     | '/games'
+    | '/.lovable/oauth/consent'
+    | '/.mcp/invoke-tool/$tool'
     | '/grammar/cases/$case'
   id:
     | '__root__'
@@ -315,9 +373,12 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/games'
     | '/grammar'
+    | '/mcp'
     | '/quest'
     | '/stories'
     | '/vocabulary'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/games/battle'
     | '/games/conjugation'
     | '/games/crossword'
@@ -334,6 +395,8 @@ export interface FileRouteTypes {
     | '/grammar/verbs'
     | '/stories/$id'
     | '/games/'
+    | '/.lovable/oauth/consent'
+    | '/.mcp/invoke-tool/$tool'
     | '/grammar/cases/$case'
   fileRoutesById: FileRoutesById
 }
@@ -344,9 +407,14 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   GamesRoute: typeof GamesRouteWithChildren
   GrammarRoute: typeof GrammarRouteWithChildren
+  McpRoute: typeof McpRoute
   QuestRoute: typeof QuestRoute
   StoriesRoute: typeof StoriesRouteWithChildren
   VocabularyRoute: typeof VocabularyRoute
+  Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
+  Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
+  Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -370,6 +438,13 @@ declare module '@tanstack/react-router' {
       path: '/quest'
       fullPath: '/quest'
       preLoaderRoute: typeof QuestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/grammar': {
@@ -526,12 +601,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GamesBattleRouteImport
       parentRoute: typeof GamesRoute
     }
+    '/.well-known/oauth-protected-resource': {
+      id: '/.well-known/oauth-protected-resource'
+      path: '/.well-known/oauth-protected-resource'
+      fullPath: '/.well-known/oauth-protected-resource'
+      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.mcp/list-tools': {
+      id: '/.mcp/list-tools'
+      path: '/.mcp/list-tools'
+      fullPath: '/.mcp/list-tools'
+      preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/grammar/cases/$case': {
       id: '/grammar/cases/$case'
       path: '/cases/$case'
       fullPath: '/grammar/cases/$case'
       preLoaderRoute: typeof GrammarCasesCaseRouteImport
       parentRoute: typeof GrammarRoute
+    }
+    '/.mcp/invoke-tool/$tool': {
+      id: '/.mcp/invoke-tool/$tool'
+      path: '/.mcp/invoke-tool/$tool'
+      fullPath: '/.mcp/invoke-tool/$tool'
+      preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.lovable/oauth/consent': {
+      id: '/.lovable/oauth/consent'
+      path: '/.lovable/oauth/consent'
+      fullPath: '/.lovable/oauth/consent'
+      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
 }
@@ -603,9 +706,15 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   GamesRoute: GamesRouteWithChildren,
   GrammarRoute: GrammarRouteWithChildren,
+  McpRoute: McpRoute,
   QuestRoute: QuestRoute,
   StoriesRoute: StoriesRouteWithChildren,
   VocabularyRoute: VocabularyRoute,
+  Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
+  Char91DotwellKnownChar93OauthProtectedResourceRoute:
+    Char91DotwellKnownChar93OauthProtectedResourceRoute,
+  DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
+  Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
