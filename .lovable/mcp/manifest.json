@@ -1,0 +1,151 @@
+{
+  "version": 1,
+  "sdk_version": "0.22.2",
+  "path": "/mcp",
+  "auth": {
+    "type": "oauth",
+    "issuer": "https://zuwxbagdgjkgmbtynjxh.supabase.co/auth/v1",
+    "accepted_audiences": [
+      "authenticated"
+    ]
+  },
+  "mcp": {
+    "server": {
+      "name": "slavicmind-mcp",
+      "version": "0.1.0",
+      "title": "SlavicMind"
+    },
+    "tools": [
+      {
+        "name": "get_progress",
+        "title": "Get my SlavicMind progress",
+        "description": "Return the signed-in user's XP, level, current streak, hero name, and XP earned today.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "search_vocabulary",
+        "title": "Search Polish vocabulary",
+        "description": "Search the SlavicMind Polish↔Bulgarian↔English vocabulary. Filter by free-text query, category, or difficulty level (A1/A2/B1/B2). Returns Polish word, translations, pronunciation, gender, plural, and an example sentence.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "query": {
+              "description": "Free-text search over Polish, Bulgarian, and English.",
+              "type": "string"
+            },
+            "category": {
+              "description": "Vocabulary category (e.g. 'Food', 'Verbs').",
+              "type": "string"
+            },
+            "difficulty": {
+              "type": "string",
+              "enum": [
+                "A1",
+                "A2",
+                "B1",
+                "B2"
+              ]
+            },
+            "limit": {
+              "description": "Max results (default 20).",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50
+            }
+          }
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_favorites",
+        "title": "List my favorite words",
+        "description": "Return the signed-in user's favorited Polish vocabulary entries with translations and examples.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "add_favorite",
+        "title": "Add a word to my favorites",
+        "description": "Add a Polish vocabulary word (by SlavicMind word id) to the signed-in user's favorites.",
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "word_id": {
+              "type": "string",
+              "minLength": 1,
+              "description": "SlavicMind vocabulary word id (e.g. 'g1', 'v4'). Use search_vocabulary to look one up."
+            }
+          },
+          "required": [
+            "word_id"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_kingdoms",
+        "title": "List Case Quest kingdom progress",
+        "description": "Return the signed-in user's progress across the seven Polish grammatical case kingdoms in Case Quest (cleared, boss defeated, attempts, best score).",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_best_scores",
+        "title": "List my best game scores",
+        "description": "Return the signed-in user's best score for each SlavicMind mind game.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
