@@ -112,6 +112,8 @@ function Vocabulary() {
                   <span
                     role="button"
                     tabIndex={0}
+                    aria-label={favs.has(w.id) ? `Remove ${w.pl} from favorites` : `Add ${w.pl} to favorites`}
+                    aria-pressed={favs.has(w.id)}
                     onClick={(e) => { e.stopPropagation(); toggleFavorite(w.id); }}
                     onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); e.stopPropagation(); toggleFavorite(w.id); } }}
                     className={`h-8 w-8 grid place-items-center rounded-full border transition ${favs.has(w.id) ? "border-crimson text-crimson" : "border-border/70 text-muted-foreground hover:text-ivory"}`}
@@ -156,6 +158,7 @@ function Select({ value, onChange, options }: { value: string; onChange: (v: str
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        aria-label="Filter vocabulary"
         className="appearance-none pl-9 pr-8 py-3 rounded-lg bg-surface/60 border border-border/70 focus:border-crimson outline-none text-sm"
       >
         {options.map((o) => <option key={o} value={o}>{o}</option>)}
@@ -183,10 +186,15 @@ function WordSheet({ word, onClose, fav, onFav }: { word: Word; onClose: () => v
         <div className="flex items-start justify-between gap-4">
           <div>
             <div className="text-xs uppercase tracking-[0.3em] text-crimson">{word.category} · {word.difficulty}</div>
-            <h3 className="mt-3 font-serif text-4xl">{word.pl}</h3>
+            <h2 className="mt-3 font-serif text-4xl">{word.pl}</h2>
             <div className="mt-1 font-mono text-sm text-muted-foreground">/{word.pronunciation}/</div>
           </div>
-          <button onClick={onFav} className={`h-10 w-10 grid place-items-center rounded-full border ${fav ? "border-crimson text-crimson" : "border-border/70"}`}>
+          <button
+            onClick={onFav}
+            aria-label={fav ? `Remove ${word.pl} from favorites` : `Add ${word.pl} to favorites`}
+            aria-pressed={fav}
+            className={`h-10 w-10 grid place-items-center rounded-full border ${fav ? "border-crimson text-crimson" : "border-border/70"}`}
+          >
             <Star className="h-4 w-4" fill={fav ? "currentColor" : "none"} />
           </button>
         </div>
