@@ -12,9 +12,13 @@ import {
 export const Route = createFileRoute("/games/")({
   head: () => ({
     meta: [
-      { title: "Mind games — SlavicMind" },
-      { name: "description", content: "Ten interactive Polish mind games: memory, crossword, timed quizzes, sentence building, conjugation, translation, listening, battles & more." },
+      { title: "Polish Mind Games — 10 Interactive Exercises | SlavicMind" },
+      { name: "description", content: "Ten interactive Polish mind games: memory match, crossword, timed quiz, sentence builder, conjugation drill, translation battle, listening, word chain, fill-in-the-blank." },
+      { property: "og:title", content: "Polish Mind Games — 10 interactive exercises" },
+      { property: "og:description", content: "Memory, crossword, timed quiz, sentence builder, conjugation, battle, listening, word chain — Polish through play." },
+      { property: "og:url", content: "https://slavicmind-app.lovable.app/games" },
     ],
+    links: [{ rel: "canonical", href: "https://slavicmind-app.lovable.app/games" }],
   }),
   component: GamesHub,
 });

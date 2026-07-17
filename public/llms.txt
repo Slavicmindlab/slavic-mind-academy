@@ -1,0 +1,25 @@
+# SlavicMind
+
+> A modern Polish-learning platform for Bulgarian and English speakers — vocabulary, all seven Polish cases, conjugation, aspect, mind games, stories, and a Slavic-fantasy grammar RPG.
+
+SlavicMind blends Slavic philology with interactive mind games. Content is written from the perspective of a Bulgarian Slavic-philology student, so examples lean on the linguistic proximity between Bulgarian and Polish.
+
+## Pages
+
+- [Home](/): Time-of-day landing with daily rituals and recommended paths.
+- [Dashboard](/dashboard): Personal XP, streak, quests, and word of the day.
+- [Vocabulary](/vocabulary): 490+ Polish words across 30+ categories with Bulgarian & English translations, IPA, gender, plural, and examples.
+- [Grammar](/grammar): Hub for the seven cases, conjugation groups, aspect, and verb government.
+- [Grammar · Cases](/grammar/cases/mianownik): Full declension paradigms for every Polish case.
+- [Grammar · Conjugation](/grammar/conjugation): The four Polish conjugation groups with full tables.
+- [Grammar · Aspect](/grammar/aspect): Perfective vs imperfective, with pair maps.
+- [Grammar · Verb map](/grammar/connections): Which case each Polish verb governs.
+- [Stories](/stories): Short Polish reading exercises with parallel Bulgarian text and comprehension quizzes.
+- [Daily Challenge](/daily): Word of the day, quests, and micro-quizzes.
+- [Mind Games](/games): Ten interactive games — memory, crossword, quiz, sentence builder, conjugation, listening, translation, battle, word chain, fill-in-the-blank.
+- [Case Quest](/quest): Slavic-fantasy RPG that teaches the seven Polish cases through boss battles.
+- [Guide · Is Polish hard for Bulgarians?](/guide/difficulty): Honest guide on Polish difficulty for Bulgarian speakers.
+
+## Optional
+
+- [Sign in](/auth): Account creation and login.

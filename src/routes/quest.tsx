@@ -16,11 +16,16 @@ import {
 export const Route = createFileRoute("/quest")({
   head: () => ({
     meta: [
-      { title: "Case Quest: The Seven Kingdoms — SlavicMind Games" },
+      { title: "Case Quest: The Seven Kingdoms — Polish Grammar RPG | SlavicMind" },
       { name: "description", content: "An interactive Polish grammar RPG. Travel seven kingdoms — one for each case — defeat dragons, decline nouns and master the language of the Slavs." },
       { property: "og:title", content: "Case Quest: The Seven Kingdoms" },
       { property: "og:description", content: "A fantasy Slavic RPG that teaches Polish cases. Choose your kingdom. Slay the dragon. Master Mianownik through Wołacz." },
+      { property: "og:type", content: "article" },
+      { property: "og:url", content: "https://slavicmind-app.lovable.app/quest" },
+      { name: "twitter:title", content: "Case Quest: The Seven Kingdoms" },
+      { name: "twitter:description", content: "A Slavic-fantasy RPG that teaches all seven Polish cases through dragon boss battles." },
     ],
+    links: [{ rel: "canonical", href: "https://slavicmind-app.lovable.app/quest" }],
   }),
   component: QuestPage,
 });

@@ -126,7 +126,9 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthBridge />
-      <Outlet />
+      <main id="main">
+        <Outlet />
+      </main>
       <XpToast />
     </QueryClientProvider>
   );

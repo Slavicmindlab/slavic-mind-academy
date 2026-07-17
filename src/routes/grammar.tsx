@@ -7,9 +7,13 @@ import { ArrowRight, BookOpen } from "lucide-react";
 export const Route = createFileRoute("/grammar")({
   head: () => ({
     meta: [
-      { title: "Grammar — SlavicMind" },
-      { name: "description", content: "The seven Polish cases, conjugations and aspect — explained for Bulgarian and English speakers." },
+      { title: "Polish Grammar Hub — Cases, Conjugation & Aspect | SlavicMind" },
+      { name: "description", content: "The seven Polish cases, four conjugation groups, verb aspect, and verb government — explained side-by-side for Bulgarian and English speakers." },
+      { property: "og:title", content: "Polish Grammar — for Bulgarian speakers" },
+      { property: "og:description", content: "All seven cases, four conjugation groups, aspect pairs, and verb government in one place." },
+      { property: "og:url", content: "https://slavicmind-app.lovable.app/grammar" },
     ],
+    links: [{ rel: "canonical", href: "https://slavicmind-app.lovable.app/grammar" }],
   }),
   component: GrammarHub,
 });
@@ -64,7 +68,7 @@ function GrammarHub() {
             ].map((x) => (
               <Link key={x.to} to={x.to} className="rounded-2xl border border-border/70 bg-card-gradient p-6 hover:border-crimson/60 transition">
                 <BookOpen className="h-6 w-6 text-crimson" />
-                <h3 className="mt-4 font-serif text-2xl">{x.title}</h3>
+                <h2 className="mt-4 font-serif text-2xl">{x.title}</h2>
                 <p className="mt-2 text-sm text-muted-foreground">{x.body}</p>
                 <span className="mt-4 inline-flex items-center gap-1 text-xs text-crimson">Open <ArrowRight className="h-3 w-3" /></span>
               </Link>

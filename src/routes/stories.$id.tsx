@@ -9,11 +9,24 @@ import { ArrowLeft, Check, X, Sparkles } from "lucide-react";
 export const Route = createFileRoute("/stories/$id")({
   head: ({ params }) => {
     const s = STORIES.find((x) => x.id === params.id);
+    const title = s?.title.pl ?? "Story";
+    const bg = s?.title.bg ?? "";
+    const desc = s
+      ? `Read "${s.title.pl}" (${bg}) — a ${s.level} Polish reading exercise (${s.minutes} min) with parallel Bulgarian translation, audio pronunciation, and comprehension questions.`
+      : "A Polish reading exercise with parallel Bulgarian translation, audio, and comprehension questions on SlavicMind.";
+    const url = `https://slavicmind-app.lovable.app/stories/${params.id}`;
     return {
       meta: [
-        { title: `${s?.title.pl ?? "Story"} — SlavicMind` },
-        { name: "description", content: s?.title.bg ?? "Polish reading exercise." },
+        { title: `${title} — SlavicMind Stories` },
+        { name: "description", content: desc },
+        { property: "og:title", content: `${title} — Polish reading` },
+        { property: "og:description", content: desc },
+        { property: "og:type", content: "article" },
+        { property: "og:url", content: url },
+        { name: "twitter:title", content: `${title} — Polish reading` },
+        { name: "twitter:description", content: desc },
       ],
+      links: [{ rel: "canonical", href: url }],
     };
   },
   component: StoryReader,

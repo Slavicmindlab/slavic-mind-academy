@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VocabularyRouteImport } from './routes/vocabulary'
 import { Route as StoriesRouteImport } from './routes/stories'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as QuestRouteImport } from './routes/quest'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as GrammarRouteImport } from './routes/grammar'
@@ -21,6 +22,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as GamesIndexRouteImport } from './routes/games.index'
 import { Route as StoriesIdRouteImport } from './routes/stories.$id'
+import { Route as GuideDifficultyRouteImport } from './routes/guide.difficulty'
 import { Route as GrammarVerbsRouteImport } from './routes/grammar.verbs'
 import { Route as GrammarConnectionsRouteImport } from './routes/grammar.connections'
 import { Route as GrammarConjugationRouteImport } from './routes/grammar.conjugation'
@@ -49,6 +51,11 @@ const VocabularyRoute = VocabularyRouteImport.update({
 const StoriesRoute = StoriesRouteImport.update({
   id: '/stories',
   path: '/stories',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const QuestRoute = QuestRouteImport.update({
@@ -100,6 +107,11 @@ const StoriesIdRoute = StoriesIdRouteImport.update({
   id: '/$id',
   path: '/$id',
   getParentRoute: () => StoriesRoute,
+} as any)
+const GuideDifficultyRoute = GuideDifficultyRouteImport.update({
+  id: '/guide/difficulty',
+  path: '/guide/difficulty',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const GrammarVerbsRoute = GrammarVerbsRouteImport.update({
   id: '/verbs',
@@ -209,6 +221,7 @@ export interface FileRoutesByFullPath {
   '/grammar': typeof GrammarRouteWithChildren
   '/mcp': typeof McpRoute
   '/quest': typeof QuestRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/stories': typeof StoriesRouteWithChildren
   '/vocabulary': typeof VocabularyRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
@@ -227,6 +240,7 @@ export interface FileRoutesByFullPath {
   '/grammar/conjugation': typeof GrammarConjugationRoute
   '/grammar/connections': typeof GrammarConnectionsRoute
   '/grammar/verbs': typeof GrammarVerbsRoute
+  '/guide/difficulty': typeof GuideDifficultyRoute
   '/stories/$id': typeof StoriesIdRoute
   '/games/': typeof GamesIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
@@ -241,6 +255,7 @@ export interface FileRoutesByTo {
   '/grammar': typeof GrammarRouteWithChildren
   '/mcp': typeof McpRoute
   '/quest': typeof QuestRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/stories': typeof StoriesRouteWithChildren
   '/vocabulary': typeof VocabularyRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
@@ -259,6 +274,7 @@ export interface FileRoutesByTo {
   '/grammar/conjugation': typeof GrammarConjugationRoute
   '/grammar/connections': typeof GrammarConnectionsRoute
   '/grammar/verbs': typeof GrammarVerbsRoute
+  '/guide/difficulty': typeof GuideDifficultyRoute
   '/stories/$id': typeof StoriesIdRoute
   '/games': typeof GamesIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
@@ -275,6 +291,7 @@ export interface FileRoutesById {
   '/grammar': typeof GrammarRouteWithChildren
   '/mcp': typeof McpRoute
   '/quest': typeof QuestRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/stories': typeof StoriesRouteWithChildren
   '/vocabulary': typeof VocabularyRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
@@ -293,6 +310,7 @@ export interface FileRoutesById {
   '/grammar/conjugation': typeof GrammarConjugationRoute
   '/grammar/connections': typeof GrammarConnectionsRoute
   '/grammar/verbs': typeof GrammarVerbsRoute
+  '/guide/difficulty': typeof GuideDifficultyRoute
   '/stories/$id': typeof StoriesIdRoute
   '/games/': typeof GamesIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
@@ -310,6 +328,7 @@ export interface FileRouteTypes {
     | '/grammar'
     | '/mcp'
     | '/quest'
+    | '/sitemap.xml'
     | '/stories'
     | '/vocabulary'
     | '/.mcp/list-tools'
@@ -328,6 +347,7 @@ export interface FileRouteTypes {
     | '/grammar/conjugation'
     | '/grammar/connections'
     | '/grammar/verbs'
+    | '/guide/difficulty'
     | '/stories/$id'
     | '/games/'
     | '/.lovable/oauth/consent'
@@ -342,6 +362,7 @@ export interface FileRouteTypes {
     | '/grammar'
     | '/mcp'
     | '/quest'
+    | '/sitemap.xml'
     | '/stories'
     | '/vocabulary'
     | '/.mcp/list-tools'
@@ -360,6 +381,7 @@ export interface FileRouteTypes {
     | '/grammar/conjugation'
     | '/grammar/connections'
     | '/grammar/verbs'
+    | '/guide/difficulty'
     | '/stories/$id'
     | '/games'
     | '/.lovable/oauth/consent'
@@ -375,6 +397,7 @@ export interface FileRouteTypes {
     | '/grammar'
     | '/mcp'
     | '/quest'
+    | '/sitemap.xml'
     | '/stories'
     | '/vocabulary'
     | '/.mcp/list-tools'
@@ -393,6 +416,7 @@ export interface FileRouteTypes {
     | '/grammar/conjugation'
     | '/grammar/connections'
     | '/grammar/verbs'
+    | '/guide/difficulty'
     | '/stories/$id'
     | '/games/'
     | '/.lovable/oauth/consent'
@@ -409,10 +433,12 @@ export interface RootRouteChildren {
   GrammarRoute: typeof GrammarRouteWithChildren
   McpRoute: typeof McpRoute
   QuestRoute: typeof QuestRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   StoriesRoute: typeof StoriesRouteWithChildren
   VocabularyRoute: typeof VocabularyRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  GuideDifficultyRoute: typeof GuideDifficultyRoute
   DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
 }
@@ -431,6 +457,13 @@ declare module '@tanstack/react-router' {
       path: '/stories'
       fullPath: '/stories'
       preLoaderRoute: typeof StoriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/quest': {
@@ -502,6 +535,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/stories/$id'
       preLoaderRoute: typeof StoriesIdRouteImport
       parentRoute: typeof StoriesRoute
+    }
+    '/guide/difficulty': {
+      id: '/guide/difficulty'
+      path: '/guide/difficulty'
+      fullPath: '/guide/difficulty'
+      preLoaderRoute: typeof GuideDifficultyRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/grammar/verbs': {
       id: '/grammar/verbs'
@@ -708,11 +748,13 @@ const rootRouteChildren: RootRouteChildren = {
   GrammarRoute: GrammarRouteWithChildren,
   McpRoute: McpRoute,
   QuestRoute: QuestRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   StoriesRoute: StoriesRouteWithChildren,
   VocabularyRoute: VocabularyRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
+  GuideDifficultyRoute: GuideDifficultyRoute,
   DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
 }

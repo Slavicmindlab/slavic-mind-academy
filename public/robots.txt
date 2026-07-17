@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /auth
+Disallow: /.lovable/
+Disallow: /.mcp/
+Disallow: /.well-known/
+
+Sitemap: https://slavicmind-app.lovable.app/sitemap.xml
