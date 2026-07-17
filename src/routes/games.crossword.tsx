@@ -28,17 +28,31 @@ type Entry = {
   clueEn: string;
 };
 
-// 11×10 grid of intersecting Polish words (lowercase, ASCII-only for inputs)
+// Grid of intersecting Polish words (lowercase, ASCII-only for inputs).
+// Every crossing letter must match on both entries — see the diagram in the
+// comment below. Do NOT reposition without re-checking all shared cells.
+//
+//   col:      1 2 3 4 5 6
+//   row 1:    K A W A
+//   row 2:        O
+//   row 3:        D
+//   row 4:      M A T K A         → (4,3)=A shared with woda[3], (4,5)=K shared with ksiazka[0]
+//   row 5:            S
+//   row 6:            I
+//   row 7:    P O C I A G         → (7,5)=A shared with ksiazka[3]
+//   row 8:            Z
+//   row 9:            K
+//   row 10:           A
 const ENTRIES: Entry[] = [
   { num: 1, dir: "across", row: 1, col: 1, answer: "kawa",    clueBg: "кафе",  clueEn: "coffee" },
   { num: 2, dir: "down",   row: 1, col: 3, answer: "woda",    clueBg: "вода",  clueEn: "water" },
-  { num: 3, dir: "across", row: 4, col: 1, answer: "matka",   clueBg: "майка", clueEn: "mother" },
-  { num: 4, dir: "down",   row: 0, col: 5, answer: "ksiazka", clueBg: "книга", clueEn: "book" },
-  { num: 5, dir: "across", row: 7, col: 2, answer: "pociag",  clueBg: "влак",  clueEn: "train" },
+  { num: 3, dir: "across", row: 4, col: 2, answer: "matka",   clueBg: "майка", clueEn: "mother" },
+  { num: 4, dir: "down",   row: 4, col: 5, answer: "ksiazka", clueBg: "книга", clueEn: "book" },
+  { num: 5, dir: "across", row: 7, col: 1, answer: "pociag",  clueBg: "влак",  clueEn: "train" },
 ];
 
-const ROWS = 10;
-const COLS = 11;
+const ROWS = 11;
+const COLS = 7;
 const HINT_COST = 10;
 
 type Cell = { letter: string; nums: number[]; entryIds: string[] } | null;
