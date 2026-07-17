@@ -47,12 +47,20 @@ const ENTRIES: Entry[] = [
   { num: 1, dir: "across", row: 1, col: 1, answer: "kawa",    clueBg: "кафе",  clueEn: "coffee" },
   { num: 2, dir: "down",   row: 1, col: 3, answer: "woda",    clueBg: "вода",  clueEn: "water" },
   { num: 3, dir: "across", row: 4, col: 2, answer: "matka",   clueBg: "майка", clueEn: "mother" },
-  { num: 4, dir: "down",   row: 4, col: 5, answer: "ksiazka", clueBg: "книга", clueEn: "book" },
-  { num: 5, dir: "across", row: 7, col: 1, answer: "pociag",  clueBg: "влак",  clueEn: "train" },
+  { num: 4, dir: "down",   row: 4, col: 5, answer: "książka", clueBg: "книга", clueEn: "book" },
+  { num: 5, dir: "across", row: 7, col: 1, answer: "pociąg",  clueBg: "влак",  clueEn: "train" },
 ];
 
 const ROWS = 11;
 const COLS = 7;
+
+// Fold Polish diacritics so learners without a Polish keyboard can type
+// "a" for "ą", "z" for "ż", etc. Displayed letter stays as the user typed;
+// correctness compares folded forms.
+const FOLD: Record<string, string> = {
+  ą: "a", ć: "c", ę: "e", ł: "l", ń: "n", ó: "o", ś: "s", ź: "z", ż: "z",
+};
+const fold = (ch: string) => FOLD[ch] ?? ch;
 const HINT_COST = 10;
 
 type Cell = { letter: string; nums: number[]; entryIds: string[] } | null;
@@ -94,7 +102,7 @@ function Crossword() {
       row.reduce((a, cell, c) => {
         if (!cell) return a;
         const v = (values[`${r}-${c}`] || "").toLowerCase();
-        return a + (v === cell.letter ? 1 : 0);
+        return a + (fold(v) === fold(cell.letter) ? 1 : 0);
       }, 0),
     0,
   );
@@ -213,7 +221,7 @@ function Crossword() {
                     const key = `${r}-${c}`;
                     if (!cell) return <div key={key} className="aspect-square" />;
                     const v = values[key] || "";
-                    const correct = !!v && v.toLowerCase() === cell.letter;
+                    const correct = !!v && fold(v.toLowerCase()) === fold(cell.letter);
                     const wrong = !!v && !correct;
                     const isRevealed = revealed.has(key);
                     return (
