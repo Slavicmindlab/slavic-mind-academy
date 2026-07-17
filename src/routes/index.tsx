@@ -22,7 +22,11 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "A modern, intelligent way for Bulgarian students to master Polish — vocabulary, cases, mind games, AI tutoring, folklore, and history." },
       { property: "og:title", content: "SlavicMind — Learn Polish, made for Bulgarians" },
       { property: "og:description", content: "Modern Slavic language platform: vocabulary, Polish cases, gamified mind games, history, literature, mythology." },
+      { property: "og:url", content: "https://slavicmind-app.lovable.app/" },
+      { name: "twitter:title", content: "SlavicMind — Learn Polish, made for Bulgarians" },
+      { name: "twitter:description", content: "Modern Slavic language platform: vocabulary, Polish cases, gamified mind games, history, literature, mythology." },
     ],
+    links: [{ rel: "canonical", href: "https://slavicmind-app.lovable.app/" }],
   }),
   component: Landing,
 });

@@ -10,9 +10,13 @@ import { useProgress, toggleFavorite } from "@/lib/progress";
 export const Route = createFileRoute("/vocabulary")({
   head: () => ({
     meta: [
-      { title: "Vocabulary — SlavicMind" },
-      { name: "description", content: "490+ real Polish words across 30+ categories with Bulgarian and English translations, pronunciation, and example sentences." },
+      { title: "Polish Vocabulary — 490+ Words for Bulgarians | SlavicMind" },
+      { name: "description", content: "490+ real Polish words across 30+ categories with Bulgarian and English translations, IPA pronunciation, gender, plural forms, and example sentences." },
+      { property: "og:title", content: "Polish vocabulary — 490+ words, three languages" },
+      { property: "og:description", content: "Polish ↔ Bulgarian ↔ English vocabulary with IPA, gender, plural forms, and audio pronunciation." },
+      { property: "og:url", content: "https://slavicmind-app.lovable.app/vocabulary" },
     ],
+    links: [{ rel: "canonical", href: "https://slavicmind-app.lovable.app/vocabulary" }],
   }),
   component: Vocabulary,
 });

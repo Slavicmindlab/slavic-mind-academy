@@ -7,9 +7,13 @@ import { ArrowRight, Clock, BookOpen } from "lucide-react";
 export const Route = createFileRoute("/stories")({
   head: () => ({
     meta: [
-      { title: "Stories — SlavicMind" },
-      { name: "description", content: "Short Polish reading exercises with parallel Bulgarian translation, audio, and comprehension questions." },
+      { title: "Polish Reading Stories — Parallel BG Text | SlavicMind" },
+      { name: "description", content: "Short Polish reading exercises with parallel Bulgarian translation, native audio, comprehension questions, and XP rewards — for A1 through B2." },
+      { property: "og:title", content: "Polish reading stories with Bulgarian translation" },
+      { property: "og:description", content: "Read Polish short stories with parallel Bulgarian text, audio, and comprehension quizzes." },
+      { property: "og:url", content: "https://slavicmind-app.lovable.app/stories" },
     ],
+    links: [{ rel: "canonical", href: "https://slavicmind-app.lovable.app/stories" }],
   }),
   component: StoriesHub,
 });

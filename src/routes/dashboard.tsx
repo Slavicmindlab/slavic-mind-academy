@@ -9,8 +9,13 @@ export const Route = createFileRoute("/dashboard")({
   head: () => ({
     meta: [
       { title: "Dashboard — SlavicMind" },
-      { name: "description", content: "Your Polish learning dashboard: streak, XP, daily challenges and the word of the day." },
+      { name: "description", content: "Your personal Polish learning dashboard: track XP, streak, daily quests, best scores across mind games, and the word of the day." },
+      { property: "og:title", content: "Your Polish learning dashboard" },
+      { property: "og:description", content: "Track XP, streak, daily quests, and best scores across ten Polish mind games." },
+      { property: "og:url", content: "https://slavicmind-app.lovable.app/dashboard" },
+      { name: "robots", content: "noindex" },
     ],
+    links: [{ rel: "canonical", href: "https://slavicmind-app.lovable.app/dashboard" }],
   }),
   component: Dashboard,
 });

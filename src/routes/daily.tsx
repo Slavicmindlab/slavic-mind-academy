@@ -11,9 +11,13 @@ import { Flame, Zap, Sparkles, Star, ChevronRight, CheckCircle2, Circle } from "
 export const Route = createFileRoute("/daily")({
   head: () => ({
     meta: [
-      { title: "Daily Challenge — SlavicMind" },
-      { name: "description", content: "Word of the day, daily quests, micro-quizzes — the cozy ritual of learning Polish." },
+      { title: "Daily Polish Challenge — Word of the Day | SlavicMind" },
+      { name: "description", content: "A daily Polish ritual: word of the day, three quick quests, a micro-quiz, and streak bonuses. Ten focused minutes that compound into fluency." },
+      { property: "og:title", content: "Daily Polish challenge — word of the day" },
+      { property: "og:description", content: "Ten minutes of Polish a day: word of the day, quests, and micro-quizzes." },
+      { property: "og:url", content: "https://slavicmind-app.lovable.app/daily" },
     ],
+    links: [{ rel: "canonical", href: "https://slavicmind-app.lovable.app/daily" }],
   }),
   component: () => (<ClientOnly><Daily /></ClientOnly>),
 });

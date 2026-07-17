@@ -7,9 +7,13 @@ import { ArrowRight, BookOpen } from "lucide-react";
 export const Route = createFileRoute("/grammar")({
   head: () => ({
     meta: [
-      { title: "Grammar — SlavicMind" },
-      { name: "description", content: "The seven Polish cases, conjugations and aspect — explained for Bulgarian and English speakers." },
+      { title: "Polish Grammar Hub — Cases, Conjugation & Aspect | SlavicMind" },
+      { name: "description", content: "The seven Polish cases, four conjugation groups, verb aspect, and verb government — explained side-by-side for Bulgarian and English speakers." },
+      { property: "og:title", content: "Polish Grammar — for Bulgarian speakers" },
+      { property: "og:description", content: "All seven cases, four conjugation groups, aspect pairs, and verb government in one place." },
+      { property: "og:url", content: "https://slavicmind-app.lovable.app/grammar" },
     ],
+    links: [{ rel: "canonical", href: "https://slavicmind-app.lovable.app/grammar" }],
   }),
   component: GrammarHub,
 });
