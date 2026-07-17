@@ -221,7 +221,7 @@ function Crossword() {
                     const key = `${r}-${c}`;
                     if (!cell) return <div key={key} className="aspect-square" />;
                     const v = values[key] || "";
-                    const correct = !!v && v.toLowerCase() === cell.letter;
+                    const correct = !!v && fold(v.toLowerCase()) === fold(cell.letter);
                     const wrong = !!v && !correct;
                     const isRevealed = revealed.has(key);
                     return (
