@@ -119,7 +119,7 @@ function DailyChallenge() {
   return (
     <div className="rounded-2xl border border-border/70 bg-card-gradient p-6 flex flex-col">
       <div className="text-xs uppercase tracking-[0.3em] text-crimson">Daily challenge</div>
-      <h3 className="mt-4 font-serif text-2xl">Brain warm-up</h3>
+      <h2 className="mt-4 font-serif text-2xl">Brain warm-up</h2>
       <p className="mt-2 text-sm text-muted-foreground">Match 12 Polish words to their Bulgarian translations in under 60 seconds.</p>
       <div className="mt-6 p-4 rounded-lg bg-surface/60 border border-border/60">
         <div className="flex items-center justify-between text-xs">
@@ -143,7 +143,7 @@ function ProgressCard({ total, into, needed, level }: { total: number; into: num
       <div className="flex items-center justify-between flex-wrap gap-2">
         <div>
           <div className="text-xs uppercase tracking-[0.3em] text-crimson">Progress</div>
-          <h3 className="mt-3 font-serif text-2xl">Level {level}</h3>
+          <h2 className="mt-3 font-serif text-2xl">Level {level}</h2>
         </div>
         <div className="text-sm text-muted-foreground font-mono">{into} / {needed} XP · total {total}</div>
       </div>
@@ -172,7 +172,7 @@ function Quests({ p }: { p: ReturnType<typeof useProgress> }) {
   return (
     <div className="lg:col-span-2 rounded-2xl border border-border/70 bg-card-gradient p-8">
       <div className="text-xs uppercase tracking-[0.3em] text-crimson">Daily quests</div>
-      <h3 className="mt-3 font-serif text-2xl">Three small wins</h3>
+      <h2 className="mt-3 font-serif text-2xl">Three small wins</h2>
       <ul className="mt-6 divide-y divide-border/60">
         {ids.map((id) => {
           const q = QUEST_TARGETS[id];
@@ -213,7 +213,7 @@ function Achievements({ p }: { p: ReturnType<typeof useProgress> }) {
   return (
     <div className="rounded-2xl border border-border/70 bg-card-gradient p-8">
       <div className="text-xs uppercase tracking-[0.3em] text-crimson">Badges</div>
-      <h3 className="mt-3 font-serif text-2xl">Achievements</h3>
+      <h2 className="mt-3 font-serif text-2xl">Achievements</h2>
       <div className="mt-6 grid grid-cols-2 gap-3">
         {all.map((id) => {
           const earned = p.achievements.includes(id as any);

@@ -46,7 +46,7 @@ function StoriesHub() {
                   <BookOpen className="h-6 w-6 text-crimson" />
                   <span className="font-mono text-xs px-2 py-0.5 rounded-full border border-border/60 text-muted-foreground">{s.level}</span>
                 </div>
-                <h3 className="mt-5 font-serif text-2xl">{s.title.pl}</h3>
+                <h2 className="mt-5 font-serif text-2xl">{s.title.pl}</h2>
                 <div className="text-sm text-rose">{s.title.bg}</div>
                 <div className="mt-3 flex items-center gap-3 text-xs text-muted-foreground">
                   <span className="inline-flex items-center gap-1"><Clock className="h-3 w-3" /> {s.minutes} min</span>

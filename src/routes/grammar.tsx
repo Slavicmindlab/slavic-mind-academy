@@ -68,7 +68,7 @@ function GrammarHub() {
             ].map((x) => (
               <Link key={x.to} to={x.to} className="rounded-2xl border border-border/70 bg-card-gradient p-6 hover:border-crimson/60 transition">
                 <BookOpen className="h-6 w-6 text-crimson" />
-                <h3 className="mt-4 font-serif text-2xl">{x.title}</h3>
+                <h2 className="mt-4 font-serif text-2xl">{x.title}</h2>
                 <p className="mt-2 text-sm text-muted-foreground">{x.body}</p>
                 <span className="mt-4 inline-flex items-center gap-1 text-xs text-crimson">Open <ArrowRight className="h-3 w-3" /></span>
               </Link>
