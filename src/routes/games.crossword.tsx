@@ -102,7 +102,7 @@ function Crossword() {
       row.reduce((a, cell, c) => {
         if (!cell) return a;
         const v = (values[`${r}-${c}`] || "").toLowerCase();
-        return a + (v === cell.letter ? 1 : 0);
+        return a + (fold(v) === fold(cell.letter) ? 1 : 0);
       }, 0),
     0,
   );
