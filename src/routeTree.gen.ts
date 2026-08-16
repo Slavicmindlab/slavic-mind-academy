@@ -14,6 +14,7 @@ import { Route as StoriesRouteImport } from './routes/stories'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as QuestRouteImport } from './routes/quest'
 import { Route as McpRouteImport } from './routes/mcp'
+import { Route as LearnRouteImport } from './routes/learn'
 import { Route as GrammarRouteImport } from './routes/grammar'
 import { Route as GamesRouteImport } from './routes/games'
 import { Route as DashboardRouteImport } from './routes/dashboard'
@@ -66,6 +67,11 @@ const QuestRoute = QuestRouteImport.update({
 const McpRoute = McpRouteImport.update({
   id: '/mcp',
   path: '/mcp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LearnRoute = LearnRouteImport.update({
+  id: '/learn',
+  path: '/learn',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GrammarRoute = GrammarRouteImport.update({
@@ -219,6 +225,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRoute
   '/games': typeof GamesRouteWithChildren
   '/grammar': typeof GrammarRouteWithChildren
+  '/learn': typeof LearnRoute
   '/mcp': typeof McpRoute
   '/quest': typeof QuestRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -253,6 +260,7 @@ export interface FileRoutesByTo {
   '/daily': typeof DailyRoute
   '/dashboard': typeof DashboardRoute
   '/grammar': typeof GrammarRouteWithChildren
+  '/learn': typeof LearnRoute
   '/mcp': typeof McpRoute
   '/quest': typeof QuestRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -289,6 +297,7 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/games': typeof GamesRouteWithChildren
   '/grammar': typeof GrammarRouteWithChildren
+  '/learn': typeof LearnRoute
   '/mcp': typeof McpRoute
   '/quest': typeof QuestRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -326,6 +335,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/games'
     | '/grammar'
+    | '/learn'
     | '/mcp'
     | '/quest'
     | '/sitemap.xml'
@@ -360,6 +370,7 @@ export interface FileRouteTypes {
     | '/daily'
     | '/dashboard'
     | '/grammar'
+    | '/learn'
     | '/mcp'
     | '/quest'
     | '/sitemap.xml'
@@ -395,6 +406,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/games'
     | '/grammar'
+    | '/learn'
     | '/mcp'
     | '/quest'
     | '/sitemap.xml'
@@ -431,6 +443,7 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   GamesRoute: typeof GamesRouteWithChildren
   GrammarRoute: typeof GrammarRouteWithChildren
+  LearnRoute: typeof LearnRoute
   McpRoute: typeof McpRoute
   QuestRoute: typeof QuestRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -478,6 +491,13 @@ declare module '@tanstack/react-router' {
       path: '/mcp'
       fullPath: '/mcp'
       preLoaderRoute: typeof McpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learn': {
+      id: '/learn'
+      path: '/learn'
+      fullPath: '/learn'
+      preLoaderRoute: typeof LearnRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/grammar': {
@@ -746,6 +766,7 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   GamesRoute: GamesRouteWithChildren,
   GrammarRoute: GrammarRouteWithChildren,
+  LearnRoute: LearnRoute,
   McpRoute: McpRoute,
   QuestRoute: QuestRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
