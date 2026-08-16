@@ -62,3 +62,6 @@ Unique title/description/og/canonical on `/learn` and `/learn/polish`; both adde
 - New files: `src/data/languages.ts`, `src/routes/learn.tsx` (layout `<Outlet />`), `src/routes/learn.index.tsx`, `src/routes/learn.polish.tsx`, `src/components/MobileNav.tsx`, `src/components/LanguageCard.tsx`, `src/components/SectionHeading.tsx`.
 - Edited: `src/routes/index.tsx`, `src/components/SiteHeader.tsx`, `src/routes/sitemap[.]xml.ts`.
 - No database migration in Phase 1 — the existing schema supports everything here.
+
+### Build error to fix first
+`src/components/SiteHeader.tsx` line 42: the `<Link to="/auth">` is missing the required `search` prop (the auth route validates a `next` param). Fix is one line — add `search={{ next: "" }}` — and it happens as the first step of Phase 1.
