@@ -1,55 +1,64 @@
-# Real-Time Progress Tracking
+# SlavicMind — Audit + Phase 1 Foundation
 
-Right now XP, streak, favorites, quests, achievements, best scores, and Case Quest kingdom progress all live in `localStorage` (`src/lib/progress.ts`, `src/lib/quest.ts`). That means progress only exists on one device and never updates "live" — close the tab, lose the device, or open another browser and it's gone or stale.
+## 1. What already exists
 
-This plan moves all progress into the database, wires up auth, and uses Lovable Cloud Realtime so every XP gain, streak bump, quest tick, and kingdom clear updates instantly on every open tab/device.
+- **Routes (30+)**: home, `/dashboard`, `/daily`, `/vocabulary`, `/grammar` (+ cases, conjugation, aspect, verbs, verb-case connections), `/stories` (+ detail), `/games` hub with 10 games, `/quest` (Case Quest: Seven Kingdoms), `/auth`, `/guide/difficulty`.
+- **Content data**: ~490 vocabulary entries across ~32 categories, full declension/conjugation/aspect paradigms, 3 stories, daily idioms/history/literature/memes.
+- **Accounts & progress**: Lovable Cloud auth (email + Google), tables `profiles`, `user_progress`, `user_favorites`, `user_achievements`, `user_quests`, `user_best_scores`, `user_kingdoms`. Real-time sync with localStorage fallback.
+- **SEO**: robots.txt, dynamic sitemap.xml, llms.txt, per-route titles/descriptions/canonical/og, `<main>` landmark.
+- **Agent integrations**: MCP server with 6 OAuth-protected tools.
+- **Design**: dark academic theme, serif display + crimson accent, `SiteHeader`, `ClientOnly` hydration gate, `SpeakButton`/`SoundToggle`.
 
-## What you'll see as a user
+## 2. Roadmap items already covered
 
-- Sign in once (email/password + Google). Your progress follows you anywhere.
-- Earn XP in a game on your phone → the dashboard on your laptop updates within ~1 second, no refresh.
-- Streak, level bar, daily quests, favorites, achievements, Case Quest map, and best scores all live‑update.
-- Signed‑out visitors still get the full app with local progress; signing in merges it into their account on first login.
+Polish grammar lab (most of it), vocabulary, games, gamification (XP/level/streak/quests/best scores), dashboard, accounts, base SEO, stories.
 
-## Build steps
+## 3. Missing
 
-1. **Auth**
-   - Add `/auth` page: email/password + Google (via Lovable broker).
-   - Wrap protected nothing — app stays public — but show "Sign in to sync" CTA in the header when signed out.
-   - Single `onAuthStateChange` listener in `__root.tsx` (filtered to SIGNED_IN/SIGNED_OUT/USER_UPDATED).
+Brand-level positioning (site reads as "a Polish course"), language architecture (`/learn`, `/learn/polish`), Slavic Connections as a cross-language feature (current `/grammar/connections` is verb→case, unrelated), Abroad / Students / Business / Pricing pages, share components, analytics event layer, mobile nav (header nav is `hidden md:flex` — no mobile menu at all), a Language/Course/Lesson data model.
 
-2. **Database** (one migration)
-   - `profiles` (id → auth.users, hero_name, created_at, updated_at)
-   - `user_progress` (user_id PK, xp, xp_today, today_key, streak, last_active, updated_at)
-   - `user_favorites` (user_id, word_id, created_at) — composite PK
-   - `user_achievements` (user_id, achievement, earned_at) — composite PK
-   - `user_quests` (user_id, today_key, learn_words, play_game, grammar_drill)
-   - `user_best_scores` (user_id, game_id, score) — composite PK
-   - `user_kingdoms` (user_id, case_slug, cleared, best_score, attempts, boss_defeated)
-   - RLS: every row scoped to `auth.uid()`. GRANTs to `authenticated` + `service_role`. Trigger to auto‑create `profiles` + `user_progress` on signup. Realtime publication on all six progress tables.
+## 4. Risks noticed
 
-3. **Sync layer** (`src/lib/progress.ts`, `src/lib/quest.ts`)
-   - Keep existing API (`addXp`, `toggleFavorite`, `completeKingdom`, etc.) so no component changes.
-   - When signed in: writes go to DB via server functions; reads come from a TanStack Query cache hydrated from DB.
-   - Subscribe to Realtime channels for the user's rows → invalidate queries on change → UI updates instantly everywhere.
-   - When signed out: behave exactly as today (localStorage).
-   - On first sign‑in: merge local progress into DB (max XP, union favorites/achievements, max best scores), then clear local.
+- **Mobile**: the only navigation on phones is the logo — every section is unreachable from a phone. Highest-priority fix.
+- **URL preservation**: the site is published and its sitemap advertises `/grammar/*`, `/vocabulary`, `/games/*`. Moving them under `/learn/polish/*` would drop existing SEO. Plan keeps current URLs canonical and adds `/learn/polish` as a hub that links to them.
+- Route files are large single components; new work should use shared components in `src/components/`.
+- No fake content: future languages are labelled "planned", never linkable to empty courses.
 
-4. **UI touches**
-   - Header: avatar + sign‑in/out, "syncing" dot when a write is in flight.
-   - Dashboard, Quest map, Vocabulary favorites, Games results: all already read from the hooks — they'll just become live.
+## 5. Prioritized plan
 
-## Technical notes
+- **Phase 1 (this change)** — brand homepage, mobile nav, `/learn` + `/learn/polish` hub, language registry.
+- Phase 2 — Grammar Lab organisation + dashboard upgrade.
+- Phase 3 — Slavic Connections feature.
+- Phase 4 — SEO article routes, share components, analytics events.
+- Phase 5 — Abroad / Students / Business / Pricing architecture.
+- Phase 6 — additional languages.
 
-- Server fns in `src/lib/progress.functions.ts` using `requireSupabaseAuth`; `attachSupabaseAuth` already wired in `src/start.ts`.
-- Realtime via `supabase.channel('progress:'+userId).on('postgres_changes', {schema:'public', filter:'user_id=eq.'+userId}, …)`.
-- Streak rollover stays client‑computed but persisted server‑side (server validates `today_key`).
-- No Edge Functions; all logic in `createServerFn`.
+---
 
-## Out of scope (say if you want them too)
+# Phase 1 scope (only this gets built now)
 
-- Leaderboards / friends / multiplayer presence.
-- Server‑authoritative anti‑cheat on XP (current model trusts the client like today).
-- Polish learning path Module 1–7 and crossword/sentence-builder rebuild (next milestones from the earlier roadmap).
+### A. Language registry
+`src/data/languages.ts` — a single editable list: `{ code, name, nativeName, flagless glyph, status: "available" | "planned", blurb }`. Polish available; Czech, Slovak, Serbian, Croatian, Slovenian, Ukrainian, Bulgarian planned. Everything language-aware reads from here so adding a language later is a data edit.
 
-Ready to build?
+### B. Homepage repositioning
+Keep the existing time-aware hero shell, dark academic styling and daily grid. Changes:
+- Headline reframed to the brand: "Learn Slavic languages. Understand how they connect." with a sub-line explaining SlavicMind, and the existing Polish greeting kept as the atmospheric time-of-day accent.
+- Primary CTA "Start learning Polish" → `/learn/polish`; secondary keeps the time-based recommendation.
+- New "Languages" strip built from the registry: Polish = Available (linked), others = Planned (not linked, plainly labelled).
+- New short "Why Slavic Connections" band explaining the cross-language advantage, linking forward (Phase 3 page not yet built — links to `/learn/polish` for now, no dead routes).
+- Existing Features / Cases / CTA / Footer sections kept, spacing and hierarchy tightened.
+
+### C. `/learn` and `/learn/polish`
+- `/learn` — language selection page from the registry, with head metadata.
+- `/learn/polish` — the flagship hub: four groups (Grammar Lab, Vocabulary, Practice & Games, Stories & Daily) linking to the **existing** routes. No duplicated exercise logic, no moved routes.
+
+### D. Mobile navigation
+Add a real mobile menu to `SiteHeader` (hamburger → slide-down panel with all nav items, stats, sound toggle, sign in/out). Touch targets ≥44px. Desktop nav unchanged apart from adding "Learn".
+
+### E. SEO for the new pages
+Unique title/description/og/canonical on `/learn` and `/learn/polish`; both added to sitemap.xml. Existing URLs and metadata untouched. No hreflang (no translations exist). Google Search Console still needs your own manual verification — I won't fake it.
+
+### Technical notes
+- New files: `src/data/languages.ts`, `src/routes/learn.tsx` (layout `<Outlet />`), `src/routes/learn.index.tsx`, `src/routes/learn.polish.tsx`, `src/components/MobileNav.tsx`, `src/components/LanguageCard.tsx`, `src/components/SectionHeading.tsx`.
+- Edited: `src/routes/index.tsx`, `src/components/SiteHeader.tsx`, `src/routes/sitemap[.]xml.ts`.
+- No database migration in Phase 1 — the existing schema supports everything here.
