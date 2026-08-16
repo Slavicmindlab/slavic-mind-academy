@@ -41,6 +41,7 @@ function HeaderStats() {
       ) : (
         <Link
           to="/auth"
+          search={{ next: "" }}
           className="inline-flex items-center gap-1.5 text-sm px-3 py-2 rounded-md border border-border/70 hover:bg-surface/60 transition"
         >
           <LogIn className="h-3.5 w-3.5" />
