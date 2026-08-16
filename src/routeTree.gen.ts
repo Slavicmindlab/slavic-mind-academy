@@ -21,8 +21,10 @@ import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as DailyRouteImport } from './routes/daily'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LearnIndexRouteImport } from './routes/learn.index'
 import { Route as GamesIndexRouteImport } from './routes/games.index'
 import { Route as StoriesIdRouteImport } from './routes/stories.$id'
+import { Route as LearnPolishRouteImport } from './routes/learn.polish'
 import { Route as GuideDifficultyRouteImport } from './routes/guide.difficulty'
 import { Route as GrammarVerbsRouteImport } from './routes/grammar.verbs'
 import { Route as GrammarConnectionsRouteImport } from './routes/grammar.connections'
@@ -104,6 +106,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LearnIndexRoute = LearnIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LearnRoute,
+} as any)
 const GamesIndexRoute = GamesIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -113,6 +120,11 @@ const StoriesIdRoute = StoriesIdRouteImport.update({
   id: '/$id',
   path: '/$id',
   getParentRoute: () => StoriesRoute,
+} as any)
+const LearnPolishRoute = LearnPolishRouteImport.update({
+  id: '/polish',
+  path: '/polish',
+  getParentRoute: () => LearnRoute,
 } as any)
 const GuideDifficultyRoute = GuideDifficultyRouteImport.update({
   id: '/guide/difficulty',
@@ -225,7 +237,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRoute
   '/games': typeof GamesRouteWithChildren
   '/grammar': typeof GrammarRouteWithChildren
-  '/learn': typeof LearnRoute
+  '/learn': typeof LearnRouteWithChildren
   '/mcp': typeof McpRoute
   '/quest': typeof QuestRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -248,8 +260,10 @@ export interface FileRoutesByFullPath {
   '/grammar/connections': typeof GrammarConnectionsRoute
   '/grammar/verbs': typeof GrammarVerbsRoute
   '/guide/difficulty': typeof GuideDifficultyRoute
+  '/learn/polish': typeof LearnPolishRoute
   '/stories/$id': typeof StoriesIdRoute
   '/games/': typeof GamesIndexRoute
+  '/learn/': typeof LearnIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/grammar/cases/$case': typeof GrammarCasesCaseRoute
@@ -260,7 +274,6 @@ export interface FileRoutesByTo {
   '/daily': typeof DailyRoute
   '/dashboard': typeof DashboardRoute
   '/grammar': typeof GrammarRouteWithChildren
-  '/learn': typeof LearnRoute
   '/mcp': typeof McpRoute
   '/quest': typeof QuestRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -283,8 +296,10 @@ export interface FileRoutesByTo {
   '/grammar/connections': typeof GrammarConnectionsRoute
   '/grammar/verbs': typeof GrammarVerbsRoute
   '/guide/difficulty': typeof GuideDifficultyRoute
+  '/learn/polish': typeof LearnPolishRoute
   '/stories/$id': typeof StoriesIdRoute
   '/games': typeof GamesIndexRoute
+  '/learn': typeof LearnIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/grammar/cases/$case': typeof GrammarCasesCaseRoute
@@ -297,7 +312,7 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/games': typeof GamesRouteWithChildren
   '/grammar': typeof GrammarRouteWithChildren
-  '/learn': typeof LearnRoute
+  '/learn': typeof LearnRouteWithChildren
   '/mcp': typeof McpRoute
   '/quest': typeof QuestRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -320,8 +335,10 @@ export interface FileRoutesById {
   '/grammar/connections': typeof GrammarConnectionsRoute
   '/grammar/verbs': typeof GrammarVerbsRoute
   '/guide/difficulty': typeof GuideDifficultyRoute
+  '/learn/polish': typeof LearnPolishRoute
   '/stories/$id': typeof StoriesIdRoute
   '/games/': typeof GamesIndexRoute
+  '/learn/': typeof LearnIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/grammar/cases/$case': typeof GrammarCasesCaseRoute
@@ -358,8 +375,10 @@ export interface FileRouteTypes {
     | '/grammar/connections'
     | '/grammar/verbs'
     | '/guide/difficulty'
+    | '/learn/polish'
     | '/stories/$id'
     | '/games/'
+    | '/learn/'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/grammar/cases/$case'
@@ -370,7 +389,6 @@ export interface FileRouteTypes {
     | '/daily'
     | '/dashboard'
     | '/grammar'
-    | '/learn'
     | '/mcp'
     | '/quest'
     | '/sitemap.xml'
@@ -393,8 +411,10 @@ export interface FileRouteTypes {
     | '/grammar/connections'
     | '/grammar/verbs'
     | '/guide/difficulty'
+    | '/learn/polish'
     | '/stories/$id'
     | '/games'
+    | '/learn'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/grammar/cases/$case'
@@ -429,8 +449,10 @@ export interface FileRouteTypes {
     | '/grammar/connections'
     | '/grammar/verbs'
     | '/guide/difficulty'
+    | '/learn/polish'
     | '/stories/$id'
     | '/games/'
+    | '/learn/'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/grammar/cases/$case'
@@ -443,7 +465,7 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   GamesRoute: typeof GamesRouteWithChildren
   GrammarRoute: typeof GrammarRouteWithChildren
-  LearnRoute: typeof LearnRoute
+  LearnRoute: typeof LearnRouteWithChildren
   McpRoute: typeof McpRoute
   QuestRoute: typeof QuestRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -542,6 +564,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/learn/': {
+      id: '/learn/'
+      path: '/'
+      fullPath: '/learn/'
+      preLoaderRoute: typeof LearnIndexRouteImport
+      parentRoute: typeof LearnRoute
+    }
     '/games/': {
       id: '/games/'
       path: '/'
@@ -555,6 +584,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/stories/$id'
       preLoaderRoute: typeof StoriesIdRouteImport
       parentRoute: typeof StoriesRoute
+    }
+    '/learn/polish': {
+      id: '/learn/polish'
+      path: '/polish'
+      fullPath: '/learn/polish'
+      preLoaderRoute: typeof LearnPolishRouteImport
+      parentRoute: typeof LearnRoute
     }
     '/guide/difficulty': {
       id: '/guide/difficulty'
@@ -748,6 +784,18 @@ const GrammarRouteChildren: GrammarRouteChildren = {
 const GrammarRouteWithChildren =
   GrammarRoute._addFileChildren(GrammarRouteChildren)
 
+interface LearnRouteChildren {
+  LearnPolishRoute: typeof LearnPolishRoute
+  LearnIndexRoute: typeof LearnIndexRoute
+}
+
+const LearnRouteChildren: LearnRouteChildren = {
+  LearnPolishRoute: LearnPolishRoute,
+  LearnIndexRoute: LearnIndexRoute,
+}
+
+const LearnRouteWithChildren = LearnRoute._addFileChildren(LearnRouteChildren)
+
 interface StoriesRouteChildren {
   StoriesIdRoute: typeof StoriesIdRoute
 }
@@ -766,7 +814,7 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   GamesRoute: GamesRouteWithChildren,
   GrammarRoute: GrammarRouteWithChildren,
-  LearnRoute: LearnRoute,
+  LearnRoute: LearnRouteWithChildren,
   McpRoute: McpRoute,
   QuestRoute: QuestRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
