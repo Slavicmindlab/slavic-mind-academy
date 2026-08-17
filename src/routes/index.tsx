@@ -5,6 +5,8 @@ import { SpeakButton } from "@/components/SpeakButton";
 import { ClientOnly } from "@/components/ClientOnly";
 import { useProgress, levelFromXp } from "@/lib/progress";
 import { WORDS } from "@/data/vocabulary";
+import { LANGUAGES } from "@/data/languages";
+
 import {
   IDIOMS, HISTORY_FACTS, LITERATURE_QUOTES, MEMES,
   GREETINGS, getDayPhase, PHASE_LABEL, PHASE_TAGLINE, RECOMMENDED_PATH,
