@@ -41,6 +41,8 @@ function Landing() {
       <ClientOnly fallback={<div className="h-[320px] border-t border-border/60 bg-surface/30" />}>
         <DailyGrid />
       </ClientOnly>
+      <LanguageStrip />
+      <ConnectionsBand />
       <Features />
       <CasesPreview />
       <CTA />
@@ -48,6 +50,117 @@ function Landing() {
     </div>
   );
 }
+
+// ─── Languages: Polish now, the family next ──────────────────────────────
+
+function LanguageStrip() {
+  const polish = LANGUAGES.find((l) => l.code === "pl")!;
+  const planned = LANGUAGES.filter((l) => l.status === "planned");
+
+  return (
+    <section className="border-t border-border/60">
+      <div className="mx-auto max-w-7xl px-6 py-16">
+        <div className="text-xs uppercase tracking-[0.3em] text-crimson">Languages</div>
+        <h2 className="mt-3 font-serif text-3xl md:text-4xl tracking-tight text-balance">
+          One language done properly, then the family.
+        </h2>
+
+        <div className="mt-8 grid gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] items-start">
+          <Link
+            to="/learn/polish"
+            className="group block rounded-2xl border border-crimson/40 bg-card-gradient p-7 transition hover:-translate-y-0.5 hover:border-crimson/70"
+          >
+            <div className="flex items-center gap-3">
+              <span className="grid h-12 w-12 place-items-center rounded-lg border border-crimson/40 bg-surface-2 font-serif text-2xl">
+                {polish.glyph}
+              </span>
+              <span className="rounded-full border border-crimson/50 px-2.5 py-1 text-[10px] uppercase tracking-[0.2em] text-crimson">
+                Available now
+              </span>
+            </div>
+            <div className="mt-5 font-serif text-3xl">{polish.name}</div>
+            <div className="font-mono text-xs text-muted-foreground">{polish.nativeName} · {polish.group}</div>
+            <p className="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">{polish.blurb}</p>
+            <span className="mt-5 inline-flex items-center gap-1.5 text-sm text-crimson">
+              Start learning Polish <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            </span>
+          </Link>
+
+          <div className="rounded-2xl border border-border/60 bg-surface/20 p-7">
+            <div className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">Planned</div>
+            <ul className="mt-4 flex flex-wrap gap-2">
+              {planned.map((l) => (
+                <li
+                  key={l.code}
+                  className="rounded-full border border-border/70 px-3 py-1.5 text-xs text-muted-foreground"
+                >
+                  {l.name} <span className="font-mono opacity-60">{l.nativeName}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
+              These courses are not built yet. When they arrive they will share one grammar
+              vocabulary, so what you learn in Polish carries over.
+            </p>
+            <Link to="/learn" className="mt-5 inline-flex items-center gap-1.5 text-xs text-crimson">
+              See the language roadmap <ArrowRight className="h-3 w-3" />
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── Slavic Connections teaser ───────────────────────────────────────────
+
+const CONNECTION_EXAMPLE = [
+  { lang: "Bulgarian", word: "глава" },
+  { lang: "Polish", word: "głowa" },
+  { lang: "Czech", word: "hlava" },
+  { lang: "Slovak", word: "hlava" },
+];
+
+function ConnectionsBand() {
+  return (
+    <section className="border-t border-border/60 bg-surface/20">
+      <div className="mx-auto max-w-7xl px-6 py-16 grid gap-10 lg:grid-cols-2 lg:items-center">
+        <div>
+          <div className="text-xs uppercase tracking-[0.3em] text-crimson">Slavic Connections</div>
+          <h2 className="mt-3 font-serif text-3xl md:text-4xl tracking-tight text-balance">
+            Related languages keep their family resemblance.
+          </h2>
+          <p className="mt-4 text-sm md:text-base leading-relaxed text-muted-foreground">
+            Slavic languages preserve recognisable relationships in vocabulary, grammar and sound
+            patterns. Once you can see the pattern, a new Slavic language stops being a blank page.
+            SlavicMind is building this into a full comparison layer — for now it lives inside the
+            Polish course as parallel Bulgarian explanations.
+          </p>
+          <Link to="/learn/polish" className="mt-6 inline-flex min-h-[48px] items-center gap-2 rounded-lg border border-border/80 bg-surface/40 px-5 text-sm transition hover:bg-surface">
+            See it in the Polish course <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+        <div className="rounded-2xl border border-border/70 bg-card-gradient p-7">
+          <div className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+            "head" across four Slavic languages
+          </div>
+          <dl className="mt-5 divide-y divide-border/60">
+            {CONNECTION_EXAMPLE.map((c) => (
+              <div key={c.lang} className="flex items-baseline justify-between gap-4 py-3">
+                <dt className="text-sm text-muted-foreground">{c.lang}</dt>
+                <dd className="font-serif text-2xl">{c.word}</dd>
+              </div>
+            ))}
+          </dl>
+          <p className="mt-4 text-xs italic text-muted-foreground">
+            Same root, three different outcomes of one sound change.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 
 // ─── Time-aware hero ──────────────────────────────────────────────────────
 
