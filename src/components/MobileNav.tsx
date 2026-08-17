@@ -35,7 +35,7 @@ export function MobileNav({ items }: { items: { to: string; label: string }[] })
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
         aria-label={open ? "Close menu" : "Open menu"}
-        className="grid h-11 w-11 place-items-center rounded-md border border-border/70 hover:bg-surface/60 transition"
+        className="grid h-11 w-11 place-items-center rounded-md border border-border/70 hover:bg-surface/60 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-crimson/70"
       >
         {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
       </button>
