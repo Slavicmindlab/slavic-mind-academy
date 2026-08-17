@@ -106,30 +106,36 @@ function DynamicHero() {
             </span>
           </div>
 
-          <h1 className="animate-fade-up delay-100 mt-6 font-serif text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-tight text-balance">
-            <span className={PHASE_ACCENT[phase]}>{greet.pl}</span>,
+          <h1 className="animate-fade-up delay-100 mt-6 font-serif text-4xl md:text-6xl lg:text-7xl leading-[1.02] tracking-tight text-balance">
+            Learn Slavic languages.
             <br />
-            <span className="italic">wędrowcze.</span>
+            <span className="italic text-crimson">Understand how they connect.</span>
           </h1>
-          <p className="animate-fade-up delay-200 mt-5 text-base md:text-lg text-muted-foreground">
-            {greet.bg} · {greet.en} · {greet.ru} · {greet.cs}
+          <p className="animate-fade-up delay-200 mt-5 text-base md:text-lg text-muted-foreground max-w-2xl text-balance">
+            SlavicMind starts with Polish — grammar, vocabulary, stories and mind games in one
+            place — and grows into a platform for the whole Slavic family.
           </p>
-          <p className="animate-fade-up delay-300 mt-6 text-lg md:text-xl text-muted-foreground max-w-2xl text-balance">
+          <p className="animate-fade-up delay-200 mt-6 text-sm md:text-base">
+            <span className={PHASE_ACCENT[phase]}>{greet.pl}</span>
+            <span className="text-muted-foreground">, wędrowcze · {greet.bg} · {greet.en}</span>
+          </p>
+          <p className="animate-fade-up delay-300 mt-3 text-sm md:text-base text-muted-foreground max-w-2xl">
             {PHASE_TAGLINE[phase]}
           </p>
 
           <div className="animate-fade-up delay-300 mt-8 flex flex-wrap items-center gap-3">
-            <Link to={RECOMMENDED_PATH[phase].href} className="group inline-flex items-center gap-2 px-6 py-3.5 rounded-lg bg-crimson-gradient text-ivory text-sm font-medium shadow-glow hover:opacity-95 transition">
-              {RECOMMENDED_PATH[phase].title}
+            <Link to="/learn/polish" className="group inline-flex min-h-[52px] items-center gap-2 px-6 rounded-lg bg-crimson-gradient text-ivory text-sm font-medium shadow-glow hover:opacity-95 transition">
+              Start learning Polish
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </Link>
-            <Link to="/dashboard" className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg border border-border/80 bg-surface/40 hover:bg-surface text-sm transition">
-              Dashboard
+            <Link to={RECOMMENDED_PATH[phase].href} className="inline-flex min-h-[52px] items-center gap-2 px-6 rounded-lg border border-border/80 bg-surface/40 hover:bg-surface text-sm transition">
+              {RECOMMENDED_PATH[phase].title}
             </Link>
           </div>
           <p className="mt-3 text-xs text-muted-foreground italic">
             {RECOMMENDED_PATH[phase].reason}
           </p>
+
 
           {/* Live progress bar */}
           <div className="animate-fade-up delay-500 mt-10 grid grid-cols-3 gap-6 max-w-xl">
