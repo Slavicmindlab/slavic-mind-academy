@@ -3,6 +3,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { WORD_OF_DAY } from "@/data/vocabulary";
 import { SpeakButton } from "@/components/SpeakButton";
 import { useProgress, levelFromXp, QUEST_TARGETS, addXp } from "@/lib/progress";
+import { GREETINGS, useDayPhase } from "@/lib/time-of-day";
 import { Flame, Zap, Trophy, Target, ArrowRight, Sparkles, BookOpen, Gamepad2, Brain, Award } from "lucide-react";
 
 export const Route = createFileRoute("/dashboard")({
@@ -20,6 +21,12 @@ export const Route = createFileRoute("/dashboard")({
   component: Dashboard,
 });
 
+/** Neutral on the server, real local-time greeting after hydration. */
+function TimeGreeting() {
+  const { phase } = useDayPhase();
+  return <>{phase ? GREETINGS[phase].pl : "Witaj"}, student.</>;
+}
+
 function Dashboard() {
   const p = useProgress();
   const lvl = levelFromXp(p.xp);
@@ -34,7 +41,9 @@ function Dashboard() {
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 animate-fade-up">
             <div>
               <div className="text-xs uppercase tracking-[0.3em] text-crimson">Witaj z powrotem</div>
-              <h1 className="mt-3 font-serif text-4xl md:text-5xl">Dobry wieczór, student.</h1>
+              <h1 className="mt-3 font-serif text-4xl md:text-5xl">
+                <TimeGreeting />
+              </h1>
               <p className="mt-2 text-muted-foreground">Five quiet minutes today. Then a streak begins.</p>
             </div>
             <Link to="/vocabulary" className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-crimson-gradient text-ivory text-sm shadow-glow hover:opacity-95 transition">

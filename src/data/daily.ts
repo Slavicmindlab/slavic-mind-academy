@@ -83,11 +83,12 @@ export const GREETINGS: Record<DayPhase, Greeting> = {
   night:     { pl: "Dobranoc",     bg: "Лека нощ",   en: "Good night",   ru: "Спокойной ночи", cs: "Dobrou noc" },
 };
 
+/** Canonical boundaries; re-exported by @/lib/time-of-day (the shared entry point). */
 export function getDayPhase(hour: number): DayPhase {
   if (hour < 5) return "night";
   if (hour < 12) return "morning";
   if (hour < 18) return "afternoon";
-  if (hour < 22) return "evening";
+  if (hour < 23) return "evening";
   return "night";
 }
 

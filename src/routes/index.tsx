@@ -7,11 +7,11 @@ import { useProgress, levelFromXp } from "@/lib/progress";
 import { WORDS } from "@/data/vocabulary";
 import { LANGUAGES } from "@/data/languages";
 
+import { IDIOMS, HISTORY_FACTS, LITERATURE_QUOTES, MEMES } from "@/data/daily";
 import {
-  IDIOMS, HISTORY_FACTS, LITERATURE_QUOTES, MEMES,
-  GREETINGS, getDayPhase, PHASE_LABEL, PHASE_TAGLINE, RECOMMENDED_PATH,
+  GREETINGS, useDayPhase, PHASE_LABEL, PHASE_TAGLINE, RECOMMENDED_PATH,
   type DayPhase,
-} from "@/data/daily";
+} from "@/lib/time-of-day";
 import {
   ArrowRight, Sparkles, Brain, Trophy, Languages, BookOpen, Gamepad2,
   Flame, Sunrise, Sun, Moon, Sunset, Quote, Landmark, Smile, Zap, Crown,
@@ -196,12 +196,11 @@ function HeroFallback() {
 }
 
 function DynamicHero() {
-  const [now, setNow] = useState(() => new Date());
-  useEffect(() => {
-    const id = setInterval(() => setNow(new Date()), 60_000);
-    return () => clearInterval(id);
-  }, []);
-  const phase = getDayPhase(now.getHours());
+  // Local-clock phase; ClientOnly already gates this component, and the hook
+  // still resolves after hydration so the first paint is never "evening".
+  const { phase: livePhase, now: liveNow } = useDayPhase();
+  const phase: DayPhase = livePhase ?? "morning";
+  const now = liveNow ?? new Date();
   const greet = GREETINGS[phase];
   const Icon = PHASE_ICON[phase];
   const progress = useProgress();
@@ -367,8 +366,8 @@ function DailyGrid() {
 }
 
 function RecommendedLink() {
-  const phase = getDayPhase(new Date().getHours());
-  const rec = RECOMMENDED_PATH[phase];
+  const { phase } = useDayPhase();
+  const rec = RECOMMENDED_PATH[phase ?? "morning"];
   return (
     <Link to={rec.href} className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-md bg-crimson-gradient text-ivory text-sm">
       {rec.title} <ArrowRight className="h-3.5 w-3.5" />
