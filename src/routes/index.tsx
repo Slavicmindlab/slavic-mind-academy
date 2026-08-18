@@ -196,12 +196,11 @@ function HeroFallback() {
 }
 
 function DynamicHero() {
-  const [now, setNow] = useState(() => new Date());
-  useEffect(() => {
-    const id = setInterval(() => setNow(new Date()), 60_000);
-    return () => clearInterval(id);
-  }, []);
-  const phase = getDayPhase(now.getHours());
+  // Local-clock phase; ClientOnly already gates this component, and the hook
+  // still resolves after hydration so the first paint is never "evening".
+  const { phase: livePhase, now: liveNow } = useDayPhase();
+  const phase: DayPhase = livePhase ?? "morning";
+  const now = liveNow ?? new Date();
   const greet = GREETINGS[phase];
   const Icon = PHASE_ICON[phase];
   const progress = useProgress();
