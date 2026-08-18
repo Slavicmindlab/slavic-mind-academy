@@ -34,7 +34,9 @@ function Dashboard() {
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 animate-fade-up">
             <div>
               <div className="text-xs uppercase tracking-[0.3em] text-crimson">Witaj z powrotem</div>
-              <h1 className="mt-3 font-serif text-4xl md:text-5xl">Dobry wieczór, student.</h1>
+              <h1 className="mt-3 font-serif text-4xl md:text-5xl">
+                <TimeGreeting />
+              </h1>
               <p className="mt-2 text-muted-foreground">Five quiet minutes today. Then a streak begins.</p>
             </div>
             <Link to="/vocabulary" className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-crimson-gradient text-ivory text-sm shadow-glow hover:opacity-95 transition">
