@@ -7,11 +7,11 @@ import { useProgress, levelFromXp } from "@/lib/progress";
 import { WORDS } from "@/data/vocabulary";
 import { LANGUAGES } from "@/data/languages";
 
+import { IDIOMS, HISTORY_FACTS, LITERATURE_QUOTES, MEMES } from "@/data/daily";
 import {
-  IDIOMS, HISTORY_FACTS, LITERATURE_QUOTES, MEMES,
-  GREETINGS, getDayPhase, PHASE_LABEL, PHASE_TAGLINE, RECOMMENDED_PATH,
+  GREETINGS, useDayPhase, PHASE_LABEL, PHASE_TAGLINE, RECOMMENDED_PATH,
   type DayPhase,
-} from "@/data/daily";
+} from "@/lib/time-of-day";
 import {
   ArrowRight, Sparkles, Brain, Trophy, Languages, BookOpen, Gamepad2,
   Flame, Sunrise, Sun, Moon, Sunset, Quote, Landmark, Smile, Zap, Crown,
