@@ -3,6 +3,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { WORD_OF_DAY } from "@/data/vocabulary";
 import { SpeakButton } from "@/components/SpeakButton";
 import { useProgress, levelFromXp, QUEST_TARGETS, addXp } from "@/lib/progress";
+import { GREETINGS, useDayPhase } from "@/lib/time-of-day";
 import { Flame, Zap, Trophy, Target, ArrowRight, Sparkles, BookOpen, Gamepad2, Brain, Award } from "lucide-react";
 
 export const Route = createFileRoute("/dashboard")({
