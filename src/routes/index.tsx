@@ -366,8 +366,8 @@ function DailyGrid() {
 }
 
 function RecommendedLink() {
-  const phase = getDayPhase(new Date().getHours());
-  const rec = RECOMMENDED_PATH[phase];
+  const { phase } = useDayPhase();
+  const rec = RECOMMENDED_PATH[phase ?? "morning"];
   return (
     <Link to={rec.href} className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-md bg-crimson-gradient text-ivory text-sm">
       {rec.title} <ArrowRight className="h-3.5 w-3.5" />
