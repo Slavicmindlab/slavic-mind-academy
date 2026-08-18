@@ -21,6 +21,12 @@ export const Route = createFileRoute("/dashboard")({
   component: Dashboard,
 });
 
+/** Neutral on the server, real local-time greeting after hydration. */
+function TimeGreeting() {
+  const { phase } = useDayPhase();
+  return <>{phase ? GREETINGS[phase].pl : "Witaj"}, student.</>;
+}
+
 function Dashboard() {
   const p = useProgress();
   const lvl = levelFromXp(p.xp);
