@@ -1,8 +1,71 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Ornament } from "@/components/SlavicMindLogo";
+import { GrammarTopicCard, type GrammarTopic } from "@/components/GrammarTopicCard";
 import { CASES } from "@/data/vocabulary";
-import { ArrowRight, BookOpen } from "lucide-react";
+import { ArrowRight, BookOpen, Brain, Library, Repeat, Route as RouteIcon, Swords, Type } from "lucide-react";
+
+const CASE_PRACTICE: GrammarTopic[] = [
+  {
+    to: "/quest",
+    title: "Case Quest",
+    body: "Seven kingdoms, one per case, with declension trials and boss fights.",
+    icon: Swords,
+    practice: { to: "/games/fillblank", label: "Fill the blank" },
+  },
+  {
+    to: "/games/fillblank",
+    title: "Fill the blank",
+    body: "Pick the right case form to complete a real Polish sentence.",
+    icon: Type,
+  },
+];
+
+const VERBS: GrammarTopic[] = [
+  {
+    to: "/grammar/conjugation",
+    title: "Conjugation",
+    body: "All four groups: present, past, aspect pairs, audio.",
+    icon: Repeat,
+    practice: { to: "/games/conjugation", label: "Conjugation drill" },
+  },
+  {
+    to: "/grammar/aspect",
+    title: "Verb aspect",
+    body: "Imperfective ↔ perfective with paired examples.",
+    icon: RouteIcon,
+    practice: { to: "/games/fillblank", label: "Aspect practice" },
+  },
+  {
+    to: "/grammar/verbs",
+    title: "Verbs & cases",
+    body: "Which case or preposition each verb requires.",
+    icon: BookOpen,
+    practice: { to: "/games/sentence", label: "Sentence syntax" },
+  },
+];
+
+const REFERENCE: GrammarTopic[] = [
+  {
+    to: "/grammar/connections",
+    title: "Verb ↔ Case map",
+    body: "Searchable: słuchać + dopełniacz, pomagać + celownik, interesować się + narzędnik.",
+    icon: Brain,
+  },
+  {
+    to: "/vocabulary",
+    title: "Vocabulary reference",
+    body: "490+ entries with gender, plural and example sentences to test declension against.",
+    icon: BookOpen,
+  },
+  {
+    to: "/stories",
+    title: "Stories",
+    body: "Short readings with parallel Polish and Bulgarian text.",
+    icon: Library,
+  },
+];
+
 
 export const Route = createFileRoute("/grammar")({
   head: () => ({
@@ -35,8 +98,12 @@ function GrammarHub() {
             </p>
           </div>
 
-          <div className="mt-12">
-            <div className="text-xs uppercase tracking-[0.3em] text-rose">Cases · Падежи</div>
+          <section className="mt-12">
+            <h2 className="text-xs uppercase tracking-[0.3em] text-rose">Cases &amp; Declension · Падежи</h2>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Seven cases, each with declension tables, endings and prepositions. Drill them in Case
+              Quest or the fill-the-blank game.
+            </p>
             <div className="mt-4 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {CASES.map((c, i) => (
                 <Link
@@ -53,27 +120,37 @@ function GrammarHub() {
                 </Link>
               ))}
             </div>
-          </div>
+            <div className="mt-4 grid md:grid-cols-2 gap-5">
+              {CASE_PRACTICE.map((t) => (
+                <GrammarTopicCard key={t.to} topic={t} />
+              ))}
+            </div>
+          </section>
 
-          <div className="mt-12 grid md:grid-cols-3 gap-5">
-            {[
-              { to: "/grammar/conjugation", title: "Conjugation", body: "All four groups: present, past, aspect pairs, audio." },
-              { to: "/grammar/aspect",      title: "Verb aspect",  body: "Imperfective ↔ perfective with paired examples." },
-              { to: "/grammar/verbs",       title: "Verbs & cases", body: "Which case or preposition each verb requires." },
-              { to: "/grammar/connections", title: "Verb ↔ Case map", body: "Searchable: słuchać + dopełniacz, pomagać + celownik, interesować się + narzędnik." },
-              { to: "/games/conjugation",   title: "Conjugation drill", body: "Practice present tense across six pronouns." },
-              { to: "/games/fillblank",     title: "Fill the blank",    body: "Pick the right case form to complete a Polish sentence." },
-              { to: "/games/sentence",      title: "Sentence syntax",   body: "Reorder tokens into grammatical sentences." },
-              { to: "/stories",             title: "Stories",           body: "Short readings with parallel translation." },
-            ].map((x) => (
-              <Link key={x.to} to={x.to} className="rounded-2xl border border-border/70 bg-card-gradient p-6 hover:border-crimson/60 transition">
-                <BookOpen className="h-6 w-6 text-crimson" />
-                <h2 className="mt-4 font-serif text-2xl">{x.title}</h2>
-                <p className="mt-2 text-sm text-muted-foreground">{x.body}</p>
-                <span className="mt-4 inline-flex items-center gap-1 text-xs text-crimson">Open <ArrowRight className="h-3 w-3" /></span>
-              </Link>
-            ))}
-          </div>
+          <section className="mt-12">
+            <h2 className="text-xs uppercase tracking-[0.3em] text-rose">Verbs · Глаголи</h2>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Conjugation groups, aspect pairs and the verbs you need first — each with an existing drill.
+            </p>
+            <div className="mt-4 grid md:grid-cols-3 gap-5">
+              {VERBS.map((t) => (
+                <GrammarTopicCard key={t.to} topic={t} />
+              ))}
+            </div>
+          </section>
+
+          <section className="mt-12">
+            <h2 className="text-xs uppercase tracking-[0.3em] text-rose">Reference · Справочник</h2>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Lookup tables and reading material to check yourself against real Polish.
+            </p>
+            <div className="mt-4 grid md:grid-cols-3 gap-5">
+              {REFERENCE.map((t) => (
+                <GrammarTopicCard key={t.to} topic={t} />
+              ))}
+            </div>
+          </section>
+
         </div>
       </div>
     </div>
