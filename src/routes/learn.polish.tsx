@@ -2,7 +2,11 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ClientOnly } from "@/components/ClientOnly";
+import { ContinueLearning } from "@/components/ContinueLearning";
+import { LearningPath } from "@/components/LearningPath";
+import { QuickPractice } from "@/components/QuickPractice";
 import { useProgress, levelFromXp } from "@/lib/progress";
+
 import {
   ArrowRight, BookOpen, Brain, Gamepad2, Languages, Layers, Library,
   Repeat, Route as RouteIcon, Sparkles, Swords, Type, Flame, Zap, Crown,
@@ -95,10 +99,28 @@ function PolishHub() {
         </div>
       </section>
 
+      <section className="border-t border-border/60">
+        <div className="mx-auto max-w-7xl px-6 py-14">
+          <SectionHeading
+            eyebrow="Your path"
+            title="Where to go next"
+            subtitle="A deterministic recommendation and the full Polish path — nothing locked, nothing invented."
+          />
+          <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
+            <ContinueLearning />
+            <LearningPath />
+          </div>
+          <div className="mt-10">
+            <QuickPractice />
+          </div>
+        </div>
+      </section>
+
       <Group eyebrow="01 · Grammar Lab" title="Master the systems" subtitle="Cases, conjugation, aspect and government — the load-bearing walls of Polish." items={GRAMMAR} />
       <Group eyebrow="02 · Vocabulary" title="Build the words" subtitle="Topic-based vocabulary with pronunciation, gender and real example sentences." items={VOCAB} tinted />
       <Group eyebrow="03 · Practice" title="Train it until it's automatic" subtitle="Interactive games and quests that reward consistency rather than grinding." items={PRACTICE} />
       <Group eyebrow="04 · Reading" title="Meet real Polish" subtitle="Folklore, culture and honest guidance for Bulgarian speakers." items={READING} tinted />
+
 
       <section className="border-t border-border/60">
         <div className="mx-auto max-w-4xl px-6 py-16 text-center">
