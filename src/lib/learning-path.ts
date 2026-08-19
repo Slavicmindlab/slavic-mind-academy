@@ -137,11 +137,8 @@ export function recommendNext(p: ProgressState): Recommendation {
     };
   }
 
-  if (p.quests.play_game > 0 && p.quests.play_game < 1) {
-    // defensive: quest targets live in progress.ts
-  }
-
   const next = PATH_STEPS.find((s) => stepStatus(s, p) !== "done") ?? PATH_STEPS[PATH_STEPS.length - 1];
+
   return {
     to: next.to,
     title: next.title,
