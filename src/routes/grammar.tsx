@@ -1,8 +1,71 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Ornament } from "@/components/SlavicMindLogo";
+import { GrammarTopicCard, type GrammarTopic } from "@/components/GrammarTopicCard";
 import { CASES } from "@/data/vocabulary";
-import { ArrowRight, BookOpen } from "lucide-react";
+import { ArrowRight, BookOpen, Brain, Library, Repeat, Route as RouteIcon, Swords, Type } from "lucide-react";
+
+const CASE_PRACTICE: GrammarTopic[] = [
+  {
+    to: "/quest",
+    title: "Case Quest",
+    body: "Seven kingdoms, one per case, with declension trials and boss fights.",
+    icon: Swords,
+    practice: { to: "/games/fillblank", label: "Fill the blank" },
+  },
+  {
+    to: "/games/fillblank",
+    title: "Fill the blank",
+    body: "Pick the right case form to complete a real Polish sentence.",
+    icon: Type,
+  },
+];
+
+const VERBS: GrammarTopic[] = [
+  {
+    to: "/grammar/conjugation",
+    title: "Conjugation",
+    body: "All four groups: present, past, aspect pairs, audio.",
+    icon: Repeat,
+    practice: { to: "/games/conjugation", label: "Conjugation drill" },
+  },
+  {
+    to: "/grammar/aspect",
+    title: "Verb aspect",
+    body: "Imperfective ↔ perfective with paired examples.",
+    icon: RouteIcon,
+    practice: { to: "/games/fillblank", label: "Aspect practice" },
+  },
+  {
+    to: "/grammar/verbs",
+    title: "Verbs & cases",
+    body: "Which case or preposition each verb requires.",
+    icon: BookOpen,
+    practice: { to: "/games/sentence", label: "Sentence syntax" },
+  },
+];
+
+const REFERENCE: GrammarTopic[] = [
+  {
+    to: "/grammar/connections",
+    title: "Verb ↔ Case map",
+    body: "Searchable: słuchać + dopełniacz, pomagać + celownik, interesować się + narzędnik.",
+    icon: Brain,
+  },
+  {
+    to: "/vocabulary",
+    title: "Vocabulary reference",
+    body: "490+ entries with gender, plural and example sentences to test declension against.",
+    icon: BookOpen,
+  },
+  {
+    to: "/stories",
+    title: "Stories",
+    body: "Short readings with parallel Polish and Bulgarian text.",
+    icon: Library,
+  },
+];
+
 
 export const Route = createFileRoute("/grammar")({
   head: () => ({

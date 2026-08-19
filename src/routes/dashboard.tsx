@@ -30,7 +30,8 @@ function TimeGreeting() {
 function Dashboard() {
   const p = useProgress();
   const lvl = levelFromXp(p.xp);
-  const accuracy = Object.keys(p.bestScores).length === 0 ? "—" : `${Math.min(99, 60 + p.streak * 3)}%`;
+  // Real metric: how many games have a stored best score. No invented accuracy.
+  const recordedScores = Object.keys(p.bestScores).length;
 
   return (
     <div className="min-h-screen bg-background">
@@ -46,16 +47,24 @@ function Dashboard() {
               </h1>
               <p className="mt-2 text-muted-foreground">Five quiet minutes today. Then a streak begins.</p>
             </div>
-            <Link to="/vocabulary" className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-crimson-gradient text-ivory text-sm shadow-glow hover:opacity-95 transition">
-              Continue learning <ArrowRight className="h-4 w-4" />
+            <Link to="/learn/polish" className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-crimson-gradient text-ivory text-sm shadow-glow hover:opacity-95 transition">
+              Polish hub <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
 
-          <div className="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="mt-8">
+            <ContinueLearning />
+          </div>
+
+          <div className="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-4">
             <Stat icon={Flame} label="Day streak" value={String(p.streak)} tone="crimson" />
             <Stat icon={Zap} label="XP today" value={String(p.xpToday)} tone="gold" />
             <Stat icon={Trophy} label="Level" value={String(lvl.level)} tone="rose" />
-            <Stat icon={Target} label="Accuracy" value={accuracy} tone="ivory" />
+            <Stat icon={Target} label="Recorded scores" value={String(recordedScores)} tone="ivory" />
+          </div>
+
+          <div className="mt-8">
+            <QuickPractice />
           </div>
 
           <div className="mt-8 grid lg:grid-cols-3 gap-6">
@@ -65,8 +74,8 @@ function Dashboard() {
           </div>
 
           <div className="mt-8 grid md:grid-cols-3 gap-4">
-            <ShortcutCard icon={BookOpen} title="Vocabulary" body="180+ words across 24 categories" to="/vocabulary" />
-            <ShortcutCard icon={Brain} title="Grammar & cases" body="Seven Polish cases, declension tables" to="/grammar" />
+            <ShortcutCard icon={BookOpen} title="Vocabulary" body="490+ words across the full category set" to="/vocabulary" />
+            <ShortcutCard icon={Brain} title="Grammar Lab" body="Seven Polish cases, verbs, reference tables" to="/grammar" />
             <ShortcutCard icon={Gamepad2} title="Mind games" body="Memory, Crossword, Quiz, Sentence, Match" to="/games" />
           </div>
 
@@ -74,6 +83,12 @@ function Dashboard() {
             <Quests p={p} />
             <Achievements p={p} />
           </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
         </div>
       </div>
     </div>
