@@ -4,6 +4,8 @@ import { WORD_OF_DAY } from "@/data/vocabulary";
 import { SpeakButton } from "@/components/SpeakButton";
 import { useProgress, levelFromXp, QUEST_TARGETS, addXp } from "@/lib/progress";
 import { GREETINGS, useDayPhase } from "@/lib/time-of-day";
+import { ContinueLearning } from "@/components/ContinueLearning";
+import { QuickPractice } from "@/components/QuickPractice";
 import { Flame, Zap, Trophy, Target, ArrowRight, Sparkles, BookOpen, Gamepad2, Brain, Award } from "lucide-react";
 
 export const Route = createFileRoute("/dashboard")({
@@ -83,12 +85,6 @@ function Dashboard() {
             <Quests p={p} />
             <Achievements p={p} />
           </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
         </div>
       </div>
     </div>
