@@ -11,7 +11,9 @@ import { PATH_STEPS, pathCompletion, stepStatus } from "@/lib/learning-path";
  */
 export function LearningPath() {
   return (
-    <ClientOnly fallback={<div className="h-[520px] rounded-2xl border border-border/60 bg-surface/20" />}>
+    <ClientOnly
+      fallback={<div className="h-[520px] rounded-2xl border border-border/60 bg-surface/20" />}
+    >
       <LearningPathInner />
     </ClientOnly>
   );

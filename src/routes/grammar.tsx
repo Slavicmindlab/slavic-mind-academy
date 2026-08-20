@@ -3,7 +3,16 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { Ornament } from "@/components/SlavicMindLogo";
 import { GrammarTopicCard, type GrammarTopic } from "@/components/GrammarTopicCard";
 import { CASES } from "@/data/vocabulary";
-import { ArrowRight, BookOpen, Brain, Library, Repeat, Route as RouteIcon, Swords, Type } from "lucide-react";
+import {
+  ArrowRight,
+  BookOpen,
+  Brain,
+  Library,
+  Repeat,
+  Route as RouteIcon,
+  Swords,
+  Type,
+} from "lucide-react";
 
 const CASE_PRACTICE: GrammarTopic[] = [
   {
@@ -66,14 +75,21 @@ const REFERENCE: GrammarTopic[] = [
   },
 ];
 
-
 export const Route = createFileRoute("/grammar")({
   head: () => ({
     meta: [
       { title: "Polish Grammar Hub — Cases, Conjugation & Aspect | SlavicMind" },
-      { name: "description", content: "The seven Polish cases, four conjugation groups, verb aspect, and verb government — explained side-by-side for Bulgarian and English speakers." },
+      {
+        name: "description",
+        content:
+          "The seven Polish cases, four conjugation groups, verb aspect, and verb government — explained side-by-side for Bulgarian and English speakers.",
+      },
       { property: "og:title", content: "Polish Grammar — for Bulgarian speakers" },
-      { property: "og:description", content: "All seven cases, four conjugation groups, aspect pairs, and verb government in one place." },
+      {
+        property: "og:description",
+        content:
+          "All seven cases, four conjugation groups, aspect pairs, and verb government in one place.",
+      },
       { property: "og:url", content: "https://slavicmind-app.lovable.app/grammar" },
     ],
     links: [{ rel: "canonical", href: "https://slavicmind-app.lovable.app/grammar" }],
@@ -99,7 +115,9 @@ function GrammarHub() {
           </div>
 
           <section className="mt-12">
-            <h2 className="text-xs uppercase tracking-[0.3em] text-rose">Cases &amp; Declension · Падежи</h2>
+            <h2 className="text-xs uppercase tracking-[0.3em] text-rose">
+              Cases &amp; Declension · Падежи
+            </h2>
             <p className="mt-2 text-sm text-muted-foreground">
               Seven cases, each with declension tables, endings and prepositions. Drill them in Case
               Quest or the fill-the-blank game.
@@ -115,7 +133,9 @@ function GrammarHub() {
                   <div className="font-mono text-xs text-muted-foreground">0{i + 1}</div>
                   <div className="mt-3 font-serif text-2xl">{c.name}</div>
                   <div className="mt-1 text-sm text-crimson/90 font-mono">{c.question}</div>
-                  <div className="mt-3 text-xs text-muted-foreground">{c.bg} · {c.en}</div>
+                  <div className="mt-3 text-xs text-muted-foreground">
+                    {c.bg} · {c.en}
+                  </div>
                   <ArrowRight className="absolute top-5 right-5 h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:text-crimson transition" />
                 </Link>
               ))}
@@ -130,7 +150,8 @@ function GrammarHub() {
           <section className="mt-12">
             <h2 className="text-xs uppercase tracking-[0.3em] text-rose">Verbs · Глаголи</h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              Conjugation groups, aspect pairs and the verbs you need first — each with an existing drill.
+              Conjugation groups, aspect pairs and the verbs you need first — each with an existing
+              drill.
             </p>
             <div className="mt-4 grid md:grid-cols-3 gap-5">
               {VERBS.map((t) => (
@@ -150,7 +171,6 @@ function GrammarHub() {
               ))}
             </div>
           </section>
-
         </div>
       </div>
     </div>

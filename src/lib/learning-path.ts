@@ -137,7 +137,8 @@ export function recommendNext(p: ProgressState): Recommendation {
     };
   }
 
-  const next = PATH_STEPS.find((s) => stepStatus(s, p) !== "done") ?? PATH_STEPS[PATH_STEPS.length - 1];
+  const next =
+    PATH_STEPS.find((s) => stepStatus(s, p) !== "done") ?? PATH_STEPS[PATH_STEPS.length - 1];
 
   return {
     to: next.to,
