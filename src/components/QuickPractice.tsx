@@ -4,8 +4,18 @@ import { Repeat, Swords, Type, Zap } from "lucide-react";
 /** Short existing activities only — nothing new is invented here. */
 const ITEMS = [
   { to: "/games/quiz", label: "Timed quiz", desc: "Rapid vocabulary recall.", icon: Zap },
-  { to: "/games/conjugation", label: "Conjugation drill", desc: "Six pronouns, one verb.", icon: Repeat },
-  { to: "/games/fillblank", label: "Fill the blank", desc: "Pick the right case form.", icon: Type },
+  {
+    to: "/games/conjugation",
+    label: "Conjugation drill",
+    desc: "Six pronouns, one verb.",
+    icon: Repeat,
+  },
+  {
+    to: "/games/fillblank",
+    label: "Fill the blank",
+    desc: "Pick the right case form.",
+    icon: Type,
+  },
   { to: "/quest", label: "Case Quest", desc: "One kingdom per case.", icon: Swords },
 ];
 

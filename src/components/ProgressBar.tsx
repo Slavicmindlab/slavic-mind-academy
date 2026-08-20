@@ -32,7 +32,10 @@ export function ProgressBar({
         aria-valuetext={text}
         className="mt-2 h-2 w-full overflow-hidden rounded-full bg-surface-2"
       >
-        <div className="h-full bg-crimson-gradient transition-all duration-700" style={{ width: `${pct}%` }} />
+        <div
+          className="h-full bg-crimson-gradient transition-all duration-700"
+          style={{ width: `${pct}%` }}
+        />
       </div>
     </div>
   );

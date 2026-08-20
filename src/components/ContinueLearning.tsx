@@ -11,7 +11,13 @@ import { recommendNext } from "@/lib/learning-path";
  */
 export function ContinueLearning({ className = "" }: { className?: string }) {
   return (
-    <ClientOnly fallback={<div className={`h-[168px] rounded-2xl border border-border/70 bg-card-gradient ${className}`} />}>
+    <ClientOnly
+      fallback={
+        <div
+          className={`h-[168px] rounded-2xl border border-border/70 bg-card-gradient ${className}`}
+        />
+      }
+    >
       <ContinueLearningInner className={className} />
     </ClientOnly>
   );

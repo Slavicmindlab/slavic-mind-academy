@@ -6,15 +6,33 @@ import { useProgress, levelFromXp, QUEST_TARGETS, addXp } from "@/lib/progress";
 import { GREETINGS, useDayPhase } from "@/lib/time-of-day";
 import { ContinueLearning } from "@/components/ContinueLearning";
 import { QuickPractice } from "@/components/QuickPractice";
-import { Flame, Zap, Trophy, Target, ArrowRight, Sparkles, BookOpen, Gamepad2, Brain, Award } from "lucide-react";
+import {
+  Flame,
+  Zap,
+  Trophy,
+  Target,
+  ArrowRight,
+  Sparkles,
+  BookOpen,
+  Gamepad2,
+  Brain,
+  Award,
+} from "lucide-react";
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
     meta: [
       { title: "Dashboard — SlavicMind" },
-      { name: "description", content: "Your personal Polish learning dashboard: track XP, streak, daily quests, best scores across mind games, and the word of the day." },
+      {
+        name: "description",
+        content:
+          "Your personal Polish learning dashboard: track XP, streak, daily quests, best scores across mind games, and the word of the day.",
+      },
       { property: "og:title", content: "Your Polish learning dashboard" },
-      { property: "og:description", content: "Track XP, streak, daily quests, and best scores across ten Polish mind games." },
+      {
+        property: "og:description",
+        content: "Track XP, streak, daily quests, and best scores across ten Polish mind games.",
+      },
       { property: "og:url", content: "https://slavicmind-app.lovable.app/dashboard" },
       { name: "robots", content: "noindex" },
     ],
@@ -43,13 +61,20 @@ function Dashboard() {
         <div className="relative mx-auto max-w-7xl px-6 py-12">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 animate-fade-up">
             <div>
-              <div className="text-xs uppercase tracking-[0.3em] text-crimson">Witaj z powrotem</div>
+              <div className="text-xs uppercase tracking-[0.3em] text-crimson">
+                Witaj z powrotem
+              </div>
               <h1 className="mt-3 font-serif text-4xl md:text-5xl">
                 <TimeGreeting />
               </h1>
-              <p className="mt-2 text-muted-foreground">Five quiet minutes today. Then a streak begins.</p>
+              <p className="mt-2 text-muted-foreground">
+                Five quiet minutes today. Then a streak begins.
+              </p>
             </div>
-            <Link to="/learn/polish" className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-crimson-gradient text-ivory text-sm shadow-glow hover:opacity-95 transition">
+            <Link
+              to="/learn/polish"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-crimson-gradient text-ivory text-sm shadow-glow hover:opacity-95 transition"
+            >
               Polish hub <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -62,7 +87,12 @@ function Dashboard() {
             <Stat icon={Flame} label="Day streak" value={String(p.streak)} tone="crimson" />
             <Stat icon={Zap} label="XP today" value={String(p.xpToday)} tone="gold" />
             <Stat icon={Trophy} label="Level" value={String(lvl.level)} tone="rose" />
-            <Stat icon={Target} label="Recorded scores" value={String(recordedScores)} tone="ivory" />
+            <Stat
+              icon={Target}
+              label="Recorded scores"
+              value={String(recordedScores)}
+              tone="ivory"
+            />
           </div>
 
           <div className="mt-8">
@@ -76,9 +106,24 @@ function Dashboard() {
           </div>
 
           <div className="mt-8 grid md:grid-cols-3 gap-4">
-            <ShortcutCard icon={BookOpen} title="Vocabulary" body="490+ words across the full category set" to="/vocabulary" />
-            <ShortcutCard icon={Brain} title="Grammar Lab" body="Seven Polish cases, verbs, reference tables" to="/grammar" />
-            <ShortcutCard icon={Gamepad2} title="Mind games" body="Memory, Crossword, Quiz, Sentence, Match" to="/games" />
+            <ShortcutCard
+              icon={BookOpen}
+              title="Vocabulary"
+              body="490+ words across the full category set"
+              to="/vocabulary"
+            />
+            <ShortcutCard
+              icon={Brain}
+              title="Grammar Lab"
+              body="Seven Polish cases, verbs, reference tables"
+              to="/grammar"
+            />
+            <ShortcutCard
+              icon={Gamepad2}
+              title="Mind games"
+              body="Memory, Crossword, Quiz, Sentence, Match"
+              to="/games"
+            />
           </div>
 
           <div className="mt-8 grid lg:grid-cols-3 gap-6">
@@ -91,8 +136,23 @@ function Dashboard() {
   );
 }
 
-function Stat({ icon: Icon, label, value, tone }: { icon: any; label: string; value: string; tone: "crimson" | "gold" | "rose" | "ivory" }) {
-  const tones: Record<string, string> = { crimson: "text-crimson", gold: "text-gold", rose: "text-rose", ivory: "text-ivory" };
+function Stat({
+  icon: Icon,
+  label,
+  value,
+  tone,
+}: {
+  icon: any;
+  label: string;
+  value: string;
+  tone: "crimson" | "gold" | "rose" | "ivory";
+}) {
+  const tones: Record<string, string> = {
+    crimson: "text-crimson",
+    gold: "text-gold",
+    rose: "text-rose",
+    ivory: "text-ivory",
+  };
   return (
     <div className="rounded-xl border border-border/70 bg-card-gradient p-5 hover:border-crimson/40 transition">
       <div className="flex items-center justify-between">
@@ -119,7 +179,9 @@ function WordOfDay() {
       <div className="mt-2 font-mono text-sm text-muted-foreground">/{w.pronunciation}/</div>
       <div className="mt-6 grid sm:grid-cols-2 gap-4">
         <div className="p-4 rounded-lg bg-surface/60 border border-border/60">
-          <div className="text-[10px] uppercase tracking-widest text-muted-foreground">Български</div>
+          <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
+            Български
+          </div>
           <div className="mt-1 font-serif text-xl">{w.bg}</div>
         </div>
         <div className="p-4 rounded-lg bg-surface/60 border border-border/60">
@@ -128,7 +190,9 @@ function WordOfDay() {
         </div>
       </div>
       <blockquote className="mt-6 border-l-2 border-crimson pl-4 italic text-muted-foreground flex items-start gap-2">
-        <span>"{w.example.pl}" — {w.example.bg}</span>
+        <span>
+          "{w.example.pl}" — {w.example.bg}
+        </span>
         <SpeakButton text={w.example.pl} lang="pl-PL" />
       </blockquote>
     </div>
@@ -140,14 +204,20 @@ function DailyChallenge() {
     <div className="rounded-2xl border border-border/70 bg-card-gradient p-6 flex flex-col">
       <div className="text-xs uppercase tracking-[0.3em] text-crimson">Daily challenge</div>
       <h2 className="mt-4 font-serif text-2xl">Brain warm-up</h2>
-      <p className="mt-2 text-sm text-muted-foreground">Match 12 Polish words to their Bulgarian translations in under 60 seconds.</p>
+      <p className="mt-2 text-sm text-muted-foreground">
+        Match 12 Polish words to their Bulgarian translations in under 60 seconds.
+      </p>
       <div className="mt-6 p-4 rounded-lg bg-surface/60 border border-border/60">
         <div className="flex items-center justify-between text-xs">
           <span className="text-muted-foreground">Reward</span>
           <span className="font-mono text-gold">+120 XP</span>
         </div>
       </div>
-      <Link to="/games/quiz" onClick={() => addXp(10, "Daily warm-up bonus")} className="mt-auto pt-6">
+      <Link
+        to="/games/quiz"
+        onClick={() => addXp(10, "Daily warm-up bonus")}
+        className="mt-auto pt-6"
+      >
         <span className="inline-flex w-full items-center justify-center gap-2 px-4 py-3 rounded-lg bg-crimson-gradient text-ivory text-sm shadow-glow hover:opacity-95 transition">
           Start challenge <ArrowRight className="h-4 w-4" />
         </span>
@@ -156,7 +226,17 @@ function DailyChallenge() {
   );
 }
 
-function ProgressCard({ total, into, needed, level }: { total: number; into: number; needed: number; level: number }) {
+function ProgressCard({
+  total,
+  into,
+  needed,
+  level,
+}: {
+  total: number;
+  into: number;
+  needed: number;
+  level: number;
+}) {
   const pct = needed === 0 ? 100 : Math.round((into / needed) * 100);
   return (
     <div className="lg:col-span-3 rounded-2xl border border-border/70 bg-card-gradient p-8">
@@ -165,18 +245,36 @@ function ProgressCard({ total, into, needed, level }: { total: number; into: num
           <div className="text-xs uppercase tracking-[0.3em] text-crimson">Progress</div>
           <h2 className="mt-3 font-serif text-2xl">Level {level}</h2>
         </div>
-        <div className="text-sm text-muted-foreground font-mono">{into} / {needed} XP · total {total}</div>
+        <div className="text-sm text-muted-foreground font-mono">
+          {into} / {needed} XP · total {total}
+        </div>
       </div>
       <div className="mt-5 h-2.5 rounded-full bg-surface-2 overflow-hidden">
-        <div className="h-full bg-crimson-gradient transition-all duration-700" style={{ width: `${pct}%` }} />
+        <div
+          className="h-full bg-crimson-gradient transition-all duration-700"
+          style={{ width: `${pct}%` }}
+        />
       </div>
     </div>
   );
 }
 
-function ShortcutCard({ icon: Icon, title, body, to }: { icon: any; title: string; body: string; to: string }) {
+function ShortcutCard({
+  icon: Icon,
+  title,
+  body,
+  to,
+}: {
+  icon: any;
+  title: string;
+  body: string;
+  to: string;
+}) {
   return (
-    <Link to={to} className="group rounded-xl border border-border/70 bg-card-gradient p-6 hover:border-crimson/60 hover:-translate-y-0.5 transition-all">
+    <Link
+      to={to}
+      className="group rounded-xl border border-border/70 bg-card-gradient p-6 hover:border-crimson/60 hover:-translate-y-0.5 transition-all"
+    >
       <Icon className="h-5 w-5 text-crimson" />
       <div className="mt-4 font-serif text-xl">{title}</div>
       <div className="mt-1 text-sm text-muted-foreground">{body}</div>
@@ -200,13 +298,18 @@ function Quests({ p }: { p: ReturnType<typeof useProgress> }) {
           const complete = done >= q.total;
           return (
             <li key={id} className="py-4 flex items-center gap-4">
-              <div className={`h-8 w-8 rounded-full grid place-items-center border ${complete ? "bg-crimson-gradient border-transparent text-ivory" : "border-border/80 text-muted-foreground"}`}>
+              <div
+                className={`h-8 w-8 rounded-full grid place-items-center border ${complete ? "bg-crimson-gradient border-transparent text-ivory" : "border-border/80 text-muted-foreground"}`}
+              >
                 <Trophy className="h-4 w-4" />
               </div>
               <div className="flex-1">
                 <div className="text-sm">{q.title}</div>
                 <div className="mt-1 h-1 rounded-full bg-surface-2 overflow-hidden">
-                  <div className="h-full bg-crimson-gradient" style={{ width: `${(done / q.total) * 100}%` }} />
+                  <div
+                    className="h-full bg-crimson-gradient"
+                    style={{ width: `${(done / q.total) * 100}%` }}
+                  />
                 </div>
               </div>
               <div className="font-mono text-sm text-gold">+{q.xp} XP</div>
@@ -238,7 +341,10 @@ function Achievements({ p }: { p: ReturnType<typeof useProgress> }) {
         {all.map((id) => {
           const earned = p.achievements.includes(id as any);
           return (
-            <div key={id} className={`p-3 rounded-lg border text-xs flex items-center gap-2 ${earned ? "border-crimson/50 bg-surface/60" : "border-border/60 bg-surface/20 opacity-40"}`}>
+            <div
+              key={id}
+              className={`p-3 rounded-lg border text-xs flex items-center gap-2 ${earned ? "border-crimson/50 bg-surface/60" : "border-border/60 bg-surface/20 opacity-40"}`}
+            >
               <Award className={`h-4 w-4 ${earned ? "text-gold" : "text-muted-foreground"}`} />
               <span>{ACH_LABELS[id]}</span>
             </div>

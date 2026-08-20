@@ -8,8 +8,21 @@ import { QuickPractice } from "@/components/QuickPractice";
 import { useProgress, levelFromXp } from "@/lib/progress";
 
 import {
-  ArrowRight, BookOpen, Brain, Gamepad2, Languages, Layers, Library,
-  Repeat, Route as RouteIcon, Sparkles, Swords, Type, Flame, Zap, Crown,
+  ArrowRight,
+  BookOpen,
+  Brain,
+  Gamepad2,
+  Languages,
+  Layers,
+  Library,
+  Repeat,
+  Route as RouteIcon,
+  Sparkles,
+  Swords,
+  Type,
+  Flame,
+  Zap,
+  Crown,
 } from "lucide-react";
 
 const TITLE = "Learn Polish — grammar, vocabulary and mind games | SlavicMind";
@@ -42,7 +55,11 @@ export const Route = createFileRoute("/learn/polish")({
           url: URL,
           inLanguage: "pl",
           teaches: "Polish grammar, cases, verb aspect and vocabulary",
-          provider: { "@type": "Organization", name: "SlavicMind", url: "https://slavicmind-app.lovable.app" },
+          provider: {
+            "@type": "Organization",
+            name: "SlavicMind",
+            url: "https://slavicmind-app.lovable.app",
+          },
         }),
       },
     ],
@@ -53,28 +70,93 @@ export const Route = createFileRoute("/learn/polish")({
 type Item = { to: string; label: string; desc: string; icon: typeof BookOpen };
 
 const GRAMMAR: Item[] = [
-  { to: "/grammar", label: "Grammar Lab", desc: "The hub for every Polish grammar system.", icon: Layers },
-  { to: "/grammar/cases/mianownik", label: "The seven cases", desc: "Full declension tables, endings and prepositions.", icon: BookOpen },
-  { to: "/grammar/conjugation", label: "Conjugation groups", desc: "All four groups with worked paradigms.", icon: Repeat },
-  { to: "/grammar/aspect", label: "Verb aspect", desc: "Perfective vs imperfective, explained in Bulgarian.", icon: RouteIcon },
-  { to: "/grammar/verbs", label: "Core verbs", desc: "The verbs you actually need first.", icon: Type },
-  { to: "/grammar/connections", label: "Verbs → cases", desc: "Which case each verb and preposition governs.", icon: Brain },
+  {
+    to: "/grammar",
+    label: "Grammar Lab",
+    desc: "The hub for every Polish grammar system.",
+    icon: Layers,
+  },
+  {
+    to: "/grammar/cases/mianownik",
+    label: "The seven cases",
+    desc: "Full declension tables, endings and prepositions.",
+    icon: BookOpen,
+  },
+  {
+    to: "/grammar/conjugation",
+    label: "Conjugation groups",
+    desc: "All four groups with worked paradigms.",
+    icon: Repeat,
+  },
+  {
+    to: "/grammar/aspect",
+    label: "Verb aspect",
+    desc: "Perfective vs imperfective, explained in Bulgarian.",
+    icon: RouteIcon,
+  },
+  {
+    to: "/grammar/verbs",
+    label: "Core verbs",
+    desc: "The verbs you actually need first.",
+    icon: Type,
+  },
+  {
+    to: "/grammar/connections",
+    label: "Verbs → cases",
+    desc: "Which case each verb and preposition governs.",
+    icon: Brain,
+  },
 ];
 
 const VOCAB: Item[] = [
-  { to: "/vocabulary", label: "Vocabulary", desc: "490+ entries with gender, plural, audio and examples.", icon: Languages },
-  { to: "/daily", label: "Daily ritual", desc: "Word of the day, idiom, micro-quiz and streak.", icon: Sparkles },
+  {
+    to: "/vocabulary",
+    label: "Vocabulary",
+    desc: "490+ entries with gender, plural, audio and examples.",
+    icon: Languages,
+  },
+  {
+    to: "/daily",
+    label: "Daily ritual",
+    desc: "Word of the day, idiom, micro-quiz and streak.",
+    icon: Sparkles,
+  },
 ];
 
 const PRACTICE: Item[] = [
-  { to: "/games", label: "Mind games", desc: "Ten games: crossword, memory, battle, sentence building.", icon: Gamepad2 },
-  { to: "/quest", label: "Case Quest", desc: "Seven kingdoms, one per case, with boss trials.", icon: Swords },
-  { to: "/games/quiz", label: "Timed quiz", desc: "Rapid vocabulary recall against the clock.", icon: Zap },
+  {
+    to: "/games",
+    label: "Mind games",
+    desc: "Ten games: crossword, memory, battle, sentence building.",
+    icon: Gamepad2,
+  },
+  {
+    to: "/quest",
+    label: "Case Quest",
+    desc: "Seven kingdoms, one per case, with boss trials.",
+    icon: Swords,
+  },
+  {
+    to: "/games/quiz",
+    label: "Timed quiz",
+    desc: "Rapid vocabulary recall against the clock.",
+    icon: Zap,
+  },
 ];
 
 const READING: Item[] = [
-  { to: "/stories", label: "Stories", desc: "Folklore with parallel Polish and Bulgarian text.", icon: Library },
-  { to: "/guide/difficulty", label: "Is Polish hard?", desc: "An honest guide for Bulgarian speakers.", icon: BookOpen },
+  {
+    to: "/stories",
+    label: "Stories",
+    desc: "Folklore with parallel Polish and Bulgarian text.",
+    icon: Library,
+  },
+  {
+    to: "/guide/difficulty",
+    label: "Is Polish hard?",
+    desc: "An honest guide for Bulgarian speakers.",
+    icon: BookOpen,
+  },
 ];
 
 function PolishHub() {
@@ -116,11 +198,32 @@ function PolishHub() {
         </div>
       </section>
 
-      <Group eyebrow="01 · Grammar Lab" title="Master the systems" subtitle="Cases, conjugation, aspect and government — the load-bearing walls of Polish." items={GRAMMAR} />
-      <Group eyebrow="02 · Vocabulary" title="Build the words" subtitle="Topic-based vocabulary with pronunciation, gender and real example sentences." items={VOCAB} tinted />
-      <Group eyebrow="03 · Practice" title="Train it until it's automatic" subtitle="Interactive games and quests that reward consistency rather than grinding." items={PRACTICE} />
-      <Group eyebrow="04 · Reading" title="Meet real Polish" subtitle="Folklore, culture and honest guidance for Bulgarian speakers." items={READING} tinted />
-
+      <Group
+        eyebrow="01 · Grammar Lab"
+        title="Master the systems"
+        subtitle="Cases, conjugation, aspect and government — the load-bearing walls of Polish."
+        items={GRAMMAR}
+      />
+      <Group
+        eyebrow="02 · Vocabulary"
+        title="Build the words"
+        subtitle="Topic-based vocabulary with pronunciation, gender and real example sentences."
+        items={VOCAB}
+        tinted
+      />
+      <Group
+        eyebrow="03 · Practice"
+        title="Train it until it's automatic"
+        subtitle="Interactive games and quests that reward consistency rather than grinding."
+        items={PRACTICE}
+      />
+      <Group
+        eyebrow="04 · Reading"
+        title="Meet real Polish"
+        subtitle="Folklore, culture and honest guidance for Bulgarian speakers."
+        items={READING}
+        tinted
+      />
 
       <section className="border-t border-border/60">
         <div className="mx-auto max-w-4xl px-6 py-16 text-center">
@@ -151,7 +254,10 @@ function HubStats() {
   return (
     <div className="mt-8 grid max-w-lg grid-cols-3 gap-3">
       {stats.map((s) => (
-        <div key={s.label} className="rounded-xl border border-border/60 bg-surface/40 p-3 backdrop-blur">
+        <div
+          key={s.label}
+          className="rounded-xl border border-border/60 bg-surface/40 p-3 backdrop-blur"
+        >
           <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-widest text-muted-foreground">
             <s.icon className="h-3 w-3 text-crimson" /> {s.label}
           </div>
@@ -163,8 +269,18 @@ function HubStats() {
 }
 
 function Group({
-  eyebrow, title, subtitle, items, tinted,
-}: { eyebrow: string; title: string; subtitle: string; items: Item[]; tinted?: boolean }) {
+  eyebrow,
+  title,
+  subtitle,
+  items,
+  tinted,
+}: {
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  items: Item[];
+  tinted?: boolean;
+}) {
   return (
     <section className={`border-t border-border/60 ${tinted ? "bg-surface/20" : ""}`}>
       <div className="mx-auto max-w-7xl px-6 py-14">
@@ -180,7 +296,8 @@ function Group({
               <div className="mt-4 font-serif text-xl">{i.label}</div>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{i.desc}</p>
               <span className="mt-4 inline-flex items-center gap-1 text-xs text-crimson">
-                Open <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
+                Open{" "}
+                <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
               </span>
             </Link>
           ))}
