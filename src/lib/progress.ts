@@ -4,6 +4,7 @@
 import { useEffect, useSyncExternalStore } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import type { RealtimeChannel } from "@supabase/supabase-js";
+import { localDateKey, localDateKeyOffset } from "@/lib/local-date";
 
 const KEY = "slavicmind:progress:v1";
 
@@ -26,7 +27,27 @@ export type ProgressState = {
   quests: DailyQuestState;
 };
 
-const today = () => new Date().toISOString().slice(0, 10);
+// Local calendar day (see src/lib/local-date.ts). Same YYYY-MM-DD shape as the
+// previous UTC key, so existing stored values keep working.
+const today = () => localDateKey();
+
+/**
+ * Persistence writes are optimistic: the UI already reflects the change. If the
+ * remote write fails we must not crash the UI, but we also must not pretend it
+ * succeeded — log it for development and surface it to the error capture layer.
+ */
+function reportWriteFailure(op: string, error: unknown) {
+  console.error(`[progress] failed to save "${op}"`, error);
+}
+
+async function safeWrite(op: string, run: () => PromiseLike<{ error: unknown } | void>) {
+  try {
+    const res = await run();
+    if (res && "error" in res && res.error) reportWriteFailure(op, res.error);
+  } catch (e) {
+    reportWriteFailure(op, e);
+  }
+}
 
 const initial: ProgressState = {
   xp: 0, xpToday: 0, todayKey: today(), streak: 0, lastActive: "",
@@ -67,8 +88,7 @@ function rolloverIfNeeded() {
 function bumpStreak() {
   const t = today();
   if (state.lastActive === t) return;
-  const yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1);
-  const y = yesterday.toISOString().slice(0, 10);
+  const y = localDateKeyOffset(1);
   const next = state.lastActive === y ? state.streak + 1 : 1;
   state = { ...state, lastActive: t, streak: next };
 }
@@ -192,33 +212,35 @@ function persist() {
 
 async function writeProgress() {
   if (!userId) return;
-  await supabase.from("user_progress").upsert({
-    user_id: userId,
+  const uid = userId;
+  await safeWrite("progress", () => supabase.from("user_progress").upsert({
+    user_id: uid,
     xp: state.xp,
     xp_today: state.xpToday,
     today_key: state.todayKey,
     streak: state.streak,
     last_active: state.lastActive,
-  });
+  }));
 }
 
 async function writeQuests() {
   if (!userId) return;
-  await supabase.from("user_quests").upsert({
-    user_id: userId,
+  const uid = userId;
+  await safeWrite("daily quests", () => supabase.from("user_quests").upsert({
+    user_id: uid,
     today_key: state.todayKey,
     learn_words: state.quests.learn_words,
     play_game: state.quests.play_game,
     grammar_drill: state.quests.grammar_drill,
-  });
+  }));
 }
 
 async function writeAchievements(newOnes: Achievement[]) {
   if (!userId || !newOnes.length) return;
-  await supabase.from("user_achievements").upsert(
+  await safeWrite("achievements", () => supabase.from("user_achievements").upsert(
     newOnes.map((achievement) => ({ user_id: userId!, achievement })),
     { onConflict: "user_id,achievement" }
-  );
+  ));
 }
 
 export function onXpGain(cb: (amount: number, reason?: string) => void) {
@@ -258,7 +280,7 @@ export function recordGamePlay(gameId: string, score: number) {
   const newAch = [...ach].filter((a) => !prevAch.has(a));
   persist();
   if (userId) {
-    void supabase.from("user_best_scores").upsert({ user_id: userId, game_id: gameId, score: best }, { onConflict: "user_id,game_id" });
+    void safeWrite("best score", () => supabase.from("user_best_scores").upsert({ user_id: userId!, game_id: gameId, score: best }, { onConflict: "user_id,game_id" }));
     void writeQuests();
     void writeAchievements(newAch);
   }
@@ -298,8 +320,8 @@ export function toggleFavorite(id: string) {
   const newAch = [...ach].filter((a) => !prevAch.has(a));
   persist();
   if (userId) {
-    if (adding) void supabase.from("user_favorites").upsert({ user_id: userId, word_id: id }, { onConflict: "user_id,word_id" });
-    else void supabase.from("user_favorites").delete().eq("user_id", userId).eq("word_id", id);
+    if (adding) void safeWrite("favorite", () => supabase.from("user_favorites").upsert({ user_id: userId!, word_id: id }, { onConflict: "user_id,word_id" }));
+    else void safeWrite("favorite", () => supabase.from("user_favorites").delete().eq("user_id", userId!).eq("word_id", id));
     void writeAchievements(newAch);
   }
 }

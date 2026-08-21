@@ -12,11 +12,17 @@ export default defineTool({
     if (!ctx.isAuthenticated() || !userId)
       return { content: [{ type: "text", text: "Not authenticated" }], isError: true };
     const supabase = supabaseForUser(ctx);
-    const { data, error } = await supabase
-      .from("user_progress")
-      .select("xp, xp_today, streak, hero_name, last_active")
-      .eq("user_id", userId)
-      .maybeSingle();
+    // profiles.hero_name is the authoritative hero name (the quest store reads
+    // and writes it there). user_progress.hero_name is legacy duplication and
+    // is intentionally not read.
+    const [{ data, error }, { data: profile }] = await Promise.all([
+      supabase
+        .from("user_progress")
+        .select("xp, xp_today, streak, last_active")
+        .eq("user_id", userId)
+        .maybeSingle(),
+      supabase.from("profiles").select("hero_name").eq("id", userId).maybeSingle(),
+    ]);
     if (error)
       return { content: [{ type: "text", text: error.message }], isError: true };
     const xp = data?.xp ?? 0;
@@ -26,7 +32,7 @@ export default defineTool({
       level,
       xp_today: data?.xp_today ?? 0,
       streak: data?.streak ?? 0,
-      hero_name: data?.hero_name ?? "Traveller",
+      hero_name: profile?.hero_name ?? "Traveller",
       last_active: data?.last_active ?? null,
     };
     return {

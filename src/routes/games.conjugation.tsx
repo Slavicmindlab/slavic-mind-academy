@@ -48,9 +48,12 @@ function Conjugation() {
 
   const next = () => {
     if (allRight) {
-      setXp((x) => x + 60);
+      const total = xp + 60;
+      setXp(total);
       addXp(60, "Conjugation Drill");
-      recordGamePlay("conjugation", 60);
+      // Store the running session total so a best score means "N clean verbs",
+      // not merely "this drill was opened once".
+      recordGamePlay("conjugation", total);
     }
     setIdx((i) => (i + 1) % CONJUGATIONS.length);
   };

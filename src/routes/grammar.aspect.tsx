@@ -3,6 +3,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SpeakButton } from "@/components/SpeakButton";
 import { ASPECT_PAIRS } from "@/data/grammar";
 import { ArrowLeft } from "lucide-react";
+import { NextStep } from "@/components/NextStep";
 
 export const Route = createFileRoute("/grammar/aspect")({
   head: () => ({
@@ -48,6 +49,14 @@ function AspectPage() {
               </div>
             ))}
           </div>
+
+          <NextStep
+            links={[
+              { to: "/games/fillblank", label: "Fill the blank drill" },
+              { to: "/grammar/conjugation", label: "Conjugation groups" },
+              { to: "/grammar", label: "Back to Grammar Lab" },
+            ]}
+          />
         </div>
       </div>
     </div>
