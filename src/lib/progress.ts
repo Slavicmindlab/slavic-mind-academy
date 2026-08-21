@@ -40,7 +40,7 @@ function reportWriteFailure(op: string, error: unknown) {
   console.error(`[progress] failed to save "${op}"`, error);
 }
 
-async function safeWrite(op: string, run: () => Promise<{ error: unknown } | void>) {
+async function safeWrite(op: string, run: () => PromiseLike<{ error: unknown } | void>) {
   try {
     const res = await run();
     if (res && "error" in res && res.error) reportWriteFailure(op, res.error);
@@ -212,8 +212,9 @@ function persist() {
 
 async function writeProgress() {
   if (!userId) return;
+  const uid = userId;
   await safeWrite("progress", () => supabase.from("user_progress").upsert({
-    user_id: userId,
+    user_id: uid,
     xp: state.xp,
     xp_today: state.xpToday,
     today_key: state.todayKey,
@@ -224,8 +225,9 @@ async function writeProgress() {
 
 async function writeQuests() {
   if (!userId) return;
+  const uid = userId;
   await safeWrite("daily quests", () => supabase.from("user_quests").upsert({
-    user_id: userId,
+    user_id: uid,
     today_key: state.todayKey,
     learn_words: state.quests.learn_words,
     play_game: state.quests.play_game,
