@@ -27,6 +27,8 @@ export const Route = createFileRoute("/")({
       { property: "og:url", content: "https://slavicmind-app.lovable.app/" },
       { name: "twitter:title", content: "SlavicMind — Learn Polish, made for Bulgarians" },
       { name: "twitter:description", content: "Modern Slavic language platform: vocabulary, Polish cases, gamified mind games, history, literature, mythology." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e7823e0a-65c0-4603-a234-d505bf4acad6/id-preview-b7728456--434e5a7f-5664-4015-b7bb-bd977f97bb2a.lovable.app-1778088145040.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e7823e0a-65c0-4603-a234-d505bf4acad6/id-preview-b7728456--434e5a7f-5664-4015-b7bb-bd977f97bb2a.lovable.app-1778088145040.png" },
     ],
     links: [{ rel: "canonical", href: "https://slavicmind-app.lovable.app/" }],
   }),

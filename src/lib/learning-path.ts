@@ -91,15 +91,27 @@ export const PATH_STEPS: PathStep[] = [
   },
 ];
 
-/** Best-score keys that count as "this game has been played". */
-const GAME_FOR_STEP: Record<string, string> = {
-  "case-drill": "fillblank",
-  "verb-drill": "conjugation",
+/**
+ * Completion thresholds per drill, read from the drill's real score scale.
+ * A stored score alone is never treated as completion.
+ *
+ * - fillblank stores the number of correct answers out of a 6-item round,
+ *   so 5/6 is a defensible "you can do this" bar.
+ * - conjugation stores the session total, awarding 60 per verb whose six
+ *   forms were all typed correctly, so 180 means three clean verbs.
+ */
+const GAME_FOR_STEP: Record<string, { game: string; done: number }> = {
+  "case-drill": { game: "fillblank", done: 5 },
+  "verb-drill": { game: "conjugation", done: 180 },
 };
 
 export function stepStatus(step: PathStep, p: ProgressState): StepStatus {
-  const game = GAME_FOR_STEP[step.id];
-  if (game) return p.bestScores[game] !== undefined ? "done" : "open";
+  const drill = GAME_FOR_STEP[step.id];
+  if (drill) {
+    const best = p.bestScores[drill.game];
+    if (best === undefined) return "open";
+    return best >= drill.done ? "done" : "started";
+  }
 
   switch (step.id) {
     case "vocab-basics":

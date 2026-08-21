@@ -84,8 +84,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:site", content: "@Lovable" },
       { name: "twitter:title", content: "Slavic Mind" },
       { name: "twitter:description", content: "SlavicMind blends Polish learning, Slavic philology, vocabulary systems, grammar, and mind games into a modern interactive study experience." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e7823e0a-65c0-4603-a234-d505bf4acad6/id-preview-b7728456--434e5a7f-5664-4015-b7bb-bd977f97bb2a.lovable.app-1778088145040.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e7823e0a-65c0-4603-a234-d505bf4acad6/id-preview-b7728456--434e5a7f-5664-4015-b7bb-bd977f97bb2a.lovable.app-1778088145040.png" },
+      // og:image belongs on leaf routes only — a root-level one overrides
+      // every page with the same generic preview. The homepage sets its own.
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },

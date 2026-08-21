@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
+import { STORIES } from "@/data/stories";
 
 const BASE_URL = "https://slavicmind-app.lovable.app";
 
@@ -11,8 +12,9 @@ interface SitemapEntry {
 
 const CASE_SLUGS = ["mianownik", "dopelniacz", "celownik", "biernik", "narzednik", "miejscownik", "wolacz"];
 
-// Story ids are stable — mirror src/data/stories.ts. Update when stories change.
-const STORY_IDS = ["baba-yaga", "wawel-dragon", "krakus"];
+// Story URLs come straight from the story data, so the sitemap can never
+// advertise a story route that does not exist.
+const STORY_IDS = STORIES.map((s) => s.id);
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
