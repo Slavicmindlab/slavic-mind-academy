@@ -5,6 +5,7 @@ import { SpeakButton } from "@/components/SpeakButton";
 import { CONJUGATION_GROUPS, CONJ_VERBS, PRONOUNS, type ConjugationGroup } from "@/data/grammar";
 import { addXp, recordGrammarDrill } from "@/lib/progress";
 import { ArrowLeft, Sparkles } from "lucide-react";
+import { NextStep } from "@/components/NextStep";
 
 export const Route = createFileRoute("/grammar/conjugation")({
   head: () => ({
@@ -100,6 +101,14 @@ function ConjugationPage() {
               </div>
             ))}
           </div>
+
+          <NextStep
+            links={[
+              { to: "/games/conjugation", label: "Conjugation drill" },
+              { to: "/grammar/aspect", label: "Verb aspect" },
+              { to: "/grammar", label: "Back to Grammar Lab" },
+            ]}
+          />
         </div>
       </div>
     </div>
