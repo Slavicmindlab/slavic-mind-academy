@@ -5,6 +5,7 @@ import { CASES } from "@/data/vocabulary";
 import { DECLENSIONS, type CaseSlug } from "@/data/grammar";
 import { SpeakButton } from "@/components/SpeakButton";
 import { addXp, recordGrammarDrill } from "@/lib/progress";
+import { NextStep } from "@/components/NextStep";
 import { ArrowLeft, Check, X, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/grammar/cases/$case")({
@@ -192,6 +193,15 @@ function CaseDetail() {
               })}
             </div>
           </div>
+
+          <NextStep
+            title={`Practise ${c.name}`}
+            links={[
+              { to: "/quest", label: "Case Quest — the seven kingdoms" },
+              { to: "/games/fillblank", label: "Fill the blank drill" },
+              { to: "/grammar", label: "Back to Grammar Lab" },
+            ]}
+          />
         </div>
       </div>
     </div>

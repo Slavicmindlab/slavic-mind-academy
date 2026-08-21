@@ -4,6 +4,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SpeakButton } from "@/components/SpeakButton";
 import { STORIES } from "@/data/stories";
 import { addXp } from "@/lib/progress";
+import { NextStep } from "@/components/NextStep";
 import { ArrowLeft, Check, X, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/stories/$id")({
@@ -44,6 +45,9 @@ function StoryReader() {
   const { id } = Route.useParams();
   const story = STORIES.find((s) => s.id === id);
   if (!story) throw notFound();
+
+  const idx = STORIES.findIndex((s) => s.id === id);
+  const nextStory = STORIES[(idx + 1) % STORIES.length];
 
   const [showBg, setShowBg] = useState(false);
   const [answers, setAnswers] = useState<Record<number, number>>({});
@@ -146,6 +150,16 @@ function StoryReader() {
               </div>
             )}
           </div>
+
+          <NextStep
+            links={[
+              ...(nextStory && nextStory.id !== id
+                ? [{ to: "/stories/$id", params: { id: nextStory.id }, label: `Next story · ${nextStory.title.pl}` }]
+                : []),
+              { to: "/vocabulary", label: "Save new words" },
+              { to: "/learn/polish", label: "Your Polish path" },
+            ]}
+          />
         </div>
       </div>
     </div>
