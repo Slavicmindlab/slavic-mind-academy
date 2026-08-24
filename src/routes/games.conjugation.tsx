@@ -94,7 +94,7 @@ function Conjugation() {
               {PRONOUNS.map((p) => {
                 const state = correctness[p.key];
                 return (
-                  <div key={p.key} className="grid grid-cols-[7rem_1fr_auto] gap-3 items-center py-3">
+                  <div key={p.key} className="grid grid-cols-[auto_minmax(0,1fr)_auto] gap-3 items-center py-3 sm:grid-cols-[7rem_minmax(0,1fr)_auto]">
                     <div>
                       <div className="font-serif text-lg">{p.label}</div>
                       <div className="text-[10px] uppercase tracking-widest text-muted-foreground">{p.bg}</div>
@@ -103,7 +103,7 @@ function Conjugation() {
                       value={vals[p.key] || ""}
                       onChange={(e) => setVals((v) => ({ ...v, [p.key]: e.target.value }))}
                       placeholder="…"
-                      className={`px-4 py-2.5 rounded-lg bg-surface/60 border outline-none font-serif text-lg transition
+                      className={`min-w-0 px-3 py-2.5 rounded-lg bg-surface/60 border outline-none font-serif text-lg transition sm:px-4
                         ${state === true ? "border-crimson text-ivory"
                           : state === false ? "border-rose/70 text-rose"
                           : "border-border/70 focus:border-crimson"}`}
