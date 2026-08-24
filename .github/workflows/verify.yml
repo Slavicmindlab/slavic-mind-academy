@@ -1,0 +1,181 @@
+name: Verify
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches:
+      - main
+      - "phase-*"
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Typecheck
+        run: bunx tsc --noEmit
+
+      - name: Lint changed TypeScript source
+        shell: bash
+        run: |
+          if [[ -n "${GITHUB_BASE_REF}" ]]; then
+            git fetch origin "${GITHUB_BASE_REF}"
+            RANGE="origin/${GITHUB_BASE_REF}...HEAD"
+          else
+            RANGE="HEAD^...HEAD"
+          fi
+
+          mapfile -t FILES < <(git diff --name-only --diff-filter=ACMR "$RANGE" | grep -E '^src/.*\.(ts|tsx)$' || true)
+
+          if (( ${#FILES[@]} == 0 )); then
+            echo "No changed TypeScript source files to lint."
+          else
+            printf 'Linting changed source:\n%s\n' "${FILES[*]}"
+            bunx eslint "${FILES[@]}"
+          fi
+
+      - name: Full repository lint — legacy debt report
+        continue-on-error: true
+        run: bun run lint
+
+      - name: Production build
+        run: bun run build
+
+      - name: Install browser smoke-test dependency
+        run: |
+          bun add --no-save playwright@1.55.0
+          bunx playwright install --with-deps chromium
+
+      - name: Browser smoke test — desktop and 393px
+        shell: bash
+        run: |
+          bun run dev -- --host 127.0.0.1 --port 4173 > /tmp/slavicmind-vite.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID || true' EXIT
+
+          for i in {1..60}; do
+            if curl -fsS http://127.0.0.1:4173/ >/dev/null; then
+              break
+            fi
+            sleep 1
+          done
+
+          curl -fsS http://127.0.0.1:4173/ >/dev/null || {
+            cat /tmp/slavicmind-vite.log
+            exit 1
+          }
+
+          bun - <<'EOF'
+          import { chromium } from "playwright";
+
+          const base = "http://127.0.0.1:4173";
+          const routes = [
+            "/",
+            "/learn",
+            "/learn/polish",
+            "/grammar",
+            "/grammar/cases/dopelniacz",
+            "/grammar/conjugation",
+            "/grammar/aspect",
+            "/games",
+            "/games/conjugation",
+            "/games/crossword",
+            "/games/fillblank",
+            "/quest",
+            "/dashboard",
+            "/vocabulary",
+            "/stories",
+            "/stories/kawiarnia",
+            "/stories/uniwersytet",
+            "/stories/podroz",
+            "/stories/wieczor",
+            "/daily",
+          ];
+
+          const browser = await chromium.launch({ headless: true });
+          const failures = [];
+
+          for (const viewport of [
+            { width: 1280, height: 900, label: "desktop" },
+            { width: 393, height: 800, label: "mobile-393" },
+          ]) {
+            const context = await browser.newContext({ viewport });
+            const page = await context.newPage();
+            const errors = [];
+            page.on("console", (msg) => {
+              if (msg.type() === "error") errors.push(msg.text());
+            });
+            page.on("pageerror", (err) => errors.push(err.message));
+
+            for (const route of routes) {
+              errors.length = 0;
+              const response = await page.goto(`${base}${route}`, {
+                waitUntil: "domcontentloaded",
+                timeout: 30000,
+              });
+              await page.waitForTimeout(250);
+
+              const status = response?.status() ?? 0;
+              const overflow = await page.evaluate(
+                () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+              );
+              const h1Count = await page.locator("h1").count();
+
+              if (status >= 400 || overflow > 0 || h1Count !== 1 || errors.length > 0) {
+                failures.push({
+                  viewport: viewport.label,
+                  route,
+                  status,
+                  overflow,
+                  h1Count,
+                  errors: [...errors],
+                });
+              }
+            }
+
+            await context.close();
+          }
+
+          const sitemapResponse = await fetch(`${base}/sitemap.xml`);
+          const sitemap = await sitemapResponse.text();
+          const requiredStories = ["kawiarnia", "uniwersytet", "podroz", "wieczor"];
+          const fakeStories = ["baba-yaga", "wawel-dragon", "krakus"];
+
+          for (const id of requiredStories) {
+            if (!sitemap.includes(`/stories/${id}`)) {
+              failures.push({ sitemap: `missing /stories/${id}` });
+            }
+          }
+          for (const id of fakeStories) {
+            if (sitemap.includes(`/stories/${id}`)) {
+              failures.push({ sitemap: `unexpected /stories/${id}` });
+            }
+          }
+
+          await browser.close();
+
+          if (failures.length) {
+            console.error(JSON.stringify(failures, null, 2));
+            process.exit(1);
+          }
+
+          console.log("Browser smoke test passed on desktop and 393px mobile.");
+          EOF

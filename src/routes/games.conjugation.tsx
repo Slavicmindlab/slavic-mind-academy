@@ -14,7 +14,11 @@ export const Route = createFileRoute("/games/conjugation")({
       { name: "description", content: "Drill the present tense paradigm of Polish verbs." },
     ],
   }),
-  component: () => (<ClientOnly><Conjugation /></ClientOnly>),
+  component: () => (
+    <ClientOnly>
+      <Conjugation />
+    </ClientOnly>
+  ),
 });
 
 const PRONOUNS = [
@@ -32,7 +36,9 @@ function Conjugation() {
   const [vals, setVals] = useState<Record<string, string>>({});
   const [xp, setXp] = useState(0);
 
-  useEffect(() => { setVals({}); }, [idx]);
+  useEffect(() => {
+    setVals({});
+  }, [idx]);
 
   const correctness = useMemo(() => {
     const r: Record<string, boolean | null> = {};
@@ -65,7 +71,10 @@ function Conjugation() {
         <div className="absolute inset-0 bg-hero opacity-50 pointer-events-none" />
         <div className="relative mx-auto max-w-3xl px-6 py-10">
           <div className="flex items-center justify-between">
-            <Link to="/games" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-ivory">
+            <Link
+              to="/games"
+              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-ivory"
+            >
               <ArrowLeft className="h-4 w-4" /> Mind games
             </Link>
             <div className="text-xs uppercase tracking-[0.3em] text-crimson">Mind game · 05</div>
@@ -74,16 +83,22 @@ function Conjugation() {
           <div className="mt-6 text-center">
             <h1 className="font-serif text-4xl md:text-6xl">Conjugation Drill</h1>
             <Ornament className="mx-auto mt-4 w-64 text-crimson" />
-            <p className="mt-4 text-muted-foreground">Czas teraźniejszy — the Polish present tense.</p>
+            <p className="mt-4 text-muted-foreground">
+              Czas teraźniejszy — the Polish present tense.
+            </p>
           </div>
 
           {/* Verb card */}
           <div className="mt-8 rounded-2xl border border-border/70 bg-card-gradient p-7">
             <div className="flex items-baseline justify-between flex-wrap gap-3">
               <div>
-                <div className="text-[10px] uppercase tracking-widest text-crimson">Infinitive · Bezokolicznik</div>
+                <div className="text-[10px] uppercase tracking-widest text-crimson">
+                  Infinitive · Bezokolicznik
+                </div>
                 <h2 className="mt-2 font-serif text-4xl">{verb.infinitive}</h2>
-                <div className="mt-1 text-sm text-muted-foreground">{verb.bg} · {verb.en}</div>
+                <div className="mt-1 text-sm text-muted-foreground">
+                  {verb.bg} · {verb.en}
+                </div>
               </div>
               <span className="font-mono text-xs text-muted-foreground">
                 Verb {idx + 1} / {CONJUGATIONS.length} · <span className="text-gold">+{xp} XP</span>
@@ -94,19 +109,28 @@ function Conjugation() {
               {PRONOUNS.map((p) => {
                 const state = correctness[p.key];
                 return (
-                  <div key={p.key} className="grid grid-cols-[7rem_1fr_auto] gap-3 items-center py-3">
+                  <div
+                    key={p.key}
+                    className="grid grid-cols-[auto_minmax(0,1fr)_auto] gap-3 items-center py-3 sm:grid-cols-[7rem_minmax(0,1fr)_auto]"
+                  >
                     <div>
                       <div className="font-serif text-lg">{p.label}</div>
-                      <div className="text-[10px] uppercase tracking-widest text-muted-foreground">{p.bg}</div>
+                      <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
+                        {p.bg}
+                      </div>
                     </div>
                     <input
                       value={vals[p.key] || ""}
                       onChange={(e) => setVals((v) => ({ ...v, [p.key]: e.target.value }))}
                       placeholder="…"
-                      className={`px-4 py-2.5 rounded-lg bg-surface/60 border outline-none font-serif text-lg transition
-                        ${state === true ? "border-crimson text-ivory"
-                          : state === false ? "border-rose/70 text-rose"
-                          : "border-border/70 focus:border-crimson"}`}
+                      className={`min-w-0 px-3 py-2.5 rounded-lg bg-surface/60 border outline-none font-serif text-lg transition sm:px-4
+                        ${
+                          state === true
+                            ? "border-crimson text-ivory"
+                            : state === false
+                              ? "border-rose/70 text-rose"
+                              : "border-border/70 focus:border-crimson"
+                        }`}
                     />
                     <div className="w-6 grid place-items-center">
                       {state === true && <Check className="h-4 w-4 text-crimson" />}
