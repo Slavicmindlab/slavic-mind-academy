@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: [main]
   push:
-    branches: [phase-2.5-finish]
+    branches: [main]
 
 permissions:
   contents: read
@@ -17,6 +17,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
@@ -29,8 +31,24 @@ jobs:
       - name: Typecheck
         run: bunx tsc --noEmit
 
-      - name: Lint changed Phase 2.5 source
-        run: bunx eslint src/routes/games.conjugation.tsx
+      - name: Lint changed TypeScript source
+        shell: bash
+        run: |
+          if [[ -n "${GITHUB_BASE_REF}" ]]; then
+            git fetch origin "${GITHUB_BASE_REF}"
+            RANGE="origin/${GITHUB_BASE_REF}...HEAD"
+          else
+            RANGE="HEAD^...HEAD"
+          fi
+
+          mapfile -t FILES < <(git diff --name-only --diff-filter=ACMR "$RANGE" | grep -E '^src/.*\.(ts|tsx)$' || true)
+
+          if (( ${#FILES[@]} == 0 )); then
+            echo "No changed TypeScript source files to lint."
+          else
+            printf 'Linting changed source:\n%s\n' "${FILES[*]}"
+            bunx eslint "${FILES[@]}"
+          fi
 
       - name: Full repository lint — legacy debt report
         continue-on-error: true
