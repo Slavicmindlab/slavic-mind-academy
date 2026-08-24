@@ -1,9 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ClientOnly } from "@/components/ClientOnly";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Ornament } from "@/components/SlavicMindLogo";
 import { SpeakButton } from "@/components/SpeakButton";
+import {
+  gameFeedback,
+  pickFillBlankRound,
+  type Difficulty,
+  type FillBlankItem,
+} from "@/data/game-content";
 import { addXp, recordGamePlay, recordGrammarDrill } from "@/lib/progress";
 import { ArrowLeft, RotateCcw, Trophy, Check, X } from "lucide-react";
 
@@ -11,47 +17,34 @@ export const Route = createFileRoute("/games/fillblank")({
   head: () => ({
     meta: [
       { title: "Fill in the blank — SlavicMind" },
-      { name: "description", content: "Pick the correct Polish word to complete each sentence — cases, prepositions, verb forms." },
+      {
+        name: "description",
+        content: "Pick the correct Polish word to complete each sentence — cases, prepositions, verb forms.",
+      },
     ],
   }),
-  component: () => (<ClientOnly><FillBlankGame /></ClientOnly>),
+  component: () => (
+    <ClientOnly>
+      <FillBlankGame />
+    </ClientOnly>
+  ),
 });
 
-type Item = {
-  id: string;
-  before: string;
-  after: string;
-  answer: string;
-  options: string[];
-  hint: string;
-  bg: string;
-};
-
-const ITEMS: Item[] = [
-  { id: "fb1", before: "Słucham", after: "każdego wieczoru.", answer: "muzyki", options: ["muzyki", "muzykę", "muzyka", "muzyką"], hint: "słuchać + dopełniacz", bg: "Слушам музика всяка вечер." },
-  { id: "fb2", before: "Pomagam", after: "w kuchni.", answer: "mamie", options: ["mamę", "mamie", "mama", "mamą"], hint: "pomagać + celownik", bg: "Помагам на мама в кухнята." },
-  { id: "fb3", before: "Interesuję się polską", after: ".", answer: "literaturą", options: ["literatura", "literaturę", "literatury", "literaturą"], hint: "interesować się + narzędnik", bg: "Интересувам се от полска литература." },
-  { id: "fb4", before: "Mieszkam w", after: "od dwóch lat.", answer: "Krakowie", options: ["Kraków", "Krakowa", "Krakowem", "Krakowie"], hint: "w + miejscownik", bg: "Живея в Краков от две години." },
-  { id: "fb5", before: "Czekam na", after: "od godziny.", answer: "autobus", options: ["autobus", "autobusu", "autobusem", "autobusie"], hint: "czekać na + biernik", bg: "Чакам автобуса от един час." },
-  { id: "fb6", before: "Boję się", after: "w nocy.", answer: "burzy", options: ["burza", "burzę", "burzy", "burzą"], hint: "bać się + dopełniacz", bg: "Страхувам се от буря през нощта." },
-  { id: "fb7", before: "Myślę o", after: "codziennie.", answer: "tobie", options: ["ciebie", "tobie", "tobą", "ty"], hint: "myśleć o + miejscownik", bg: "Мисля за теб всеки ден." },
-  { id: "fb8", before: "Jestem", after: "filologii słowiańskiej.", answer: "studentem", options: ["student", "studenta", "studentem", "studentowi"], hint: "być + narzędnik (професи́я)", bg: "Аз съм студент по славянска филология." },
-  { id: "fb9", before: "Dziękuję ci za", after: ".", answer: "prezent", options: ["prezent", "prezentu", "prezentem", "prezencie"], hint: "za + biernik", bg: "Благодаря ти за подаръка." },
-  { id: "fb10", before: "Wracam z", after: "wieczorem.", answer: "uniwersytetu", options: ["uniwersytet", "uniwersytetu", "uniwersytetem", "uniwersytecie"], hint: "z + dopełniacz", bg: "Връщам се от университета вечерта." },
-  { id: "fb11", before: "Ona", after: "po polsku bardzo dobrze.", answer: "mówi", options: ["mówię", "mówisz", "mówi", "mówią"], hint: "3. os. l. poj.", bg: "Тя говори много добре полски." },
-  { id: "fb12", before: "My", after: "się polskiego od roku.", answer: "uczymy", options: ["uczę", "uczysz", "uczymy", "uczą"], hint: "1. os. l. mn.", bg: "Учим полски от една година." },
-];
-
-function shuffle<T>(arr: T[]): T[] { return [...arr].sort(() => Math.random() - 0.5); }
-
-function pickRound(): Item[] { return shuffle(ITEMS).slice(0, 6).map((it) => ({ ...it, options: shuffle(it.options) })); }
+type Level = Difficulty | "mixed";
+const LEVELS: Level[] = ["mixed", "A1", "A2", "B1", "B2"];
+const ROUND_SIZE = 6;
 
 function FillBlankGame() {
-  const [round, setRound] = useState<Item[]>(() => pickRound());
+  const [level, setLevel] = useState<Level>("mixed");
+  const [recentIds, setRecentIds] = useState<string[]>([]);
+  const [round, setRound] = useState<FillBlankItem[]>(() =>
+    pickFillBlankRound(ROUND_SIZE, "mixed"),
+  );
   const [i, setI] = useState(0);
   const [picked, setPicked] = useState<string | null>(null);
   const [score, setScore] = useState(0);
   const [done, setDone] = useState(false);
+  const [feedback, setFeedback] = useState("");
 
   const cur = round[i];
   const correct = picked === cur?.answer;
@@ -64,28 +57,55 @@ function FillBlankGame() {
       recordGamePlay("fillblank", score);
       recordGrammarDrill();
     }
-  }, [done]);
+  }, [done, score]);
 
-  const choose = (opt: string) => {
-    if (showResult) return;
-    setPicked(opt);
-    if (opt === cur.answer) setScore((s) => s + 1);
+  const choose = (option: string) => {
+    if (showResult || !cur) return;
+    setPicked(option);
+    const isCorrect = option === cur.answer;
+    if (isCorrect) setScore((value) => value + 1);
+    setFeedback(gameFeedback(isCorrect));
   };
 
   const next = () => {
-    if (i + 1 >= round.length) { setDone(true); return; }
-    setI(i + 1); setPicked(null);
+    if (i + 1 >= round.length) {
+      setDone(true);
+      return;
+    }
+    setI((value) => value + 1);
+    setPicked(null);
+    setFeedback("");
   };
 
-  const restart = () => { setRound(pickRound()); setI(0); setPicked(null); setScore(0); setDone(false); };
+  const startRound = (nextLevel: Level, keepRecent = true) => {
+    const currentIds = round.map((item) => item.id);
+    const nextRecent = keepRecent ? [...recentIds, ...currentIds].slice(-18) : [];
+    setRecentIds(nextRecent);
+    setRound(pickFillBlankRound(ROUND_SIZE, nextLevel, nextRecent));
+    setI(0);
+    setPicked(null);
+    setScore(0);
+    setDone(false);
+    setFeedback("");
+  };
+
+  const restart = () => startRound(level);
+
+  const changeLevel = (nextLevel: Level) => {
+    setLevel(nextLevel);
+    startRound(nextLevel, false);
+  };
 
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
       <div className="relative grain">
         <div className="absolute inset-0 bg-hero opacity-50 pointer-events-none" />
-        <div className="relative mx-auto max-w-3xl px-6 py-12">
-          <Link to="/games" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-ivory">
+        <div className="relative mx-auto max-w-3xl px-4 py-12 sm:px-6">
+          <Link
+            to="/games"
+            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-ivory"
+          >
             <ArrowLeft className="h-4 w-4" /> All games
           </Link>
 
@@ -93,65 +113,116 @@ function FillBlankGame() {
             <div className="text-xs uppercase tracking-[0.3em] text-crimson">Uzupełnij zdanie</div>
             <h1 className="mt-3 font-serif text-4xl md:text-5xl">Fill in the blank</h1>
             <Ornament className="mx-auto mt-4 w-60 text-crimson" />
-            <p className="mt-3 text-muted-foreground">Choose the correct case, preposition or verb form.</p>
-            <div className="mt-4 inline-flex items-center gap-3 px-4 py-2 rounded-full border border-border/70 bg-surface/40 text-sm">
+            <p className="mt-3 text-muted-foreground">
+              Cases, aspect, prepositions and verb forms in real context.
+            </p>
+
+            <div className="mt-5 flex flex-wrap justify-center gap-2" aria-label="Difficulty">
+              {LEVELS.map((item) => (
+                <button
+                  key={item}
+                  onClick={() => changeLevel(item)}
+                  className={`rounded-full border px-3 py-1.5 text-xs font-mono transition ${
+                    level === item
+                      ? "border-crimson bg-crimson/10 text-ivory"
+                      : "border-border/70 text-muted-foreground hover:border-crimson/50"
+                  }`}
+                >
+                  {item === "mixed" ? "Mixed" : item}
+                </button>
+              ))}
+            </div>
+
+            <div className="mt-4 inline-flex items-center gap-3 rounded-full border border-border/70 bg-surface/40 px-4 py-2 text-sm">
               <span className="font-mono">Score · {score}</span>
-              <span className="text-muted-foreground">{Math.min(i + (done ? 0 : 1), round.length)} / {round.length}</span>
+              <span className="text-muted-foreground">
+                {Math.min(i + (done ? 0 : 1), round.length)} / {round.length}
+              </span>
             </div>
           </div>
 
           {!done && cur && (
-            <div className="mt-10 rounded-2xl border border-border/70 bg-card-gradient p-8 animate-fade-up">
-              <div className="text-[10px] uppercase tracking-widest text-rose">{cur.hint}</div>
-              <div className="mt-4 flex items-center gap-3 flex-wrap">
-                <span className="font-serif text-2xl md:text-3xl leading-relaxed">
+            <div className="mt-10 rounded-2xl border border-border/70 bg-card-gradient p-5 animate-fade-up sm:p-8">
+              <div className="flex flex-wrap items-center justify-between gap-2 text-[10px] uppercase tracking-widest">
+                <span className="text-rose">{cur.hint}</span>
+                <span className="font-mono text-muted-foreground">{cur.difficulty}</span>
+              </div>
+
+              <div className="mt-4 flex flex-wrap items-center gap-3">
+                <span className="font-serif text-2xl leading-relaxed md:text-3xl">
                   {cur.before}{" "}
-                  <span className={`px-3 py-1 rounded-md border-b-2 mx-1 ${showResult ? (correct ? "border-emerald-400 text-emerald-300" : "border-destructive text-destructive") : "border-crimson/60 text-crimson"}`}>
+                  <span
+                    className={`mx-1 rounded-md border-b-2 px-3 py-1 ${
+                      showResult
+                        ? correct
+                          ? "border-emerald-400 text-emerald-300"
+                          : "border-destructive text-destructive"
+                        : "border-crimson/60 text-crimson"
+                    }`}
+                  >
                     {picked ?? "____"}
                   </span>{" "}
                   {cur.after}
                 </span>
                 <SpeakButton text={`${cur.before} ${cur.answer} ${cur.after}`} />
               </div>
-              <p className="mt-3 text-sm text-muted-foreground italic">{cur.bg}</p>
+              <p className="mt-3 text-sm italic text-muted-foreground">{cur.bg}</p>
 
-              <div className="mt-6 grid grid-cols-2 gap-3">
-                {cur.options.map((opt) => {
-                  const isAns = opt === cur.answer;
-                  const isPicked = picked === opt;
+              <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                {cur.options.map((option) => {
+                  const isAnswer = option === cur.answer;
+                  const isPicked = picked === option;
                   return (
                     <button
-                      key={opt}
-                      onClick={() => choose(opt)}
+                      key={option}
+                      onClick={() => choose(option)}
                       disabled={showResult}
-                      className={`px-4 py-3 rounded-lg border font-serif text-lg transition flex items-center justify-between
-                        ${showResult && isAns ? "border-emerald-400 bg-emerald-500/10 text-emerald-200" :
-                          showResult && isPicked && !isAns ? "border-destructive bg-destructive/10" :
-                          "border-border/70 hover:border-crimson/60"}`}
+                      className={`flex min-w-0 items-center justify-between gap-2 rounded-lg border px-4 py-3 text-left font-serif text-lg transition
+                        ${
+                          showResult && isAnswer
+                            ? "border-emerald-400 bg-emerald-500/10 text-emerald-200"
+                            : showResult && isPicked && !isAnswer
+                              ? "border-destructive bg-destructive/10"
+                              : "border-border/70 hover:border-crimson/60"
+                        }`}
                     >
-                      <span>{opt}</span>
-                      {showResult && isAns && <Check className="h-4 w-4" />}
-                      {showResult && isPicked && !isAns && <X className="h-4 w-4" />}
+                      <span className="min-w-0 break-words">{option}</span>
+                      {showResult && isAnswer && <Check className="h-4 w-4 shrink-0" />}
+                      {showResult && isPicked && !isAnswer && <X className="h-4 w-4 shrink-0" />}
                     </button>
                   );
                 })}
               </div>
 
               {showResult && (
-                <button onClick={next} className="mt-6 w-full px-4 py-3 rounded-lg bg-crimson-gradient text-ivory text-sm shadow-glow hover:opacity-95 transition">
-                  {i + 1 >= round.length ? "See results" : "Next"}
-                </button>
+                <div className="mt-5">
+                  <p className="text-sm text-muted-foreground">{feedback}</p>
+                  <button
+                    onClick={next}
+                    className="mt-4 w-full rounded-lg bg-crimson-gradient px-4 py-3 text-sm text-ivory shadow-glow transition hover:opacity-95"
+                  >
+                    {i + 1 >= round.length ? "See results" : "Next"}
+                  </button>
+                </div>
               )}
             </div>
           )}
 
           {done && (
-            <div className="mt-10 p-8 rounded-2xl border border-crimson/40 bg-card-gradient text-center animate-fade-up">
-              <Trophy className="h-8 w-8 mx-auto text-gold" />
+            <div className="mt-10 rounded-2xl border border-crimson/40 bg-card-gradient p-8 text-center animate-fade-up">
+              <Trophy className="mx-auto h-8 w-8 text-gold" />
               <h2 className="mt-3 font-serif text-3xl">Round complete</h2>
-              <p className="mt-2 text-muted-foreground">{score} / {round.length} correct · +{30 + score * 10} XP</p>
-              <button onClick={restart} className="mt-6 inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-crimson-gradient text-ivory text-sm shadow-glow">
-                <RotateCcw className="h-4 w-4" /> Play again
+              <p className="mt-2 text-muted-foreground">
+                {score} / {round.length} correct · +{30 + score * 10} XP
+              </p>
+              <p className="mt-2 text-xs text-muted-foreground">
+                Learning Path completion remains 5 / 6 or better.
+              </p>
+              <button
+                onClick={restart}
+                className="mt-6 inline-flex items-center gap-2 rounded-lg bg-crimson-gradient px-5 py-3 text-sm text-ivory shadow-glow"
+              >
+                <RotateCcw className="h-4 w-4" /> New round
               </button>
             </div>
           )}
