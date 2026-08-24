@@ -3,10 +3,10 @@ import { ClientOnly } from "@/components/ClientOnly";
 import { useEffect, useMemo, useState } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Ornament } from "@/components/SlavicMindLogo";
-import { WORDS, type Word } from "@/data/vocabulary";
+import { sampleGameWords, shuffle, type GameWord } from "@/data/game-content";
 import { SpeakButton } from "@/components/SpeakButton";
 import { addXp, recordGamePlay } from "@/lib/progress";
-import { ArrowLeft, RotateCcw, Trophy, Sparkles } from "lucide-react";
+import { ArrowLeft, RotateCcw, Trophy } from "lucide-react";
 
 export const Route = createFileRoute("/games/match")({
   head: () => ({
@@ -15,25 +15,30 @@ export const Route = createFileRoute("/games/match")({
       { name: "description", content: "Match Polish words to their Bulgarian translations." },
     ],
   }),
-  component: () => (<ClientOnly><MatchGame /></ClientOnly>),
+  component: () => (
+    <ClientOnly>
+      <MatchGame />
+    </ClientOnly>
+  ),
 });
 
 const ROUND = 6;
 
-function pickRound(): Word[] {
-  return [...WORDS].sort(() => Math.random() - 0.5).slice(0, ROUND);
+function buildRound(exclude: string[] = []): GameWord[] {
+  return sampleGameWords({ count: ROUND, exclude, uniqueTranslations: true });
 }
 
 function MatchGame() {
-  const [round, setRound] = useState<Word[]>(() => pickRound());
-  const polish = useMemo(() => [...round].sort(() => Math.random() - 0.5), [round]);
-  const bulgarian = useMemo(() => [...round].sort(() => Math.random() - 0.5), [round]);
+  const [recent, setRecent] = useState<string[]>([]);
+  const [round, setRound] = useState<GameWord[]>(() => buildRound());
+  const polish = useMemo(() => shuffle(round), [round]);
+  const bulgarian = useMemo(() => shuffle(round), [round]);
   const [activePl, setActivePl] = useState<string | null>(null);
   const [matched, setMatched] = useState<Set<string>>(new Set());
   const [wrong, setWrong] = useState<string | null>(null);
   const [score, setScore] = useState(0);
 
-  const won = matched.size === round.length;
+  const won = matched.size === round.length && round.length > 0;
 
   useEffect(() => {
     if (won) {
@@ -41,24 +46,26 @@ function MatchGame() {
       addXp(xp, "Translation Match");
       recordGamePlay("match", score);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [won]);
+  }, [score, won]);
 
-  const onBg = (w: Word) => {
-    if (!activePl || matched.has(w.id)) return;
-    if (activePl === w.id) {
-      setMatched((m) => new Set(m).add(w.id));
+  const onBg = (word: GameWord) => {
+    if (!activePl || matched.has(word.canonical)) return;
+    if (activePl === word.canonical) {
+      setMatched((current) => new Set(current).add(word.canonical));
       setActivePl(null);
-      setScore((s) => s + 1);
+      setScore((value) => value + 1);
     } else {
-      setWrong(w.id);
-      setTimeout(() => setWrong(null), 500);
-      setScore((s) => Math.max(0, s - 1));
+      setWrong(word.canonical);
+      window.setTimeout(() => setWrong(null), 500);
+      setScore((value) => Math.max(0, value - 1));
     }
   };
 
   const restart = () => {
-    setRound(pickRound());
+    const previous = round.map((word) => word.canonical);
+    const nextRecent = [...recent, ...previous].slice(-24);
+    setRecent(nextRecent);
+    setRound(buildRound(nextRecent));
     setActivePl(null);
     setMatched(new Set());
     setWrong(null);
@@ -70,8 +77,11 @@ function MatchGame() {
       <SiteHeader />
       <div className="relative grain">
         <div className="absolute inset-0 bg-hero opacity-50 pointer-events-none" />
-        <div className="relative mx-auto max-w-5xl px-6 py-12">
-          <Link to="/games" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-ivory">
+        <div className="relative mx-auto max-w-5xl px-4 py-12 sm:px-6">
+          <Link
+            to="/games"
+            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-ivory"
+          >
             <ArrowLeft className="h-4 w-4" /> All games
           </Link>
 
@@ -79,50 +89,63 @@ function MatchGame() {
             <div className="text-xs uppercase tracking-[0.3em] text-crimson">Translation Match</div>
             <h1 className="mt-3 font-serif text-4xl md:text-5xl">Polish ↔ Bulgarian</h1>
             <Ornament className="mx-auto mt-4 w-60 text-crimson" />
-            <p className="mt-4 text-muted-foreground">Tap a Polish word, then its Bulgarian twin.</p>
-            <div className="mt-4 inline-flex items-center gap-3 px-4 py-2 rounded-full border border-border/70 bg-surface/40 text-sm">
+            <p className="mt-4 text-muted-foreground">
+              Six unique pairs per round, drawn from the wider SlavicMind vocabulary.
+            </p>
+            <div className="mt-4 inline-flex items-center gap-3 rounded-full border border-border/70 bg-surface/40 px-4 py-2 text-sm">
               <span className="font-mono">Score · {score}</span>
-              <span className="text-muted-foreground">{matched.size} / {round.length}</span>
+              <span className="text-muted-foreground">
+                {matched.size} / {round.length}
+              </span>
             </div>
           </div>
 
-          <div className="mt-10 grid sm:grid-cols-2 gap-6">
+          <div className="mt-10 grid gap-6 sm:grid-cols-2">
             <div>
-              <div className="text-[10px] uppercase tracking-widest text-rose mb-3">Polski</div>
+              <div className="mb-3 text-[10px] uppercase tracking-widest text-rose">Polski</div>
               <div className="space-y-2">
-                {polish.map((w) => {
-                  const done = matched.has(w.id);
-                  const active = activePl === w.id;
+                {polish.map((word) => {
+                  const done = matched.has(word.canonical);
+                  const active = activePl === word.canonical;
                   return (
                     <button
-                      key={w.id}
-                      onClick={() => !done && setActivePl(w.id)}
-                      className={`w-full text-left px-4 py-3 rounded-lg border font-serif text-lg transition flex items-center justify-between
-                        ${done ? "border-emerald-500/40 bg-emerald-500/5 text-muted-foreground line-through" :
-                          active ? "border-crimson bg-surface/60" : "border-border/70 hover:border-crimson/60"}`}
+                      key={word.canonical}
+                      onClick={() => !done && setActivePl(word.canonical)}
+                      className={`flex w-full min-w-0 items-center justify-between gap-3 rounded-lg border px-4 py-3 text-left font-serif text-lg transition ${
+                        done
+                          ? "border-emerald-500/40 bg-emerald-500/5 text-muted-foreground line-through"
+                          : active
+                            ? "border-crimson bg-surface/60"
+                            : "border-border/70 hover:border-crimson/60"
+                      }`}
                     >
-                      <span>{w.pl}</span>
-                      <SpeakButton text={w.pl} lang="pl-PL" />
+                      <span className="min-w-0 break-words">{word.pl}</span>
+                      <SpeakButton text={word.pl} lang="pl-PL" />
                     </button>
                   );
                 })}
               </div>
             </div>
+
             <div>
-              <div className="text-[10px] uppercase tracking-widest text-rose mb-3">Български</div>
+              <div className="mb-3 text-[10px] uppercase tracking-widest text-rose">Български</div>
               <div className="space-y-2">
-                {bulgarian.map((w) => {
-                  const done = matched.has(w.id);
-                  const isWrong = wrong === w.id;
+                {bulgarian.map((word) => {
+                  const done = matched.has(word.canonical);
+                  const isWrong = wrong === word.canonical;
                   return (
                     <button
-                      key={w.id}
-                      onClick={() => onBg(w)}
-                      className={`w-full text-left px-4 py-3 rounded-lg border font-serif text-lg transition
-                        ${done ? "border-emerald-500/40 bg-emerald-500/5 text-muted-foreground line-through" :
-                          isWrong ? "border-destructive bg-destructive/10" : "border-border/70 hover:border-crimson/60"}`}
+                      key={word.canonical}
+                      onClick={() => onBg(word)}
+                      className={`w-full min-w-0 rounded-lg border px-4 py-3 text-left font-serif text-lg transition ${
+                        done
+                          ? "border-emerald-500/40 bg-emerald-500/5 text-muted-foreground line-through"
+                          : isWrong
+                            ? "border-destructive bg-destructive/10"
+                            : "border-border/70 hover:border-crimson/60"
+                      }`}
                     >
-                      {w.bg}
+                      <span className="break-words">{word.bg}</span>
                     </button>
                   );
                 })}
@@ -130,20 +153,26 @@ function MatchGame() {
             </div>
           </div>
 
-          {won && (
-            <div className="mt-10 p-8 rounded-2xl border border-crimson/40 bg-card-gradient text-center animate-fade-up">
-              <Trophy className="h-8 w-8 mx-auto text-gold" />
+          {won ? (
+            <div className="mt-10 rounded-2xl border border-crimson/40 bg-card-gradient p-8 text-center animate-fade-up">
+              <Trophy className="mx-auto h-8 w-8 text-gold" />
               <h2 className="mt-3 font-serif text-3xl">Perfect round.</h2>
-              <p className="mt-2 text-muted-foreground">Score {score} · +{60 + score * 5} XP</p>
-              <button onClick={restart} className="mt-6 inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-crimson-gradient text-ivory text-sm shadow-glow">
-                <RotateCcw className="h-4 w-4" /> Play again
+              <p className="mt-2 text-muted-foreground">
+                Score {score} · +{60 + score * 5} XP
+              </p>
+              <button
+                onClick={restart}
+                className="mt-6 inline-flex items-center gap-2 rounded-lg bg-crimson-gradient px-5 py-3 text-sm text-ivory shadow-glow"
+              >
+                <RotateCcw className="h-4 w-4" /> New round
               </button>
             </div>
-          )}
-
-          {!won && (
+          ) : (
             <div className="mt-10 text-center">
-              <button onClick={restart} className="inline-flex items-center gap-2 px-4 py-2 text-sm rounded-lg border border-border/70 hover:bg-surface/60">
+              <button
+                onClick={restart}
+                className="inline-flex items-center gap-2 rounded-lg border border-border/70 px-4 py-2 text-sm hover:bg-surface/60"
+              >
                 <RotateCcw className="h-3.5 w-3.5" /> New round
               </button>
             </div>
