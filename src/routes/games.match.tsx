@@ -107,21 +107,27 @@ function MatchGame() {
                 {polish.map((word) => {
                   const done = matched.has(word.canonical);
                   const active = activePl === word.canonical;
+                  const stateClasses = done
+                    ? "border-emerald-500/40 bg-emerald-500/5 text-muted-foreground"
+                    : active
+                      ? "border-crimson bg-surface/60"
+                      : "border-border/70 hover:border-crimson/60";
                   return (
-                    <button
+                    <div
                       key={word.canonical}
-                      onClick={() => !done && setActivePl(word.canonical)}
-                      className={`flex w-full min-w-0 items-center justify-between gap-3 rounded-lg border px-4 py-3 text-left font-serif text-lg transition ${
-                        done
-                          ? "border-emerald-500/40 bg-emerald-500/5 text-muted-foreground line-through"
-                          : active
-                            ? "border-crimson bg-surface/60"
-                            : "border-border/70 hover:border-crimson/60"
-                      }`}
+                      className={`flex w-full min-w-0 items-stretch overflow-hidden rounded-lg border transition ${stateClasses}`}
                     >
-                      <span className="min-w-0 break-words">{word.pl}</span>
-                      <SpeakButton text={word.pl} lang="pl-PL" />
-                    </button>
+                      <button
+                        onClick={() => !done && setActivePl(word.canonical)}
+                        disabled={done}
+                        className={`min-w-0 flex-1 px-4 py-3 text-left font-serif text-lg ${done ? "line-through" : ""}`}
+                      >
+                        <span className="break-words">{word.pl}</span>
+                      </button>
+                      <div className="flex shrink-0 items-center border-l border-border/60 px-2">
+                        <SpeakButton text={word.pl} lang="pl-PL" />
+                      </div>
+                    </div>
                   );
                 })}
               </div>
