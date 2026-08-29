@@ -27,12 +27,7 @@ function HeaderStats() {
   return (
     <>
       <div className="hidden sm:flex items-center gap-3 px-3 py-1.5 rounded-md border border-border/70 bg-surface/40 text-xs">
-        {user && (
-          <Radio
-            className="h-3 w-3 text-emerald-400 animate-pulse"
-            aria-label="Live sync"
-          />
-        )}
+        {user && <Radio className="h-3 w-3 text-emerald-400 animate-pulse" aria-label="Live sync" />}
         <span className="flex items-center gap-1 text-crimson">
           <Flame className="h-3.5 w-3.5" />
           {p.streak}
