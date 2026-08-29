@@ -172,9 +172,7 @@ function AuthPage() {
                     type="password"
                     required
                     minLength={6}
-                    autoComplete={
-                      mode === "signin" ? "current-password" : "new-password"
-                    }
+                    autoComplete={mode === "signin" ? "current-password" : "new-password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="min-w-0 flex-1 bg-transparent text-sm outline-none"
@@ -212,11 +210,7 @@ function AuthPage() {
 
             <p className="mt-4 text-center text-xs text-muted-foreground">
               {mode === "signin" ? "New here?" : "Already have an account?"}{" "}
-              <button
-                type="button"
-                onClick={switchMode}
-                className="text-crimson hover:underline"
-              >
+              <button type="button" onClick={switchMode} className="text-crimson hover:underline">
                 {mode === "signin" ? "Create an account" : "Sign in"}
               </button>
             </p>
