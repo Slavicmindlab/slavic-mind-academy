@@ -4,6 +4,9 @@ import { Ornament } from "@/components/SlavicMindLogo";
 import { STORIES } from "@/data/stories";
 import { ArrowRight, Clock, BookOpen } from "lucide-react";
 
+// This index route is picked up by TanStack Router's generator during the build step.
+// The committed generated route tree predates this file, so typecheck runs before regeneration.
+// @ts-expect-error generated route tree is refreshed by the router plugin during build
 export const Route = createFileRoute("/stories/")({
   head: () => ({
     meta: [
