@@ -15,6 +15,13 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    env:
+      # CI placeholders keep local environment files out of Git while preserving
+      # the application's existing Supabase environment-variable contract.
+      SUPABASE_URL: https://ci-placeholder.supabase.co
+      SUPABASE_PUBLISHABLE_KEY: ci-placeholder-publishable-key
+      VITE_SUPABASE_URL: https://ci-placeholder.supabase.co
+      VITE_SUPABASE_PUBLISHABLE_KEY: ci-placeholder-publishable-key
 
     steps:
       - name: Checkout
@@ -99,6 +106,9 @@ jobs:
             "/games/conjugation",
             "/games/crossword",
             "/games/fillblank",
+            "/games/match",
+            "/games/listening",
+            "/games/sentence",
             "/quest",
             "/dashboard",
             "/vocabulary",
@@ -151,6 +161,28 @@ jobs:
               }
             }
 
+            // Crossword generation is randomized. Reload several fresh sessions so
+            // invalid layouts or long-word overflow cannot hide behind one lucky grid.
+            for (let attempt = 0; attempt < 4; attempt += 1) {
+              errors.length = 0;
+              await page.goto(`${base}/games/crossword?smoke=${attempt}`, {
+                waitUntil: "domcontentloaded",
+                timeout: 30000,
+              });
+              await page.waitForTimeout(150);
+              const overflow = await page.evaluate(
+                () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+              );
+              if (overflow > 0 || errors.length > 0) {
+                failures.push({
+                  viewport: viewport.label,
+                  route: `/games/crossword?smoke=${attempt}`,
+                  overflow,
+                  errors: [...errors],
+                });
+              }
+            }
+
             await context.close();
           }
 
@@ -171,6 +203,7 @@ jobs:
           }
 
           await browser.close();
+          await Bun.write("/tmp/browser-smoke-failures.json", JSON.stringify(failures, null, 2));
 
           if (failures.length) {
             console.error(JSON.stringify(failures, null, 2));
@@ -179,3 +212,12 @@ jobs:
 
           console.log("Browser smoke test passed on desktop and 393px mobile.");
           EOF
+
+      - name: Upload browser smoke diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-smoke-diagnostics
+          path: /tmp/browser-smoke-failures.json
+          if-no-files-found: ignore
+          retention-days: 1
