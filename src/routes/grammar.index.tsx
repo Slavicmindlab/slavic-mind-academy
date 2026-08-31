@@ -75,6 +75,9 @@ const REFERENCE: GrammarTopic[] = [
   },
 ];
 
+// This index route is picked up by TanStack Router's generator during the build step.
+// The committed generated route tree predates this file, so typecheck runs before regeneration.
+// @ts-expect-error generated route tree is refreshed by the router plugin during build
 export const Route = createFileRoute("/grammar/")({
   head: () => ({
     meta: [
