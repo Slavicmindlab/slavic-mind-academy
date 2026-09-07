@@ -42,8 +42,8 @@ function StoriesHub() {
             <h1 className="mt-3 font-serif text-4xl sm:text-5xl md:text-6xl">Stories & reading</h1>
             <Ornament className="mx-auto mt-4 w-72 max-w-full text-crimson" />
             <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
-              Малки сцени от полския живот — четими текстове с превод, звук, въпроси и възможност
-              да запазиш или отбележиш прочетеното.
+              Малки сцени от полския живот — четими текстове с превод, звук, въпроси и възможност да
+              запазиш или отбележиш прочетеното.
             </p>
           </div>
 
