@@ -4,11 +4,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SpeakButton } from "@/components/SpeakButton";
 import { STORIES } from "@/data/stories";
 import { addXp } from "@/lib/progress";
-import {
-  markStoryRead,
-  toggleStorySaved,
-  useStoryState,
-} from "@/lib/story-state";
+import { markStoryRead, toggleStorySaved, useStoryState } from "@/lib/story-state";
 import { NextStep } from "@/components/NextStep";
 import {
   ArrowLeft,
@@ -126,7 +122,11 @@ function StoryReader() {
               onClick={() => toggleStorySaved(id)}
               className="min-h-10 px-3 py-2 rounded-md border border-border/70 bg-surface/40 text-xs hover:border-crimson/60 inline-flex items-center gap-2"
             >
-              {isSaved ? <BookmarkCheck className="h-4 w-4 text-gold" /> : <Bookmark className="h-4 w-4" />}
+              {isSaved ? (
+                <BookmarkCheck className="h-4 w-4 text-gold" />
+              ) : (
+                <Bookmark className="h-4 w-4" />
+              )}
               {isSaved ? "Saved" : "Save story"}
             </button>
             <button
@@ -134,7 +134,11 @@ function StoryReader() {
               onClick={() => markStoryRead(id, !isRead)}
               className="min-h-10 px-3 py-2 rounded-md border border-border/70 bg-surface/40 text-xs hover:border-crimson/60 inline-flex items-center gap-2"
             >
-              {isRead ? <CheckCircle2 className="h-4 w-4 text-emerald-400" /> : <Circle className="h-4 w-4" />}
+              {isRead ? (
+                <CheckCircle2 className="h-4 w-4 text-emerald-400" />
+              ) : (
+                <Circle className="h-4 w-4" />
+              )}
               {isRead ? "Read" : "Mark as read"}
             </button>
             <SpeakButton
@@ -154,11 +158,7 @@ function StoryReader() {
               return (
                 <section
                   key={i}
-                  className={`rounded-2xl border p-5 sm:p-7 transition-colors ${
-                    marked
-                      ? "border-gold/50 bg-gold/5"
-                      : "border-border/70 bg-card-gradient"
-                  }`}
+                  className={`rounded-2xl border p-5 sm:p-7 transition-colors ${marked ? "border-gold/50 bg-gold/5" : "border-border/70 bg-card-gradient"}`}
                 >
                   <div className="flex items-start gap-3 sm:gap-4">
                     <div className="min-w-0 flex-1">
@@ -197,7 +197,10 @@ function StoryReader() {
             <h2 className="mt-2 font-serif text-2xl sm:text-3xl">Quick check</h2>
             <div className="mt-5 space-y-5">
               {story.questions.map((q, i) => (
-                <div key={i} className="rounded-2xl border border-border/70 bg-card-gradient p-5 sm:p-6">
+                <div
+                  key={i}
+                  className="rounded-2xl border border-border/70 bg-card-gradient p-5 sm:p-6"
+                >
                   <div className="font-serif text-lg">{q.q}</div>
                   <div className="mt-1 text-xs text-muted-foreground">{q.bg}</div>
                   <div className="mt-3 grid sm:grid-cols-3 gap-2">
@@ -220,8 +223,12 @@ function StoryReader() {
                           className={`min-h-11 text-left px-3 py-2 rounded-lg border text-sm transition flex items-center justify-between ${cls}`}
                         >
                           <span>{c}</span>
-                          {scored && isAnswer && <Check className="h-3.5 w-3.5 text-emerald-400" />}
-                          {scored && picked && !isAnswer && <X className="h-3.5 w-3.5 text-destructive" />}
+                          {scored && isAnswer && (
+                            <Check className="h-3.5 w-3.5 text-emerald-400" />
+                          )}
+                          {scored && picked && !isAnswer && (
+                            <X className="h-3.5 w-3.5 text-destructive" />
+                          )}
                         </button>
                       );
                     })}
