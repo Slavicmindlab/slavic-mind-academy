@@ -223,9 +223,7 @@ function StoryReader() {
                           className={`min-h-11 text-left px-3 py-2 rounded-lg border text-sm transition flex items-center justify-between ${cls}`}
                         >
                           <span>{c}</span>
-                          {scored && isAnswer && (
-                            <Check className="h-3.5 w-3.5 text-emerald-400" />
-                          )}
+                          {scored && isAnswer && <Check className="h-3.5 w-3.5 text-emerald-400" />}
                           {scored && picked && !isAnswer && (
                             <X className="h-3.5 w-3.5 text-destructive" />
                           )}
