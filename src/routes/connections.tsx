@@ -34,9 +34,10 @@ function ConnectionsPage() {
     return SLAVIC_CONNECTIONS.filter((item) => {
       if (filter !== "all" && item.kind !== filter) return false;
       if (!needle) return true;
-      const haystack = `${item.title} ${item.summary} ${item.bg} ${item.pl} ${item.note} ${item.examples
-        .map((example) => `${example.bg} ${example.pl}`)
-        .join(" ")}`.toLowerCase();
+      const haystack =
+        `${item.title} ${item.summary} ${item.bg} ${item.pl} ${item.note} ${item.examples
+          .map((example) => `${example.bg} ${example.pl}`)
+          .join(" ")}`.toLowerCase();
       return haystack.includes(needle);
     });
   }, [filter, query]);
