@@ -57,7 +57,9 @@ function ConnectionsPage() {
           </Link>
 
           <header className="mt-7 max-w-3xl animate-fade-up">
-            <div className="text-xs uppercase tracking-[0.3em] text-crimson">Slavic Connections</div>
+            <div className="text-xs uppercase tracking-[0.3em] text-crimson">
+              Slavic Connections
+            </div>
             <h1 className="mt-3 font-serif text-4xl sm:text-5xl md:text-6xl leading-tight">
               Bulgarian already gives you clues to Polish.
             </h1>
@@ -120,7 +122,9 @@ function ConnectionsPage() {
                     <Sparkles className="h-5 w-5 shrink-0 text-gold" />
                   </div>
 
-                  <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{item.summary}</p>
+                  <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                    {item.summary}
+                  </p>
 
                   <div className="mt-5 grid grid-cols-2 gap-3">
                     <div className="rounded-lg border border-border/60 bg-surface/40 p-3">
@@ -168,7 +172,9 @@ function ConnectionsPage() {
             <div className="flex items-start gap-4">
               <BookOpen className="mt-1 h-6 w-6 shrink-0 text-crimson" />
               <div>
-                <div className="text-xs uppercase tracking-[0.25em] text-crimson">Polish course</div>
+                <div className="text-xs uppercase tracking-[0.25em] text-crimson">
+                  Polish course
+                </div>
                 <h2 className="mt-2 font-serif text-2xl">Use the connection, then practise it.</h2>
                 <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
                   Connections explain why something feels familiar. The Polish course turns that
