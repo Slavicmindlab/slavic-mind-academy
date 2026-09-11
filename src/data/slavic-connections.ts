@@ -36,7 +36,8 @@ export const SLAVIC_CONNECTIONS: SlavicConnection[] = [
     summary: "A family word that stays strikingly close across Bulgarian and Polish.",
     bg: "брат",
     pl: "brat",
-    note: "The dictionary form is nearly identical, but Polish inflection still changes the form in context.",
+    note:
+      "The dictionary form is nearly identical, but Polish inflection still changes the form in context.",
     examples: [
       { label: "BG", bg: "Това е брат ми.", pl: "" },
       { label: "PL", bg: "", pl: "To jest mój brat." },
@@ -46,10 +47,12 @@ export const SLAVIC_CONNECTIONS: SlavicConnection[] = [
     id: "head-glowa",
     kind: "sound-pattern",
     title: "глава ↔ głowa",
-    summary: "A useful example of regular-looking sound correspondence rather than simple spelling similarity.",
+    summary:
+      "A useful example of regular-looking sound correspondence rather than simple spelling similarity.",
     bg: "глава",
     pl: "głowa",
-    note: "The words are related, but Polish ł is pronounced like English w. Learn the sound, not just the letters.",
+    note:
+      "The words are related, but Polish ł is pronounced like English w. Learn the sound, not just the letters.",
     examples: [
       { label: "BG", bg: "Боли ме главата.", pl: "" },
       { label: "PL", bg: "", pl: "Boli mnie głowa." },
@@ -59,10 +62,12 @@ export const SLAVIC_CONNECTIONS: SlavicConnection[] = [
     id: "mountain-gora",
     kind: "false-friend",
     title: "гора ≠ góra",
-    summary: "Familiar shape, different meaning — exactly the kind of trap Slavic learners should see early.",
+    summary:
+      "Familiar shape, different meaning — exactly the kind of trap Slavic learners should see early.",
     bg: "гора = forest",
     pl: "góra = mountain",
-    note: "Bulgarian гора means ‘forest’; Polish góra means ‘mountain’ or ‘top’. Treat this as a false friend, not a cognate shortcut.",
+    note:
+      "Bulgarian гора means ‘forest’; Polish góra means ‘mountain’ or ‘top’. Treat this as a false friend, not a cognate shortcut.",
     examples: [
       { label: "BG", bg: "Разхождаме се в гората.", pl: "" },
       { label: "PL", bg: "", pl: "Wchodzimy na górę." },
@@ -72,10 +77,12 @@ export const SLAVIC_CONNECTIONS: SlavicConnection[] = [
     id: "instrumental-by-with",
     kind: "grammar",
     title: "с + noun ↔ z + narzędnik",
-    summary: "Bulgarian often uses a preposition where Polish also requires a specific case ending.",
+    summary:
+      "Bulgarian often uses a preposition where Polish also requires a specific case ending.",
     bg: "с приятел",
     pl: "z przyjacielem",
-    note: "For Bulgarian speakers, the new information is not the preposition z, but the instrumental ending on the noun.",
+    note:
+      "For Bulgarian speakers, the new information is not the preposition z, but the instrumental ending on the noun.",
     examples: [
       { label: "BG", bg: "Говоря с приятел.", pl: "" },
       { label: "PL", bg: "", pl: "Rozmawiam z przyjacielem." },
@@ -85,7 +92,8 @@ export const SLAVIC_CONNECTIONS: SlavicConnection[] = [
     id: "genitive-negation",
     kind: "grammar",
     title: "нямам книга ↔ nie mam książki",
-    summary: "Polish case choice carries information Bulgarian usually expresses without noun-case endings.",
+    summary:
+      "Polish case choice carries information Bulgarian usually expresses without noun-case endings.",
     bg: "нямам книга",
     pl: "nie mam książki",
     note: "After mieć under negation, Polish commonly uses the genitive: książka → książki.",
