@@ -99,6 +99,7 @@ jobs:
             "/learn",
             "/learn/polish",
             "/connections",
+            "/word-lab",
             "/grammar",
             "/grammar/cases/dopelniacz",
             "/grammar/conjugation",
@@ -202,6 +203,9 @@ jobs:
           }
           if (!sitemap.includes("/connections")) {
             failures.push({ sitemap: "missing /connections" });
+          }
+          if (!sitemap.includes("/word-lab")) {
+            failures.push({ sitemap: "missing /word-lab" });
           }
           for (const id of fakeStories) {
             if (sitemap.includes(`/stories/${id}`)) {

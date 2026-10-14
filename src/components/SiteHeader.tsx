@@ -12,6 +12,7 @@ export const NAV_ITEMS = [
   { to: "/", label: "Home" },
   { to: "/learn", label: "Learn" },
   { to: "/connections", label: "Connections" },
+  { to: "/word-lab", label: "Word Lab" },
   { to: "/dashboard", label: "Dashboard" },
   { to: "/daily", label: "Daily" },
   { to: "/vocabulary", label: "Vocabulary" },
