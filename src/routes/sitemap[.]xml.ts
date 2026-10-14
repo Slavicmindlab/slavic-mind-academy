@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { STORIES } from "@/data/stories";
 
-const BASE_URL = "https://slavicmind-app.lovable.app";
+const BASE_URL = "https://tanstack-start-app.slavic-mindstudy.workers.dev";
 
 interface SitemapEntry {
   path: string;

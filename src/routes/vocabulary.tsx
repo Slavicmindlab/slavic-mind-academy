@@ -14,9 +14,9 @@ export const Route = createFileRoute("/vocabulary")({
       { name: "description", content: "490+ real Polish words across 30+ categories with Bulgarian and English translations, IPA pronunciation, gender, plural forms, and example sentences." },
       { property: "og:title", content: "Polish vocabulary — 490+ words, three languages" },
       { property: "og:description", content: "Polish ↔ Bulgarian ↔ English vocabulary with IPA, gender, plural forms, and audio pronunciation." },
-      { property: "og:url", content: "https://slavicmind-app.lovable.app/vocabulary" },
+      { property: "og:url", content: "https://tanstack-start-app.slavic-mindstudy.workers.dev/vocabulary" },
     ],
-    links: [{ rel: "canonical", href: "https://slavicmind-app.lovable.app/vocabulary" }],
+    links: [{ rel: "canonical", href: "https://tanstack-start-app.slavic-mindstudy.workers.dev/vocabulary" }],
   }),
   component: Vocabulary,
 });

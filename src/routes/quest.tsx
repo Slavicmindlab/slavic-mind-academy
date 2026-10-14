@@ -21,11 +21,11 @@ export const Route = createFileRoute("/quest")({
       { property: "og:title", content: "Case Quest: The Seven Kingdoms" },
       { property: "og:description", content: "A fantasy Slavic RPG that teaches Polish cases. Choose your kingdom. Slay the dragon. Master Mianownik through Wołacz." },
       { property: "og:type", content: "article" },
-      { property: "og:url", content: "https://slavicmind-app.lovable.app/quest" },
+      { property: "og:url", content: "https://tanstack-start-app.slavic-mindstudy.workers.dev/quest" },
       { name: "twitter:title", content: "Case Quest: The Seven Kingdoms" },
       { name: "twitter:description", content: "A Slavic-fantasy RPG that teaches all seven Polish cases through dragon boss battles." },
     ],
-    links: [{ rel: "canonical", href: "https://slavicmind-app.lovable.app/quest" }],
+    links: [{ rel: "canonical", href: "https://tanstack-start-app.slavic-mindstudy.workers.dev/quest" }],
   }),
   component: QuestPage,
 });

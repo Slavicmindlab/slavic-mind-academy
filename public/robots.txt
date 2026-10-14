@@ -5,4 +5,4 @@ Disallow: /.lovable/
 Disallow: /.mcp/
 Disallow: /.well-known/
 
-Sitemap: https://slavicmind-app.lovable.app/sitemap.xml
+Sitemap: https://tanstack-start-app.slavic-mindstudy.workers.dev/sitemap.xml

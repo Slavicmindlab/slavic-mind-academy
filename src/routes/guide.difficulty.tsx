@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ArrowRight, Castle, BookOpen, Languages } from "lucide-react";
 
-const CANONICAL = "https://slavicmind-app.lovable.app/guide/difficulty";
+const CANONICAL = "https://tanstack-start-app.slavic-mindstudy.workers.dev/guide/difficulty";
 const TITLE = "Is Polish hard to learn for Bulgarians? — SlavicMind";
 const DESCRIPTION = "An honest guide to how difficult Polish really is for Bulgarian speakers — what's easier thanks to Slavic roots, what's harder, and how to bridge the gap fast.";
 

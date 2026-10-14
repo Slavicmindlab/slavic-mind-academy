@@ -25,7 +25,7 @@ export const Route = createFileRoute("/stories/$id")({
     const desc = s
       ? `Read "${s.title.pl}" (${bg}) — a ${s.level} Polish reading exercise (${s.minutes} min) with parallel Bulgarian translation, audio pronunciation, and comprehension questions.`
       : "A Polish reading exercise with parallel Bulgarian translation, audio, and comprehension questions on SlavicMind.";
-    const url = `https://slavicmind-app.lovable.app/stories/${params.id}`;
+    const url = `https://tanstack-start-app.slavic-mindstudy.workers.dev/stories/${params.id}`;
     return {
       meta: [
         { title: `${title} — SlavicMind Stories` },

@@ -93,9 +93,9 @@ export const Route = createFileRoute("/grammar/")({
         content:
           "All seven cases, four conjugation groups, aspect pairs, and verb government in one place.",
       },
-      { property: "og:url", content: "https://slavicmind-app.lovable.app/grammar" },
+      { property: "og:url", content: "https://tanstack-start-app.slavic-mindstudy.workers.dev/grammar" },
     ],
-    links: [{ rel: "canonical", href: "https://slavicmind-app.lovable.app/grammar" }],
+    links: [{ rel: "canonical", href: "https://tanstack-start-app.slavic-mindstudy.workers.dev/grammar" }],
   }),
   component: GrammarHub,
 });
