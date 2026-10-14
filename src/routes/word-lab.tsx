@@ -278,15 +278,26 @@ function WordPassport({
             </div>
             <div className="mt-3 flex flex-wrap gap-2">
               {entry.relatives.map((relative) => (
-                <span
+                <div
                   key={`${entry.id}-${relative.language}`}
-                  className="rounded-lg border border-border/60 bg-surface/30 px-3 py-2 text-sm"
+                  className="flex items-center gap-2 rounded-lg border border-border/60 bg-surface/30 py-1.5 pl-3 pr-1.5 text-sm"
                 >
-                  <span className="text-muted-foreground">{relative.language}</span> ·{" "}
-                  {relative.word}
-                </span>
+                  <span>
+                    <span className="text-muted-foreground">{relative.language}</span> ·{" "}
+                    {relative.word}
+                  </span>
+                  <SpeakButton
+                    text={relative.word}
+                    lang={relative.lang}
+                    label={`Listen in ${relative.language}: ${relative.word}`}
+                  />
+                </div>
               ))}
             </div>
+            <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+              Произношението използва гласовете на браузъра и устройството. Ако даден език не се
+              чува, добави съответния speech voice в езиковите настройки на операционната система.
+            </p>
           </div>
 
           <div className="mt-5 grid gap-3 sm:grid-cols-2">
