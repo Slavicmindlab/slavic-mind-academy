@@ -10,7 +10,15 @@ interface SitemapEntry {
   priority?: string;
 }
 
-const CASE_SLUGS = ["mianownik", "dopelniacz", "celownik", "biernik", "narzednik", "miejscownik", "wolacz"];
+const CASE_SLUGS = [
+  "mianownik",
+  "dopelniacz",
+  "celownik",
+  "biernik",
+  "narzednik",
+  "miejscownik",
+  "wolacz",
+];
 
 // Story URLs come straight from the story data, so the sitemap can never
 // advertise a story route that does not exist.
@@ -24,6 +32,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/", changefreq: "weekly", priority: "1.0" },
           { path: "/learn", changefreq: "weekly", priority: "0.9" },
           { path: "/learn/polish", changefreq: "weekly", priority: "0.9" },
+          { path: "/connections", changefreq: "weekly", priority: "0.9" },
           { path: "/dashboard", changefreq: "daily", priority: "0.7" },
           { path: "/vocabulary", changefreq: "weekly", priority: "0.9" },
 
@@ -32,9 +41,17 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/grammar/aspect", changefreq: "monthly", priority: "0.8" },
           { path: "/grammar/verbs", changefreq: "monthly", priority: "0.7" },
           { path: "/grammar/connections", changefreq: "monthly", priority: "0.7" },
-          ...CASE_SLUGS.map((s) => ({ path: `/grammar/cases/${s}`, changefreq: "monthly" as const, priority: "0.8" })),
+          ...CASE_SLUGS.map((s) => ({
+            path: `/grammar/cases/${s}`,
+            changefreq: "monthly" as const,
+            priority: "0.8",
+          })),
           { path: "/stories", changefreq: "weekly", priority: "0.8" },
-          ...STORY_IDS.map((id) => ({ path: `/stories/${id}`, changefreq: "monthly" as const, priority: "0.6" })),
+          ...STORY_IDS.map((id) => ({
+            path: `/stories/${id}`,
+            changefreq: "monthly" as const,
+            priority: "0.6",
+          })),
           { path: "/daily", changefreq: "daily", priority: "0.8" },
           { path: "/games", changefreq: "weekly", priority: "0.9" },
           { path: "/games/memory", priority: "0.6" },
@@ -58,7 +75,9 @@ export const Route = createFileRoute("/sitemap.xml")({
             e.changefreq ? `    <changefreq>${e.changefreq}</changefreq>` : null,
             e.priority ? `    <priority>${e.priority}</priority>` : null,
             `  </url>`,
-          ].filter(Boolean).join("\n"),
+          ]
+            .filter(Boolean)
+            .join("\n"),
         );
 
         const xml = [

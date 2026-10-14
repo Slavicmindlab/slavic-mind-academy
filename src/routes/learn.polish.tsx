@@ -71,6 +71,12 @@ type Item = { to: string; label: string; desc: string; icon: typeof BookOpen };
 
 const GRAMMAR: Item[] = [
   {
+    to: "/connections",
+    label: "Slavic Connections",
+    desc: "Bulgarian–Polish cognates, false friends and grammar bridges.",
+    icon: Sparkles,
+  },
+  {
     to: "/grammar",
     label: "Grammar Lab",
     desc: "The hub for every Polish grammar system.",
