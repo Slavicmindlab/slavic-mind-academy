@@ -23,6 +23,7 @@ import {
   Flame,
   Zap,
   Crown,
+  FlaskConical,
 } from "lucide-react";
 
 const TITLE = "Learn Polish — grammar, vocabulary and mind games | SlavicMind";
@@ -115,6 +116,12 @@ const GRAMMAR: Item[] = [
 ];
 
 const VOCAB: Item[] = [
+  {
+    to: "/word-lab",
+    label: "Word Lab",
+    desc: "Source-backed word passports, etymology and sound patterns.",
+    icon: FlaskConical,
+  },
   {
     to: "/vocabulary",
     label: "Vocabulary",

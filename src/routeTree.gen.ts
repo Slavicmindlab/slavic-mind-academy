@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WordLabRouteImport } from './routes/word-lab'
 import { Route as VocabularyRouteImport } from './routes/vocabulary'
 import { Route as StoriesRouteImport } from './routes/stories'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
@@ -19,9 +20,12 @@ import { Route as GrammarRouteImport } from './routes/grammar'
 import { Route as GamesRouteImport } from './routes/games'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as DailyRouteImport } from './routes/daily'
+import { Route as ConnectionsRouteImport } from './routes/connections'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as StoriesIndexRouteImport } from './routes/stories.index'
 import { Route as LearnIndexRouteImport } from './routes/learn.index'
+import { Route as GrammarIndexRouteImport } from './routes/grammar.index'
 import { Route as GamesIndexRouteImport } from './routes/games.index'
 import { Route as StoriesIdRouteImport } from './routes/stories.$id'
 import { Route as LearnPolishRouteImport } from './routes/learn.polish'
@@ -46,6 +50,11 @@ import { Route as GrammarCasesCaseRouteImport } from './routes/grammar.cases.$ca
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
 
+const WordLabRoute = WordLabRouteImport.update({
+  id: '/word-lab',
+  path: '/word-lab',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const VocabularyRoute = VocabularyRouteImport.update({
   id: '/vocabulary',
   path: '/vocabulary',
@@ -96,6 +105,11 @@ const DailyRoute = DailyRouteImport.update({
   path: '/daily',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ConnectionsRoute = ConnectionsRouteImport.update({
+  id: '/connections',
+  path: '/connections',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
@@ -106,10 +120,20 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StoriesIndexRoute = StoriesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => StoriesRoute,
+} as any)
 const LearnIndexRoute = LearnIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => LearnRoute,
+} as any)
+const GrammarIndexRoute = GrammarIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => GrammarRoute,
 } as any)
 const GamesIndexRoute = GamesIndexRouteImport.update({
   id: '/',
@@ -233,6 +257,7 @@ const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/connections': typeof ConnectionsRoute
   '/daily': typeof DailyRoute
   '/dashboard': typeof DashboardRoute
   '/games': typeof GamesRouteWithChildren
@@ -243,6 +268,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/stories': typeof StoriesRouteWithChildren
   '/vocabulary': typeof VocabularyRoute
+  '/word-lab': typeof WordLabRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/games/battle': typeof GamesBattleRoute
@@ -263,7 +289,9 @@ export interface FileRoutesByFullPath {
   '/learn/polish': typeof LearnPolishRoute
   '/stories/$id': typeof StoriesIdRoute
   '/games/': typeof GamesIndexRoute
+  '/grammar/': typeof GrammarIndexRoute
   '/learn/': typeof LearnIndexRoute
+  '/stories/': typeof StoriesIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/grammar/cases/$case': typeof GrammarCasesCaseRoute
@@ -271,14 +299,14 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/connections': typeof ConnectionsRoute
   '/daily': typeof DailyRoute
   '/dashboard': typeof DashboardRoute
-  '/grammar': typeof GrammarRouteWithChildren
   '/mcp': typeof McpRoute
   '/quest': typeof QuestRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/stories': typeof StoriesRouteWithChildren
   '/vocabulary': typeof VocabularyRoute
+  '/word-lab': typeof WordLabRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/games/battle': typeof GamesBattleRoute
@@ -299,7 +327,9 @@ export interface FileRoutesByTo {
   '/learn/polish': typeof LearnPolishRoute
   '/stories/$id': typeof StoriesIdRoute
   '/games': typeof GamesIndexRoute
+  '/grammar': typeof GrammarIndexRoute
   '/learn': typeof LearnIndexRoute
+  '/stories': typeof StoriesIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/grammar/cases/$case': typeof GrammarCasesCaseRoute
@@ -308,6 +338,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/connections': typeof ConnectionsRoute
   '/daily': typeof DailyRoute
   '/dashboard': typeof DashboardRoute
   '/games': typeof GamesRouteWithChildren
@@ -318,6 +349,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/stories': typeof StoriesRouteWithChildren
   '/vocabulary': typeof VocabularyRoute
+  '/word-lab': typeof WordLabRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/games/battle': typeof GamesBattleRoute
@@ -338,7 +370,9 @@ export interface FileRoutesById {
   '/learn/polish': typeof LearnPolishRoute
   '/stories/$id': typeof StoriesIdRoute
   '/games/': typeof GamesIndexRoute
+  '/grammar/': typeof GrammarIndexRoute
   '/learn/': typeof LearnIndexRoute
+  '/stories/': typeof StoriesIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/grammar/cases/$case': typeof GrammarCasesCaseRoute
@@ -348,6 +382,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/connections'
     | '/daily'
     | '/dashboard'
     | '/games'
@@ -358,6 +393,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/stories'
     | '/vocabulary'
+    | '/word-lab'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/games/battle'
@@ -378,7 +414,9 @@ export interface FileRouteTypes {
     | '/learn/polish'
     | '/stories/$id'
     | '/games/'
+    | '/grammar/'
     | '/learn/'
+    | '/stories/'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/grammar/cases/$case'
@@ -386,14 +424,14 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/connections'
     | '/daily'
     | '/dashboard'
-    | '/grammar'
     | '/mcp'
     | '/quest'
     | '/sitemap.xml'
-    | '/stories'
     | '/vocabulary'
+    | '/word-lab'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/games/battle'
@@ -414,7 +452,9 @@ export interface FileRouteTypes {
     | '/learn/polish'
     | '/stories/$id'
     | '/games'
+    | '/grammar'
     | '/learn'
+    | '/stories'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/grammar/cases/$case'
@@ -422,6 +462,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/auth'
+    | '/connections'
     | '/daily'
     | '/dashboard'
     | '/games'
@@ -432,6 +473,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/stories'
     | '/vocabulary'
+    | '/word-lab'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/games/battle'
@@ -452,7 +494,9 @@ export interface FileRouteTypes {
     | '/learn/polish'
     | '/stories/$id'
     | '/games/'
+    | '/grammar/'
     | '/learn/'
+    | '/stories/'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/grammar/cases/$case'
@@ -461,6 +505,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
+  ConnectionsRoute: typeof ConnectionsRoute
   DailyRoute: typeof DailyRoute
   DashboardRoute: typeof DashboardRoute
   GamesRoute: typeof GamesRouteWithChildren
@@ -471,6 +516,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   StoriesRoute: typeof StoriesRouteWithChildren
   VocabularyRoute: typeof VocabularyRoute
+  WordLabRoute: typeof WordLabRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   GuideDifficultyRoute: typeof GuideDifficultyRoute
@@ -480,6 +526,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/word-lab': {
+      id: '/word-lab'
+      path: '/word-lab'
+      fullPath: '/word-lab'
+      preLoaderRoute: typeof WordLabRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/vocabulary': {
       id: '/vocabulary'
       path: '/vocabulary'
@@ -550,6 +603,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DailyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/connections': {
+      id: '/connections'
+      path: '/connections'
+      fullPath: '/connections'
+      preLoaderRoute: typeof ConnectionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth': {
       id: '/auth'
       path: '/auth'
@@ -564,12 +624,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/stories/': {
+      id: '/stories/'
+      path: '/'
+      fullPath: '/stories/'
+      preLoaderRoute: typeof StoriesIndexRouteImport
+      parentRoute: typeof StoriesRoute
+    }
     '/learn/': {
       id: '/learn/'
       path: '/'
       fullPath: '/learn/'
       preLoaderRoute: typeof LearnIndexRouteImport
       parentRoute: typeof LearnRoute
+    }
+    '/grammar/': {
+      id: '/grammar/'
+      path: '/'
+      fullPath: '/grammar/'
+      preLoaderRoute: typeof GrammarIndexRouteImport
+      parentRoute: typeof GrammarRoute
     }
     '/games/': {
       id: '/games/'
@@ -770,6 +844,7 @@ interface GrammarRouteChildren {
   GrammarConjugationRoute: typeof GrammarConjugationRoute
   GrammarConnectionsRoute: typeof GrammarConnectionsRoute
   GrammarVerbsRoute: typeof GrammarVerbsRoute
+  GrammarIndexRoute: typeof GrammarIndexRoute
   GrammarCasesCaseRoute: typeof GrammarCasesCaseRoute
 }
 
@@ -778,6 +853,7 @@ const GrammarRouteChildren: GrammarRouteChildren = {
   GrammarConjugationRoute: GrammarConjugationRoute,
   GrammarConnectionsRoute: GrammarConnectionsRoute,
   GrammarVerbsRoute: GrammarVerbsRoute,
+  GrammarIndexRoute: GrammarIndexRoute,
   GrammarCasesCaseRoute: GrammarCasesCaseRoute,
 }
 
@@ -798,10 +874,12 @@ const LearnRouteWithChildren = LearnRoute._addFileChildren(LearnRouteChildren)
 
 interface StoriesRouteChildren {
   StoriesIdRoute: typeof StoriesIdRoute
+  StoriesIndexRoute: typeof StoriesIndexRoute
 }
 
 const StoriesRouteChildren: StoriesRouteChildren = {
   StoriesIdRoute: StoriesIdRoute,
+  StoriesIndexRoute: StoriesIndexRoute,
 }
 
 const StoriesRouteWithChildren =
@@ -810,6 +888,7 @@ const StoriesRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
+  ConnectionsRoute: ConnectionsRoute,
   DailyRoute: DailyRoute,
   DashboardRoute: DashboardRoute,
   GamesRoute: GamesRouteWithChildren,
@@ -820,6 +899,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   StoriesRoute: StoriesRouteWithChildren,
   VocabularyRoute: VocabularyRoute,
+  WordLabRoute: WordLabRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,

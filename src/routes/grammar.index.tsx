@@ -75,9 +75,6 @@ const REFERENCE: GrammarTopic[] = [
   },
 ];
 
-// This index route is picked up by TanStack Router's generator during the build step.
-// The committed generated route tree predates this file, so typecheck runs before regeneration.
-// @ts-expect-error generated route tree is refreshed by the router plugin during build
 export const Route = createFileRoute("/grammar/")({
   head: () => ({
     meta: [
@@ -93,9 +90,14 @@ export const Route = createFileRoute("/grammar/")({
         content:
           "All seven cases, four conjugation groups, aspect pairs, and verb government in one place.",
       },
-      { property: "og:url", content: "https://tanstack-start-app.slavic-mindstudy.workers.dev/grammar" },
+      {
+        property: "og:url",
+        content: "https://tanstack-start-app.slavic-mindstudy.workers.dev/grammar",
+      },
     ],
-    links: [{ rel: "canonical", href: "https://tanstack-start-app.slavic-mindstudy.workers.dev/grammar" }],
+    links: [
+      { rel: "canonical", href: "https://tanstack-start-app.slavic-mindstudy.workers.dev/grammar" },
+    ],
   }),
   component: GrammarHub,
 });

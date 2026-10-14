@@ -5,7 +5,6 @@ import { STORIES } from "@/data/stories";
 import { useStoryState } from "@/lib/story-state";
 import { ArrowRight, BookmarkCheck, CheckCircle2, Clock, BookOpen } from "lucide-react";
 
-// @ts-expect-error routeTree.gen.ts is regenerated during the production build.
 export const Route = createFileRoute("/stories/")({
   head: () => ({
     meta: [
@@ -21,9 +20,14 @@ export const Route = createFileRoute("/stories/")({
         content:
           "Read Polish short stories with parallel Bulgarian text, audio, and comprehension quizzes.",
       },
-      { property: "og:url", content: "https://tanstack-start-app.slavic-mindstudy.workers.dev/stories" },
+      {
+        property: "og:url",
+        content: "https://tanstack-start-app.slavic-mindstudy.workers.dev/stories",
+      },
     ],
-    links: [{ rel: "canonical", href: "https://tanstack-start-app.slavic-mindstudy.workers.dev/stories" }],
+    links: [
+      { rel: "canonical", href: "https://tanstack-start-app.slavic-mindstudy.workers.dev/stories" },
+    ],
   }),
   component: StoriesHub,
 });

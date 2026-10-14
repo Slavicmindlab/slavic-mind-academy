@@ -11,12 +11,28 @@ export const Route = createFileRoute("/vocabulary")({
   head: () => ({
     meta: [
       { title: "Polish Vocabulary — 490+ Words for Bulgarians | SlavicMind" },
-      { name: "description", content: "490+ real Polish words across 30+ categories with Bulgarian and English translations, IPA pronunciation, gender, plural forms, and example sentences." },
+      {
+        name: "description",
+        content:
+          "490+ real Polish words across 30+ categories with Bulgarian and English translations, IPA pronunciation, gender, plural forms, and example sentences.",
+      },
       { property: "og:title", content: "Polish vocabulary — 490+ words, three languages" },
-      { property: "og:description", content: "Polish ↔ Bulgarian ↔ English vocabulary with IPA, gender, plural forms, and audio pronunciation." },
-      { property: "og:url", content: "https://tanstack-start-app.slavic-mindstudy.workers.dev/vocabulary" },
+      {
+        property: "og:description",
+        content:
+          "Polish ↔ Bulgarian ↔ English vocabulary with IPA, gender, plural forms, and audio pronunciation.",
+      },
+      {
+        property: "og:url",
+        content: "https://tanstack-start-app.slavic-mindstudy.workers.dev/vocabulary",
+      },
     ],
-    links: [{ rel: "canonical", href: "https://tanstack-start-app.slavic-mindstudy.workers.dev/vocabulary" }],
+    links: [
+      {
+        rel: "canonical",
+        href: "https://tanstack-start-app.slavic-mindstudy.workers.dev/vocabulary",
+      },
+    ],
   }),
   component: Vocabulary,
 });
@@ -32,7 +48,7 @@ function Vocabulary() {
   const [favOnly, setFavOnly] = useState(false);
   const [active, setActive] = useState<Word | null>(null);
 
-  const favs = new Set(p.favorites);
+  const favs = useMemo(() => new Set(p.favorites), [p.favorites]);
 
   const filtered = useMemo(() => {
     return WORDS.filter((w) => {
@@ -42,7 +58,7 @@ function Vocabulary() {
       if (q && !`${w.pl} ${w.bg} ${w.en}`.toLowerCase().includes(q.toLowerCase())) return false;
       return true;
     });
-  }, [q, cat, lvl, favOnly, p.favorites]);
+  }, [q, cat, lvl, favOnly, favs]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -55,7 +71,8 @@ function Vocabulary() {
               <div className="text-xs uppercase tracking-[0.3em] text-crimson">Słownictwo</div>
               <h1 className="mt-3 font-serif text-4xl md:text-5xl">Vocabulary</h1>
               <p className="mt-2 text-muted-foreground max-w-xl">
-                {WORDS.length} words across {ALL_CATEGORIES.length} categories — Polish, Bulgarian, English.
+                {WORDS.length} words across {ALL_CATEGORIES.length} categories — Polish, Bulgarian,
+                English.
               </p>
             </div>
             <button
@@ -78,8 +95,8 @@ function Vocabulary() {
                 className="w-full pl-11 pr-4 py-3 rounded-lg bg-surface/60 border border-border/70 focus:border-crimson outline-none transition placeholder:text-muted-foreground"
               />
             </div>
-            <Select value={cat} onChange={(v) => setCat(v as any)} options={CATEGORIES as any} />
-            <Select value={lvl} onChange={(v) => setLvl(v as any)} options={LEVELS as any} />
+            <Select value={cat} onChange={setCat} options={CATEGORIES} />
+            <Select value={lvl} onChange={setLvl} options={LEVELS} />
           </div>
 
           {/* Category chips */}
@@ -87,9 +104,11 @@ function Vocabulary() {
             {(["All", ...ALL_CATEGORIES] as const).map((c) => (
               <button
                 key={c}
-                onClick={() => setCat(c as any)}
+                onClick={() => setCat(c)}
                 className={`text-xs px-3 py-1.5 rounded-full border transition ${cat === c ? "border-crimson text-crimson bg-surface/60" : "border-border/60 text-muted-foreground hover:text-ivory"}`}
-              >{c}</button>
+              >
+                {c}
+              </button>
             ))}
           </div>
 
@@ -101,33 +120,57 @@ function Vocabulary() {
                 role="button"
                 tabIndex={0}
                 onClick={() => setActive(w)}
-                onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setActive(w); } }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setActive(w);
+                  }
+                }}
                 className="cursor-pointer text-left group rounded-xl border border-border/70 bg-card-gradient p-6 hover:border-crimson/60 hover:-translate-y-0.5 transition-all"
               >
                 <div className="flex items-start justify-between">
                   <div>
                     <div className="font-serif text-2xl">{w.pl}</div>
-                    <div className="mt-1 font-mono text-xs text-muted-foreground">/{w.pronunciation}/</div>
+                    <div className="mt-1 font-mono text-xs text-muted-foreground">
+                      /{w.pronunciation}/
+                    </div>
                   </div>
                   <span
                     role="button"
                     tabIndex={0}
-                    aria-label={favs.has(w.id) ? `Remove ${w.pl} from favorites` : `Add ${w.pl} to favorites`}
+                    aria-label={
+                      favs.has(w.id) ? `Remove ${w.pl} from favorites` : `Add ${w.pl} to favorites`
+                    }
                     aria-pressed={favs.has(w.id)}
-                    onClick={(e) => { e.stopPropagation(); toggleFavorite(w.id); }}
-                    onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); e.stopPropagation(); toggleFavorite(w.id); } }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleFavorite(w.id);
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        toggleFavorite(w.id);
+                      }
+                    }}
                     className={`h-8 w-8 grid place-items-center rounded-full border transition ${favs.has(w.id) ? "border-crimson text-crimson" : "border-border/70 text-muted-foreground hover:text-ivory"}`}
                   >
                     <Star className="h-4 w-4" fill={favs.has(w.id) ? "currentColor" : "none"} />
                   </span>
                 </div>
                 <div className="mt-5 space-y-1.5">
-                  <div className="text-sm"><span className="text-muted-foreground">BG · </span>{w.bg}</div>
-                  <div className="text-sm"><span className="text-muted-foreground">EN · </span>{w.en}</div>
+                  <div className="text-sm">
+                    <span className="text-muted-foreground">BG · </span>
+                    {w.bg}
+                  </div>
+                  <div className="text-sm">
+                    <span className="text-muted-foreground">EN · </span>
+                    {w.en}
+                  </div>
                 </div>
                 <div className="mt-4 flex flex-wrap items-center gap-2 text-[10px] uppercase tracking-widest text-muted-foreground">
                   <span className="font-mono">{w.pos}</span>
-                  {w.gender !== "—" && <span className="font-mono text-rose">·{" "}{w.gender}.</span>}
+                  {w.gender !== "—" && <span className="font-mono text-rose">· {w.gender}.</span>}
                   {w.plural !== "—" && <span className="font-mono">· pl. {w.plural}</span>}
                 </div>
                 <div className="mt-4 flex items-center justify-between">
@@ -141,27 +184,48 @@ function Vocabulary() {
             ))}
           </div>
           {filtered.length === 0 && (
-            <div className="mt-16 text-center text-muted-foreground">No words match your filters.</div>
+            <div className="mt-16 text-center text-muted-foreground">
+              No words match your filters.
+            </div>
           )}
         </div>
       </div>
 
-      {active && <WordSheet word={active} onClose={() => setActive(null)} fav={favs.has(active.id)} onFav={() => toggleFavorite(active.id)} />}
+      {active && (
+        <WordSheet
+          word={active}
+          onClose={() => setActive(null)}
+          fav={favs.has(active.id)}
+          onFav={() => toggleFavorite(active.id)}
+        />
+      )}
     </div>
   );
 }
 
-function Select({ value, onChange, options }: { value: string; onChange: (v: string) => void; options: readonly string[] }) {
+function Select<T extends string>({
+  value,
+  onChange,
+  options,
+}: {
+  value: T;
+  onChange: (v: T) => void;
+  options: readonly T[];
+}) {
   return (
     <div className="relative">
       <Filter className="h-4 w-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
       <select
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => onChange(e.target.value as T)}
         aria-label="Filter vocabulary"
         className="appearance-none pl-9 pr-8 py-3 rounded-lg bg-surface/60 border border-border/70 focus:border-crimson outline-none text-sm"
       >
-        {options.map((o) => <option key={o} value={o}>{o}</option>)}
+        {options.map((o) => (
+          <option key={o} value={o}>
+            {o}
+          </option>
+        ))}
       </select>
     </div>
   );
@@ -169,15 +233,30 @@ function Select({ value, onChange, options }: { value: string; onChange: (v: str
 
 function Pill({ children, tone }: { children: React.ReactNode; tone?: "crimson" }) {
   return (
-    <span className={`text-[10px] uppercase tracking-widest px-2 py-1 rounded-full border ${tone === "crimson" ? "border-crimson/50 text-crimson" : "border-border/70 text-muted-foreground"}`}>
+    <span
+      className={`text-[10px] uppercase tracking-widest px-2 py-1 rounded-full border ${tone === "crimson" ? "border-crimson/50 text-crimson" : "border-border/70 text-muted-foreground"}`}
+    >
       {children}
     </span>
   );
 }
 
-function WordSheet({ word, onClose, fav, onFav }: { word: Word; onClose: () => void; fav: boolean; onFav: () => void }) {
+function WordSheet({
+  word,
+  onClose,
+  fav,
+  onFav,
+}: {
+  word: Word;
+  onClose: () => void;
+  fav: boolean;
+  onFav: () => void;
+}) {
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4 animate-fade-up" onClick={onClose}>
+    <div
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4 animate-fade-up"
+      onClick={onClose}
+    >
       <div className="absolute inset-0 bg-background/70 backdrop-blur-sm" />
       <div
         onClick={(e) => e.stopPropagation()}
@@ -185,9 +264,13 @@ function WordSheet({ word, onClose, fav, onFav }: { word: Word; onClose: () => v
       >
         <div className="flex items-start justify-between gap-4">
           <div>
-            <div className="text-xs uppercase tracking-[0.3em] text-crimson">{word.category} · {word.difficulty}</div>
+            <div className="text-xs uppercase tracking-[0.3em] text-crimson">
+              {word.category} · {word.difficulty}
+            </div>
             <h2 className="mt-3 font-serif text-4xl">{word.pl}</h2>
-            <div className="mt-1 font-mono text-sm text-muted-foreground">/{word.pronunciation}/</div>
+            <div className="mt-1 font-mono text-sm text-muted-foreground">
+              /{word.pronunciation}/
+            </div>
           </div>
           <button
             onClick={onFav}
@@ -200,25 +283,41 @@ function WordSheet({ word, onClose, fav, onFav }: { word: Word; onClose: () => v
         </div>
 
         <div className="mt-4 flex flex-wrap gap-2 text-[10px] uppercase tracking-widest">
-          <span className="px-2 py-1 rounded-full border border-border/70 font-mono">{word.pos}</span>
-          {word.gender !== "—" && <span className="px-2 py-1 rounded-full border border-rose/60 text-rose font-mono">gender · {word.gender}</span>}
-          {word.plural !== "—" && <span className="px-2 py-1 rounded-full border border-border/70 font-mono">plural · {word.plural}</span>}
+          <span className="px-2 py-1 rounded-full border border-border/70 font-mono">
+            {word.pos}
+          </span>
+          {word.gender !== "—" && (
+            <span className="px-2 py-1 rounded-full border border-rose/60 text-rose font-mono">
+              gender · {word.gender}
+            </span>
+          )}
+          {word.plural !== "—" && (
+            <span className="px-2 py-1 rounded-full border border-border/70 font-mono">
+              plural · {word.plural}
+            </span>
+          )}
         </div>
 
         <div className="mt-6 grid grid-cols-2 gap-3">
           <div className="p-4 rounded-lg bg-surface/60 border border-border/60">
-            <div className="text-[10px] uppercase tracking-widest text-muted-foreground">Български</div>
+            <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
+              Български
+            </div>
             <div className="mt-1 font-serif text-xl">{word.bg}</div>
           </div>
           <div className="p-4 rounded-lg bg-surface/60 border border-border/60">
-            <div className="text-[10px] uppercase tracking-widest text-muted-foreground">English</div>
+            <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
+              English
+            </div>
             <div className="mt-1 font-serif text-xl">{word.en}</div>
           </div>
         </div>
 
         <div className="mt-6">
           <div className="flex items-center gap-2">
-            <span className="text-[10px] uppercase tracking-widest text-muted-foreground">Example</span>
+            <span className="text-[10px] uppercase tracking-widest text-muted-foreground">
+              Example
+            </span>
             <SpeakButton text={word.example.pl} lang="pl-PL" />
           </div>
           <p className="mt-2 italic">"{word.example.pl}"</p>
@@ -232,7 +331,10 @@ function WordSheet({ word, onClose, fav, onFav }: { word: Word; onClose: () => v
           >
             <Volume2 className="h-4 w-4" /> Listen
           </button>
-          <button onClick={onClose} className="flex-1 px-4 py-3 rounded-lg bg-crimson-gradient text-ivory text-sm shadow-glow hover:opacity-95 transition">
+          <button
+            onClick={onClose}
+            className="flex-1 px-4 py-3 rounded-lg bg-crimson-gradient text-ivory text-sm shadow-glow hover:opacity-95 transition"
+          >
             Got it
           </button>
         </div>

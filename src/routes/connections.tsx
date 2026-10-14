@@ -6,11 +6,10 @@ import {
   SLAVIC_CONNECTIONS,
   type ConnectionKind,
 } from "@/data/slavic-connections";
-import { ArrowLeft, ArrowRight, BookOpen, Search, Sparkles } from "lucide-react";
+import { ArrowLeft, ArrowRight, BookOpen, FlaskConical, Search, Sparkles } from "lucide-react";
 
 type Filter = "all" | ConnectionKind;
 
-// @ts-expect-error routeTree.gen.ts is regenerated during the production build.
 export const Route = createFileRoute("/connections")({
   head: () => ({
     meta: [
@@ -169,24 +168,43 @@ function ConnectionsPage() {
             </div>
           )}
 
-          <section className="mt-12 rounded-2xl border border-crimson/30 bg-surface/30 p-6 sm:p-8">
-            <div className="flex items-start gap-4">
-              <BookOpen className="mt-1 h-6 w-6 shrink-0 text-crimson" />
-              <div>
-                <div className="text-xs uppercase tracking-[0.25em] text-crimson">
-                  Polish course
+          <section className="mt-12 grid gap-5 md:grid-cols-2">
+            <div className="rounded-2xl border border-crimson/30 bg-surface/30 p-6 sm:p-8">
+              <FlaskConical className="h-6 w-6 text-crimson" />
+              <div className="mt-4 text-xs uppercase tracking-[0.25em] text-crimson">Word Lab</div>
+              <h2 className="mt-2 font-serif text-2xl">Open the full word passport.</h2>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                Follow each connection to its reconstructed root, sound history, examples, mini task
+                and academic sources.
+              </p>
+              <Link
+                to="/word-lab"
+                className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-lg border border-border/80 px-4 text-sm hover:border-crimson/60"
+              >
+                Enter Word Lab <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+            <div className="rounded-2xl border border-crimson/30 bg-surface/30 p-6 sm:p-8">
+              <div className="flex items-start gap-4">
+                <BookOpen className="mt-1 h-6 w-6 shrink-0 text-crimson" />
+                <div>
+                  <div className="text-xs uppercase tracking-[0.25em] text-crimson">
+                    Polish course
+                  </div>
+                  <h2 className="mt-2 font-serif text-2xl">
+                    Use the connection, then practise it.
+                  </h2>
+                  <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+                    Connections explain why something feels familiar. The Polish course turns that
+                    recognition into usable vocabulary and grammar.
+                  </p>
+                  <Link
+                    to="/learn/polish"
+                    className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-lg border border-border/80 px-4 text-sm hover:border-crimson/60"
+                  >
+                    Continue to Polish <ArrowRight className="h-4 w-4" />
+                  </Link>
                 </div>
-                <h2 className="mt-2 font-serif text-2xl">Use the connection, then practise it.</h2>
-                <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-                  Connections explain why something feels familiar. The Polish course turns that
-                  recognition into usable vocabulary and grammar.
-                </p>
-                <Link
-                  to="/learn/polish"
-                  className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-lg border border-border/80 px-4 text-sm hover:border-crimson/60"
-                >
-                  Continue to Polish <ArrowRight className="h-4 w-4" />
-                </Link>
               </div>
             </div>
           </section>

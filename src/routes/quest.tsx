@@ -4,28 +4,60 @@ import { ClientOnly } from "@/components/ClientOnly";
 import { Ornament } from "@/components/SlavicMindLogo";
 import { useMemo, useState } from "react";
 import {
-  CASE_ORDER, CASE_LABELS, DECLENSIONS, type CaseSlug, type Declension,
+  CASE_ORDER,
+  CASE_LABELS,
+  DECLENSIONS,
+  type CaseSlug,
+  type Declension,
 } from "@/data/grammar";
 import { useQuest, completeKingdom } from "@/lib/quest";
 import { addXp } from "@/lib/progress";
 import {
-  Castle, Crown, Flame, Heart, Shield, Sword, Sparkles, Trophy,
-  ChevronRight, ArrowLeft, Skull, Star, Lock,
+  Castle,
+  Crown,
+  Flame,
+  Heart,
+  Shield,
+  Sword,
+  Sparkles,
+  Trophy,
+  ChevronRight,
+  ArrowLeft,
+  Skull,
+  Star,
+  Lock,
 } from "lucide-react";
 
 export const Route = createFileRoute("/quest")({
   head: () => ({
     meta: [
       { title: "Case Quest: The Seven Kingdoms — Polish Grammar RPG | SlavicMind" },
-      { name: "description", content: "An interactive Polish grammar RPG. Travel seven kingdoms — one for each case — defeat dragons, decline nouns and master the language of the Slavs." },
+      {
+        name: "description",
+        content:
+          "An interactive Polish grammar RPG. Travel seven kingdoms — one for each case — defeat dragons, decline nouns and master the language of the Slavs.",
+      },
       { property: "og:title", content: "Case Quest: The Seven Kingdoms" },
-      { property: "og:description", content: "A fantasy Slavic RPG that teaches Polish cases. Choose your kingdom. Slay the dragon. Master Mianownik through Wołacz." },
+      {
+        property: "og:description",
+        content:
+          "A fantasy Slavic RPG that teaches Polish cases. Choose your kingdom. Slay the dragon. Master Mianownik through Wołacz.",
+      },
       { property: "og:type", content: "article" },
-      { property: "og:url", content: "https://tanstack-start-app.slavic-mindstudy.workers.dev/quest" },
+      {
+        property: "og:url",
+        content: "https://tanstack-start-app.slavic-mindstudy.workers.dev/quest",
+      },
       { name: "twitter:title", content: "Case Quest: The Seven Kingdoms" },
-      { name: "twitter:description", content: "A Slavic-fantasy RPG that teaches all seven Polish cases through dragon boss battles." },
+      {
+        name: "twitter:description",
+        content:
+          "A Slavic-fantasy RPG that teaches all seven Polish cases through dragon boss battles.",
+      },
     ],
-    links: [{ rel: "canonical", href: "https://tanstack-start-app.slavic-mindstudy.workers.dev/quest" }],
+    links: [
+      { rel: "canonical", href: "https://tanstack-start-app.slavic-mindstudy.workers.dev/quest" },
+    ],
   }),
   component: QuestPage,
 });
@@ -222,16 +254,23 @@ function MapView({ onPick }: { slug: CaseSlug | null; onPick: (s: CaseSlug) => v
   return (
     <div>
       <div className="text-center animate-fade-up">
-        <Link to="/games" className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-muted-foreground hover:text-crimson transition">
+        <Link
+          to="/games"
+          className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-muted-foreground hover:text-crimson transition"
+        >
           <ArrowLeft className="h-3 w-3" /> SlavicMind Games
         </Link>
-        <div className="mt-6 text-[10px] uppercase tracking-[0.4em] text-crimson">SlavicMind Games · Chapter I</div>
+        <div className="mt-6 text-[10px] uppercase tracking-[0.4em] text-crimson">
+          SlavicMind Games · Chapter I
+        </div>
         <h1 className="mt-3 font-serif text-4xl md:text-6xl leading-tight">Case Quest</h1>
-        <div className="mt-1 font-serif italic text-xl text-muted-foreground">The Seven Kingdoms</div>
+        <div className="mt-1 font-serif italic text-xl text-muted-foreground">
+          The Seven Kingdoms
+        </div>
         <Ornament className="mx-auto mt-5 w-72 text-crimson" />
         <p className="mt-5 max-w-xl mx-auto text-sm md:text-base text-muted-foreground leading-relaxed">
-          A fantasy Slavic world where every Polish case is a kingdom. Decline nouns,
-          slay dragons, master the seven endings — from <em>Mianownik</em> to <em>Wołacz</em>.
+          A fantasy Slavic world where every Polish case is a kingdom. Decline nouns, slay dragons,
+          master the seven endings — from <em>Mianownik</em> to <em>Wołacz</em>.
         </p>
 
         <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-border/70 bg-surface/60 px-4 py-1.5 text-xs">
@@ -257,7 +296,9 @@ function MapView({ onPick }: { slug: CaseSlug | null; onPick: (s: CaseSlug) => v
               onClick={() => !locked && onPick(slug)}
               disabled={locked}
               className={`group relative text-left rounded-2xl border border-border/70 bg-gradient-to-br ${lore.bg} p-6 transition-all overflow-hidden ${
-                locked ? "opacity-50 cursor-not-allowed" : "hover:border-crimson/60 hover:-translate-y-0.5"
+                locked
+                  ? "opacity-50 cursor-not-allowed"
+                  : "hover:border-crimson/60 hover:-translate-y-0.5"
               }`}
             >
               {locked && (
@@ -273,12 +314,16 @@ function MapView({ onPick }: { slug: CaseSlug | null; onPick: (s: CaseSlug) => v
               <div className="flex items-center gap-3">
                 <Castle className={`h-7 w-7 ${lore.fg}`} />
                 <div>
-                  <div className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Kingdom № {i + 1}</div>
+                  <div className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+                    Kingdom № {i + 1}
+                  </div>
                   <h3 className="font-serif text-2xl leading-tight">{CASE_LABELS[slug].pl}</h3>
                 </div>
               </div>
               <div className="mt-3 text-xs italic text-muted-foreground">{lore.motto}</div>
-              <div className="mt-1 text-[11px] text-muted-foreground/80">{CASE_LABELS[slug].bg}</div>
+              <div className="mt-1 text-[11px] text-muted-foreground/80">
+                {CASE_LABELS[slug].bg}
+              </div>
 
               <div className="mt-5 flex items-center justify-between text-xs">
                 <div className="flex items-center gap-1 text-muted-foreground">
@@ -305,8 +350,14 @@ function MapView({ onPick }: { slug: CaseSlug | null; onPick: (s: CaseSlug) => v
           <div>
             <div className="font-serif text-lg text-ivory">Rules of the realm</div>
             <ul className="mt-2 space-y-1 list-disc list-inside">
-              <li>Each kingdom holds 5 trials. The final trial is a <strong className="text-crimson">dragon</strong>.</li>
-              <li>Three lives. A wrong answer costs one. Clear a kingdom with ≥ 60 score to earn its crown.</li>
+              <li>
+                Each kingdom holds 5 trials. The final trial is a{" "}
+                <strong className="text-crimson">dragon</strong>.
+              </li>
+              <li>
+                Three lives. A wrong answer costs one. Clear a kingdom with ≥ 60 score to earn its
+                crown.
+              </li>
               <li>Clear a kingdom to unlock the next. XP feeds your SlavicMind Academy account.</li>
             </ul>
           </div>
@@ -360,19 +411,30 @@ function Kingdom({ slug, onExit }: { slug: CaseSlug; onExit: () => void }) {
   }
 
   if (done) {
-    return <Victory slug={slug} score={Math.min(100, score)} bossKilled={bossKilled} onExit={onExit} />;
+    return (
+      <Victory slug={slug} score={Math.min(100, score)} bossKilled={bossKilled} onExit={onExit} />
+    );
   }
 
   return (
-    <div className={`rounded-3xl border border-border/70 bg-gradient-to-br ${lore.bg} p-6 md:p-10 animate-fade-up`}>
+    <div
+      className={`rounded-3xl border border-border/70 bg-gradient-to-br ${lore.bg} p-6 md:p-10 animate-fade-up`}
+    >
       <div className="flex items-center justify-between">
-        <button onClick={onExit} className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-muted-foreground hover:text-crimson transition">
+        <button
+          onClick={onExit}
+          className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-muted-foreground hover:text-crimson transition"
+        >
           <ArrowLeft className="h-3 w-3" /> Leave kingdom
         </button>
         <div className="flex items-center gap-3 text-sm">
           <span className="inline-flex items-center gap-1 text-rose">
             {Array.from({ length: 3 }).map((_, i) =>
-              i < lives ? <Heart key={i} className="h-4 w-4 fill-rose" /> : <Heart key={i} className="h-4 w-4 opacity-30" />
+              i < lives ? (
+                <Heart key={i} className="h-4 w-4 fill-rose" />
+              ) : (
+                <Heart key={i} className="h-4 w-4 opacity-30" />
+              ),
             )}
           </span>
           <span className="inline-flex items-center gap-1 text-gold font-mono">
@@ -406,12 +468,16 @@ function Kingdom({ slug, onExit }: { slug: CaseSlug; onExit: () => void }) {
             <div className="inline-flex items-center gap-2 text-crimson font-serif text-lg">
               <Skull className="h-5 w-5" /> Boss · {lore.dragon}
             </div>
-            <div className="mt-1 text-xs text-muted-foreground">Double XP. One wrong answer still bites.</div>
+            <div className="mt-1 text-xs text-muted-foreground">
+              Double XP. One wrong answer still bites.
+            </div>
           </div>
         )}
 
         <div className="rounded-2xl border border-border/70 bg-surface/70 p-6 md:p-8">
-          <div className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Trial № {idx + 1}</div>
+          <div className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+            Trial № {idx + 1}
+          </div>
           <div className="mt-3 font-serif text-2xl md:text-3xl leading-snug">
             {q.prompt.split("___").map((part, i, arr) => (
               <span key={i}>
@@ -442,7 +508,9 @@ function Kingdom({ slug, onExit }: { slug: CaseSlug; onExit: () => void }) {
                       : "border-border/70 hover:border-crimson/60 hover:bg-crimson/5"
                   }`}
                 >
-                  <span className="text-[10px] block uppercase tracking-widest text-muted-foreground mb-0.5">forma</span>
+                  <span className="text-[10px] block uppercase tracking-widest text-muted-foreground mb-0.5">
+                    forma
+                  </span>
                   {c}
                 </button>
               );
@@ -454,11 +522,13 @@ function Kingdom({ slug, onExit }: { slug: CaseSlug; onExit: () => void }) {
               <div className="text-sm">
                 {picked === q.correct ? (
                   <span className="text-emerald-400 inline-flex items-center gap-2">
-                    <Sword className="h-4 w-4" /> Damage dealt. Correct form: <strong className="font-mono">{q.correct}</strong>.
+                    <Sword className="h-4 w-4" /> Damage dealt. Correct form:{" "}
+                    <strong className="font-mono">{q.correct}</strong>.
                   </span>
                 ) : (
                   <span className="text-crimson inline-flex items-center gap-2">
-                    <Skull className="h-4 w-4" /> The dragon bites. Correct form: <strong className="font-mono">{q.correct}</strong>.
+                    <Skull className="h-4 w-4" /> The dragon bites. Correct form:{" "}
+                    <strong className="font-mono">{q.correct}</strong>.
                   </span>
                 )}
               </div>
@@ -477,16 +547,32 @@ function Kingdom({ slug, onExit }: { slug: CaseSlug; onExit: () => void }) {
   );
 }
 
-function Victory({ slug, score, bossKilled, onExit }: { slug: CaseSlug; score: number; bossKilled: boolean; onExit: () => void }) {
+function Victory({
+  slug,
+  score,
+  bossKilled,
+  onExit,
+}: {
+  slug: CaseSlug;
+  score: number;
+  bossKilled: boolean;
+  onExit: () => void;
+}) {
   const lore = LORE[slug];
   const win = score >= 60;
   return (
-    <div className={`rounded-3xl border border-border/70 bg-gradient-to-br ${lore.bg} p-10 text-center animate-fade-up`}>
-      <div className={`mx-auto h-16 w-16 rounded-full border border-border/70 bg-surface grid place-items-center ${win ? "text-gold" : "text-crimson"}`}>
+    <div
+      className={`rounded-3xl border border-border/70 bg-gradient-to-br ${lore.bg} p-10 text-center animate-fade-up`}
+    >
+      <div
+        className={`mx-auto h-16 w-16 rounded-full border border-border/70 bg-surface grid place-items-center ${win ? "text-gold" : "text-crimson"}`}
+      >
         {win ? <Crown className="h-7 w-7" /> : <Skull className="h-7 w-7" />}
       </div>
       <div className={`mt-4 text-[10px] uppercase tracking-[0.4em] ${lore.fg}`}>{lore.banner}</div>
-      <h2 className="mt-2 font-serif text-4xl">{win ? "Kingdom cleared" : "The dragon prevails"}</h2>
+      <h2 className="mt-2 font-serif text-4xl">
+        {win ? "Kingdom cleared" : "The dragon prevails"}
+      </h2>
       <p className="mt-3 text-sm text-muted-foreground max-w-md mx-auto">
         {win
           ? `You ${bossKilled ? "slew" : "outlasted"} ${lore.dragon} and learned the song of the ${CASE_LABELS[slug].pl}.`
@@ -504,10 +590,16 @@ function Victory({ slug, score, bossKilled, onExit }: { slug: CaseSlug; score: n
       </div>
 
       <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-        <button onClick={() => location.reload()} className="rounded-full border border-border/70 px-5 py-2 text-sm hover:border-crimson/60 transition">
+        <button
+          onClick={() => location.reload()}
+          className="rounded-full border border-border/70 px-5 py-2 text-sm hover:border-crimson/60 transition"
+        >
           Try again
         </button>
-        <button onClick={onExit} className="inline-flex items-center gap-2 rounded-full bg-crimson px-6 py-2 text-sm font-serif text-ivory hover:bg-crimson/90 transition">
+        <button
+          onClick={onExit}
+          className="inline-flex items-center gap-2 rounded-full bg-crimson px-6 py-2 text-sm font-serif text-ivory hover:bg-crimson/90 transition"
+        >
           Return to the map <ChevronRight className="h-4 w-4" />
         </button>
       </div>
