@@ -11,6 +11,7 @@ import { Flame, Zap, LogIn, LogOut, Radio } from "lucide-react";
 export const NAV_ITEMS = [
   { to: "/", label: "Home" },
   { to: "/learn", label: "Learn" },
+  { to: "/connections", label: "Connections" },
   { to: "/dashboard", label: "Dashboard" },
   { to: "/daily", label: "Daily" },
   { to: "/vocabulary", label: "Vocabulary" },

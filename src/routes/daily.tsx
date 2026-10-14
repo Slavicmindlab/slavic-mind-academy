@@ -15,9 +15,9 @@ export const Route = createFileRoute("/daily")({
       { name: "description", content: "A daily Polish ritual: word of the day, three quick quests, a micro-quiz, and streak bonuses. Ten focused minutes that compound into fluency." },
       { property: "og:title", content: "Daily Polish challenge — word of the day" },
       { property: "og:description", content: "Ten minutes of Polish a day: word of the day, quests, and micro-quizzes." },
-      { property: "og:url", content: "https://slavicmind-app.lovable.app/daily" },
+      { property: "og:url", content: "https://tanstack-start-app.slavic-mindstudy.workers.dev/daily" },
     ],
-    links: [{ rel: "canonical", href: "https://slavicmind-app.lovable.app/daily" }],
+    links: [{ rel: "canonical", href: "https://tanstack-start-app.slavic-mindstudy.workers.dev/daily" }],
   }),
   component: () => (<ClientOnly><Daily /></ClientOnly>),
 });

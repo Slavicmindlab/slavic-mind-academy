@@ -21,9 +21,9 @@ export const Route = createFileRoute("/stories/")({
         content:
           "Read Polish short stories with parallel Bulgarian text, audio, and comprehension quizzes.",
       },
-      { property: "og:url", content: "https://slavicmind-app.lovable.app/stories" },
+      { property: "og:url", content: "https://tanstack-start-app.slavic-mindstudy.workers.dev/stories" },
     ],
-    links: [{ rel: "canonical", href: "https://slavicmind-app.lovable.app/stories" }],
+    links: [{ rel: "canonical", href: "https://tanstack-start-app.slavic-mindstudy.workers.dev/stories" }],
   }),
   component: StoriesHub,
 });

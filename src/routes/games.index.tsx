@@ -16,9 +16,9 @@ export const Route = createFileRoute("/games/")({
       { name: "description", content: "Ten interactive Polish mind games: memory match, crossword, timed quiz, sentence builder, conjugation drill, translation battle, listening, word chain, fill-in-the-blank." },
       { property: "og:title", content: "Polish Mind Games — 10 interactive exercises" },
       { property: "og:description", content: "Memory, crossword, timed quiz, sentence builder, conjugation, battle, listening, word chain — Polish through play." },
-      { property: "og:url", content: "https://slavicmind-app.lovable.app/games" },
+      { property: "og:url", content: "https://tanstack-start-app.slavic-mindstudy.workers.dev/games" },
     ],
-    links: [{ rel: "canonical", href: "https://slavicmind-app.lovable.app/games" }],
+    links: [{ rel: "canonical", href: "https://tanstack-start-app.slavic-mindstudy.workers.dev/games" }],
   }),
   component: GamesHub,
 });

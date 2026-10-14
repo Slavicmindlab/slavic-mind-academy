@@ -33,10 +33,10 @@ export const Route = createFileRoute("/dashboard")({
         property: "og:description",
         content: "Track XP, streak, daily quests, and best scores across ten Polish mind games.",
       },
-      { property: "og:url", content: "https://slavicmind-app.lovable.app/dashboard" },
+      { property: "og:url", content: "https://tanstack-start-app.slavic-mindstudy.workers.dev/dashboard" },
       { name: "robots", content: "noindex" },
     ],
-    links: [{ rel: "canonical", href: "https://slavicmind-app.lovable.app/dashboard" }],
+    links: [{ rel: "canonical", href: "https://tanstack-start-app.slavic-mindstudy.workers.dev/dashboard" }],
   }),
   component: Dashboard,
 });

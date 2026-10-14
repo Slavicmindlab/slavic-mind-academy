@@ -28,7 +28,7 @@ import {
 const TITLE = "Learn Polish — grammar, vocabulary and mind games | SlavicMind";
 const DESC =
   "The SlavicMind Polish hub: all seven cases, verb conjugation and aspect, verb government, 490+ vocabulary entries, folklore stories and ten interactive mind games.";
-const URL = "https://slavicmind-app.lovable.app/learn/polish";
+const URL = "https://tanstack-start-app.slavic-mindstudy.workers.dev/learn/polish";
 
 export const Route = createFileRoute("/learn/polish")({
   head: () => ({
@@ -58,7 +58,7 @@ export const Route = createFileRoute("/learn/polish")({
           provider: {
             "@type": "Organization",
             name: "SlavicMind",
-            url: "https://slavicmind-app.lovable.app",
+            url: "https://tanstack-start-app.slavic-mindstudy.workers.dev",
           },
         }),
       },
@@ -70,6 +70,12 @@ export const Route = createFileRoute("/learn/polish")({
 type Item = { to: string; label: string; desc: string; icon: typeof BookOpen };
 
 const GRAMMAR: Item[] = [
+  {
+    to: "/connections",
+    label: "Slavic Connections",
+    desc: "Bulgarian–Polish cognates, false friends and grammar bridges.",
+    icon: Sparkles,
+  },
   {
     to: "/grammar",
     label: "Grammar Lab",
