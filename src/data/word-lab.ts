@@ -1,3 +1,5 @@
+import type { SpeakLang } from "@/lib/speak";
+
 export type WordLabKind = "cognate" | "sound-pattern" | "false-friend";
 export type WordLabStatus = "established" | "reconstructed" | "disputed";
 export type WordLabLevel = "A1" | "A2" | "B1" | "B2" | "C1" | "C2";
@@ -20,7 +22,7 @@ export type WordLabEntry = {
   connection: string;
   etymology: string;
   soundPattern: string;
-  relatives: Array<{ language: string; word: string }>;
+  relatives: Array<{ language: string; word: string; lang: SpeakLang }>;
   task: {
     prompt: string;
     choices: string[];
@@ -68,9 +70,17 @@ export const WORD_LAB_ENTRIES: WordLabEntry[] = [
     soundPattern:
       "Initial Bulgarian в and written Polish w represent closely corresponding /v/ sounds here.",
     relatives: [
-      { language: "Czech", word: "voda" },
-      { language: "Slovak", word: "voda" },
-      { language: "Serbian", word: "вода" },
+      { language: "Russian", word: "вода", lang: "ru-RU" },
+      { language: "Ukrainian", word: "вода", lang: "uk-UA" },
+      { language: "Belarusian", word: "вада", lang: "be-BY" },
+      { language: "Czech", word: "voda", lang: "cs-CZ" },
+      { language: "Slovak", word: "voda", lang: "sk-SK" },
+      { language: "Serbian", word: "вода", lang: "sr-RS" },
+      { language: "Croatian", word: "voda", lang: "hr-HR" },
+      { language: "Bosnian", word: "voda", lang: "bs-BA" },
+      { language: "Montenegrin", word: "voda", lang: "sr-ME" },
+      { language: "Slovenian", word: "voda", lang: "sl-SI" },
+      { language: "Macedonian", word: "вода", lang: "mk-MK" },
     ],
     task: {
       prompt: "Which Polish form correctly completes: Piję zimną ___?",
@@ -99,9 +109,17 @@ export const WORD_LAB_ENTRIES: WordLabEntry[] = [
       "Bulgarian брат and Polish brat continue the reconstructed Proto-Slavic kinship term *bratrъ.",
     soundPattern: "The consonant frame br-t is preserved with almost no visible change.",
     relatives: [
-      { language: "Czech", word: "bratr" },
-      { language: "Slovak", word: "brat" },
-      { language: "Serbian", word: "брат" },
+      { language: "Russian", word: "брат", lang: "ru-RU" },
+      { language: "Ukrainian", word: "брат", lang: "uk-UA" },
+      { language: "Belarusian", word: "брат", lang: "be-BY" },
+      { language: "Czech", word: "bratr", lang: "cs-CZ" },
+      { language: "Slovak", word: "brat", lang: "sk-SK" },
+      { language: "Serbian", word: "брат", lang: "sr-RS" },
+      { language: "Croatian", word: "brat", lang: "hr-HR" },
+      { language: "Bosnian", word: "brat", lang: "bs-BA" },
+      { language: "Montenegrin", word: "brat", lang: "sr-ME" },
+      { language: "Slovenian", word: "brat", lang: "sl-SI" },
+      { language: "Macedonian", word: "брат", lang: "mk-MK" },
     ],
     task: {
       prompt: "Which Polish plural normally means ‘brothers’ in a family?",
@@ -132,9 +150,17 @@ export const WORD_LAB_ENTRIES: WordLabEntry[] = [
     soundPattern:
       "Bulgarian гла- and Polish gło- illustrate a historical liquid-and-vowel pattern; this is a clue, not a rule to apply blindly.",
     relatives: [
-      { language: "Czech", word: "hlava" },
-      { language: "Slovak", word: "hlava" },
-      { language: "Serbian", word: "глава" },
+      { language: "Russian", word: "голова", lang: "ru-RU" },
+      { language: "Ukrainian", word: "голова", lang: "uk-UA" },
+      { language: "Belarusian", word: "галава", lang: "be-BY" },
+      { language: "Czech", word: "hlava", lang: "cs-CZ" },
+      { language: "Slovak", word: "hlava", lang: "sk-SK" },
+      { language: "Serbian", word: "глава", lang: "sr-RS" },
+      { language: "Croatian", word: "glava", lang: "hr-HR" },
+      { language: "Bosnian", word: "glava", lang: "bs-BA" },
+      { language: "Montenegrin", word: "glava", lang: "sr-ME" },
+      { language: "Slovenian", word: "glava", lang: "sl-SI" },
+      { language: "Macedonian", word: "глава", lang: "mk-MK" },
     ],
     task: {
       prompt: "How is the Polish letter ł pronounced in głowa?",
@@ -164,9 +190,17 @@ export const WORD_LAB_ENTRIES: WordLabEntry[] = [
     soundPattern:
       "A Polish nasal vowel such as ę can correspond to a non-nasal Bulgarian vowel, but the exact outcome depends on the word and environment.",
     relatives: [
-      { language: "Czech", word: "ruka" },
-      { language: "Slovak", word: "ruka" },
-      { language: "Serbian", word: "рука" },
+      { language: "Russian", word: "рука", lang: "ru-RU" },
+      { language: "Ukrainian", word: "рука", lang: "uk-UA" },
+      { language: "Belarusian", word: "рука", lang: "be-BY" },
+      { language: "Czech", word: "ruka", lang: "cs-CZ" },
+      { language: "Slovak", word: "ruka", lang: "sk-SK" },
+      { language: "Serbian", word: "рука", lang: "sr-RS" },
+      { language: "Croatian", word: "ruka", lang: "hr-HR" },
+      { language: "Bosnian", word: "ruka", lang: "bs-BA" },
+      { language: "Montenegrin", word: "ruka", lang: "sr-ME" },
+      { language: "Slovenian", word: "roka", lang: "sl-SI" },
+      { language: "Macedonian", word: "рака", lang: "mk-MK" },
     ],
     task: {
       prompt: "Which phrase means ‘with the hand’ in Polish?",
@@ -196,9 +230,17 @@ export const WORD_LAB_ENTRIES: WordLabEntry[] = [
     soundPattern:
       "Polish ó is pronounced /u/. Accent marks are not decorative: góra and Bulgarian гора differ in both sound and meaning.",
     relatives: [
-      { language: "Czech", word: "hora" },
-      { language: "Slovak", word: "hora" },
-      { language: "Serbian", word: "гора" },
+      { language: "Russian", word: "гора", lang: "ru-RU" },
+      { language: "Ukrainian", word: "гора", lang: "uk-UA" },
+      { language: "Belarusian", word: "гара", lang: "be-BY" },
+      { language: "Czech", word: "hora", lang: "cs-CZ" },
+      { language: "Slovak", word: "hora", lang: "sk-SK" },
+      { language: "Serbian", word: "гора", lang: "sr-RS" },
+      { language: "Croatian", word: "gora", lang: "hr-HR" },
+      { language: "Bosnian", word: "gora", lang: "bs-BA" },
+      { language: "Montenegrin", word: "gora", lang: "sr-ME" },
+      { language: "Slovenian", word: "gora", lang: "sl-SI" },
+      { language: "Macedonian", word: "гора", lang: "mk-MK" },
     ],
     task: {
       prompt: "Your Polish friend says Idziemy w góry. Where are you going?",
@@ -228,9 +270,17 @@ export const WORD_LAB_ENTRIES: WordLabEntry[] = [
     soundPattern:
       "Bulgarian пет corresponds to Polish pięć; Polish spelling encodes changes that make the cognate less visually transparent.",
     relatives: [
-      { language: "Czech", word: "pět" },
-      { language: "Slovak", word: "päť" },
-      { language: "Serbian", word: "пет" },
+      { language: "Russian", word: "пять", lang: "ru-RU" },
+      { language: "Ukrainian", word: "п’ять", lang: "uk-UA" },
+      { language: "Belarusian", word: "пяць", lang: "be-BY" },
+      { language: "Czech", word: "pět", lang: "cs-CZ" },
+      { language: "Slovak", word: "päť", lang: "sk-SK" },
+      { language: "Serbian", word: "пет", lang: "sr-RS" },
+      { language: "Croatian", word: "pet", lang: "hr-HR" },
+      { language: "Bosnian", word: "pet", lang: "bs-BA" },
+      { language: "Montenegrin", word: "pet", lang: "sr-ME" },
+      { language: "Slovenian", word: "pet", lang: "sl-SI" },
+      { language: "Macedonian", word: "пет", lang: "mk-MK" },
     ],
     task: {
       prompt: "Which Polish phrase means ‘five books’?",
