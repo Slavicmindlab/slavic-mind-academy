@@ -142,7 +142,10 @@ jobs:
                 waitUntil: "domcontentloaded",
                 timeout: 30000,
               });
-              await page.waitForTimeout(250);
+              // Client-only routes can hydrate more slowly on a busy CI runner.
+              // Wait for their page heading instead of relying on a fixed delay.
+              await page.locator("h1").first().waitFor({ state: "attached", timeout: 5000 }).catch(() => {});
+              await page.waitForTimeout(50);
 
               const status = response?.status() ?? 0;
               const overflow = await page.evaluate(
