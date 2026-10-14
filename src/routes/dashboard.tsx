@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { WORD_OF_DAY } from "@/data/vocabulary";
 import { SpeakButton } from "@/components/SpeakButton";
-import { useProgress, levelFromXp, QUEST_TARGETS, addXp } from "@/lib/progress";
+import { useProgress, levelFromXp, QUEST_TARGETS, addXp, type Achievement } from "@/lib/progress";
 import { GREETINGS, useDayPhase } from "@/lib/time-of-day";
 import { ContinueLearning } from "@/components/ContinueLearning";
 import { QuickPractice } from "@/components/QuickPractice";
@@ -18,6 +18,7 @@ import {
   Brain,
   Award,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
@@ -33,10 +34,18 @@ export const Route = createFileRoute("/dashboard")({
         property: "og:description",
         content: "Track XP, streak, daily quests, and best scores across ten Polish mind games.",
       },
-      { property: "og:url", content: "https://tanstack-start-app.slavic-mindstudy.workers.dev/dashboard" },
+      {
+        property: "og:url",
+        content: "https://tanstack-start-app.slavic-mindstudy.workers.dev/dashboard",
+      },
       { name: "robots", content: "noindex" },
     ],
-    links: [{ rel: "canonical", href: "https://tanstack-start-app.slavic-mindstudy.workers.dev/dashboard" }],
+    links: [
+      {
+        rel: "canonical",
+        href: "https://tanstack-start-app.slavic-mindstudy.workers.dev/dashboard",
+      },
+    ],
   }),
   component: Dashboard,
 });
@@ -142,7 +151,7 @@ function Stat({
   value,
   tone,
 }: {
-  icon: any;
+  icon: LucideIcon;
   label: string;
   value: string;
   tone: "crimson" | "gold" | "rose" | "ivory";
@@ -265,7 +274,7 @@ function ShortcutCard({
   body,
   to,
 }: {
-  icon: any;
+  icon: LucideIcon;
   title: string;
   body: string;
   to: string;
@@ -321,7 +330,7 @@ function Quests({ p }: { p: ReturnType<typeof useProgress> }) {
   );
 }
 
-const ACH_LABELS: Record<string, string> = {
+const ACH_LABELS: Record<Achievement, string> = {
   first_word: "First saved word",
   first_game: "First game played",
   streak_3: "3-day streak",
@@ -332,14 +341,14 @@ const ACH_LABELS: Record<string, string> = {
 };
 
 function Achievements({ p }: { p: ReturnType<typeof useProgress> }) {
-  const all = Object.keys(ACH_LABELS);
+  const all = Object.keys(ACH_LABELS) as Achievement[];
   return (
     <div className="rounded-2xl border border-border/70 bg-card-gradient p-8">
       <div className="text-xs uppercase tracking-[0.3em] text-crimson">Badges</div>
       <h2 className="mt-3 font-serif text-2xl">Achievements</h2>
       <div className="mt-6 grid grid-cols-2 gap-3">
         {all.map((id) => {
-          const earned = p.achievements.includes(id as any);
+          const earned = p.achievements.includes(id);
           return (
             <div
               key={id}

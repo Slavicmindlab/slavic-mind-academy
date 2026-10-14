@@ -9,26 +9,65 @@ import { LANGUAGES } from "@/data/languages";
 
 import { IDIOMS, HISTORY_FACTS, LITERATURE_QUOTES, MEMES } from "@/data/daily";
 import {
-  GREETINGS, useDayPhase, PHASE_LABEL, PHASE_TAGLINE, RECOMMENDED_PATH,
+  GREETINGS,
+  useDayPhase,
+  PHASE_LABEL,
+  PHASE_TAGLINE,
+  RECOMMENDED_PATH,
   type DayPhase,
 } from "@/lib/time-of-day";
 import {
-  ArrowRight, Sparkles, Brain, Trophy, Languages, BookOpen, Gamepad2,
-  Flame, Sunrise, Sun, Moon, Sunset, Quote, Landmark, Smile, Zap, Crown,
+  ArrowRight,
+  Sparkles,
+  Brain,
+  Trophy,
+  Languages,
+  BookOpen,
+  Gamepad2,
+  Flame,
+  Sunrise,
+  Sun,
+  Moon,
+  Sunset,
+  Quote,
+  Landmark,
+  Smile,
+  Zap,
+  Crown,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "SlavicMind — Learn Polish, made for Bulgarians" },
-      { name: "description", content: "A modern, intelligent way for Bulgarian students to master Polish — vocabulary, cases, mind games, AI tutoring, folklore, and history." },
+      {
+        name: "description",
+        content:
+          "A modern, intelligent way for Bulgarian students to master Polish — vocabulary, cases, mind games, AI tutoring, folklore, and history.",
+      },
       { property: "og:title", content: "SlavicMind — Learn Polish, made for Bulgarians" },
-      { property: "og:description", content: "Modern Slavic language platform: vocabulary, Polish cases, gamified mind games, history, literature, mythology." },
+      {
+        property: "og:description",
+        content:
+          "Modern Slavic language platform: vocabulary, Polish cases, gamified mind games, history, literature, mythology.",
+      },
       { property: "og:url", content: "https://tanstack-start-app.slavic-mindstudy.workers.dev/" },
       { name: "twitter:title", content: "SlavicMind — Learn Polish, made for Bulgarians" },
-      { name: "twitter:description", content: "Modern Slavic language platform: vocabulary, Polish cases, gamified mind games, history, literature, mythology." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e7823e0a-65c0-4603-a234-d505bf4acad6/id-preview-b7728456--434e5a7f-5664-4015-b7bb-bd977f97bb2a.lovable.app-1778088145040.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e7823e0a-65c0-4603-a234-d505bf4acad6/id-preview-b7728456--434e5a7f-5664-4015-b7bb-bd977f97bb2a.lovable.app-1778088145040.png" },
+      {
+        name: "twitter:description",
+        content:
+          "Modern Slavic language platform: vocabulary, Polish cases, gamified mind games, history, literature, mythology.",
+      },
+      {
+        property: "og:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e7823e0a-65c0-4603-a234-d505bf4acad6/id-preview-b7728456--434e5a7f-5664-4015-b7bb-bd977f97bb2a.lovable.app-1778088145040.png",
+      },
+      {
+        name: "twitter:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e7823e0a-65c0-4603-a234-d505bf4acad6/id-preview-b7728456--434e5a7f-5664-4015-b7bb-bd977f97bb2a.lovable.app-1778088145040.png",
+      },
     ],
     links: [{ rel: "canonical", href: "https://tanstack-start-app.slavic-mindstudy.workers.dev/" }],
   }),
@@ -83,15 +122,22 @@ function LanguageStrip() {
               </span>
             </div>
             <div className="mt-5 font-serif text-3xl">{polish.name}</div>
-            <div className="font-mono text-xs text-muted-foreground">{polish.nativeName} · {polish.group}</div>
-            <p className="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">{polish.blurb}</p>
+            <div className="font-mono text-xs text-muted-foreground">
+              {polish.nativeName} · {polish.group}
+            </div>
+            <p className="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
+              {polish.blurb}
+            </p>
             <span className="mt-5 inline-flex items-center gap-1.5 text-sm text-crimson">
-              Start learning Polish <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              Start learning Polish{" "}
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </span>
           </Link>
 
           <div className="rounded-2xl border border-border/60 bg-surface/20 p-7">
-            <div className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">Planned</div>
+            <div className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+              Planned
+            </div>
             <ul className="mt-4 flex flex-wrap gap-2">
               {planned.map((l) => (
                 <li
@@ -106,7 +152,10 @@ function LanguageStrip() {
               These courses are not built yet. When they arrive they will share one grammar
               vocabulary, so what you learn in Polish carries over.
             </p>
-            <Link to="/learn" className="mt-5 inline-flex items-center gap-1.5 text-xs text-crimson">
+            <Link
+              to="/learn"
+              className="mt-5 inline-flex items-center gap-1.5 text-xs text-crimson"
+            >
               See the language roadmap <ArrowRight className="h-3 w-3" />
             </Link>
           </div>
@@ -140,7 +189,10 @@ function ConnectionsBand() {
             SlavicMind is building this into a full comparison layer — for now it lives inside the
             Polish course as parallel Bulgarian explanations.
           </p>
-          <Link to="/learn/polish" className="mt-6 inline-flex min-h-[48px] items-center gap-2 rounded-lg border border-border/80 bg-surface/40 px-5 text-sm transition hover:bg-surface">
+          <Link
+            to="/learn/polish"
+            className="mt-6 inline-flex min-h-[48px] items-center gap-2 rounded-lg border border-border/80 bg-surface/40 px-5 text-sm transition hover:bg-surface"
+          >
             See it in the Polish course <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
@@ -165,25 +217,27 @@ function ConnectionsBand() {
   );
 }
 
-
 // ─── Time-aware hero ──────────────────────────────────────────────────────
 
 const PHASE_ICON: Record<DayPhase, typeof Sun> = {
-  morning: Sunrise, afternoon: Sun, evening: Sunset, night: Moon,
+  morning: Sunrise,
+  afternoon: Sun,
+  evening: Sunset,
+  night: Moon,
 };
 
 const PHASE_BG: Record<DayPhase, string> = {
-  morning:   "bg-gradient-to-br from-amber-500/15 via-rose-400/10 to-transparent",
+  morning: "bg-gradient-to-br from-amber-500/15 via-rose-400/10 to-transparent",
   afternoon: "bg-gradient-to-br from-sky-400/15 via-amber-300/10 to-transparent",
-  evening:   "bg-gradient-to-br from-rose-500/15 via-orange-500/10 to-transparent",
-  night:     "bg-gradient-to-br from-indigo-600/20 via-purple-600/10 to-transparent",
+  evening: "bg-gradient-to-br from-rose-500/15 via-orange-500/10 to-transparent",
+  night: "bg-gradient-to-br from-indigo-600/20 via-purple-600/10 to-transparent",
 };
 
 const PHASE_ACCENT: Record<DayPhase, string> = {
-  morning:   "text-amber-400",
+  morning: "text-amber-400",
   afternoon: "text-sky-300",
-  evening:   "text-rose-400",
-  night:     "text-indigo-300",
+  evening: "text-rose-400",
+  night: "text-indigo-300",
 };
 
 function HeroFallback() {
@@ -228,23 +282,31 @@ function DynamicHero() {
             <span className="italic text-crimson">Understand how they connect.</span>
           </h1>
           <p className="animate-fade-up delay-200 mt-5 text-base md:text-lg text-muted-foreground max-w-2xl text-balance">
-            SlavicMind starts with Polish — grammar, vocabulary, stories and mind games in one
-            place — and grows into a platform for the whole Slavic family.
+            SlavicMind starts with Polish — grammar, vocabulary, stories and mind games in one place
+            — and grows into a platform for the whole Slavic family.
           </p>
           <p className="animate-fade-up delay-200 mt-6 text-sm md:text-base">
             <span className={PHASE_ACCENT[phase]}>{greet.pl}</span>
-            <span className="text-muted-foreground">, wędrowcze · {greet.bg} · {greet.en}</span>
+            <span className="text-muted-foreground">
+              , wędrowcze · {greet.bg} · {greet.en}
+            </span>
           </p>
           <p className="animate-fade-up delay-300 mt-3 text-sm md:text-base text-muted-foreground max-w-2xl">
             {PHASE_TAGLINE[phase]}
           </p>
 
           <div className="animate-fade-up delay-300 mt-8 flex flex-wrap items-center gap-3">
-            <Link to="/learn/polish" className="group inline-flex min-h-[52px] items-center gap-2 px-6 rounded-lg bg-crimson-gradient text-ivory text-sm font-medium shadow-glow hover:opacity-95 transition">
+            <Link
+              to="/learn/polish"
+              className="group inline-flex min-h-[52px] items-center gap-2 px-6 rounded-lg bg-crimson-gradient text-ivory text-sm font-medium shadow-glow hover:opacity-95 transition"
+            >
               Start learning Polish
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </Link>
-            <Link to={RECOMMENDED_PATH[phase].href} className="inline-flex min-h-[52px] items-center gap-2 px-6 rounded-lg border border-border/80 bg-surface/40 hover:bg-surface text-sm transition">
+            <Link
+              to={RECOMMENDED_PATH[phase].href}
+              className="inline-flex min-h-[52px] items-center gap-2 px-6 rounded-lg border border-border/80 bg-surface/40 hover:bg-surface text-sm transition"
+            >
               {RECOMMENDED_PATH[phase].title}
             </Link>
           </div>
@@ -252,12 +314,26 @@ function DynamicHero() {
             {RECOMMENDED_PATH[phase].reason}
           </p>
 
-
           {/* Live progress bar */}
           <div className="animate-fade-up delay-500 mt-10 grid grid-cols-3 gap-6 max-w-xl">
-            <Stat icon={Flame} label="Streak" value={`${progress.streak} d`} accent={PHASE_ACCENT[phase]} />
-            <Stat icon={Zap} label="XP today" value={`${progress.xpToday}`} accent={PHASE_ACCENT[phase]} />
-            <Stat icon={Crown} label={`Level ${level}`} value={`${into}/${needed}`} accent={PHASE_ACCENT[phase]} />
+            <Stat
+              icon={Flame}
+              label="Streak"
+              value={`${progress.streak} d`}
+              accent={PHASE_ACCENT[phase]}
+            />
+            <Stat
+              icon={Zap}
+              label="XP today"
+              value={`${progress.xpToday}`}
+              accent={PHASE_ACCENT[phase]}
+            />
+            <Stat
+              icon={Crown}
+              label={`Level ${level}`}
+              value={`${into}/${needed}`}
+              accent={PHASE_ACCENT[phase]}
+            />
           </div>
         </div>
       </div>
@@ -265,7 +341,17 @@ function DynamicHero() {
   );
 }
 
-function Stat({ icon: Icon, label, value, accent }: { icon: typeof Sun; label: string; value: string; accent: string }) {
+function Stat({
+  icon: Icon,
+  label,
+  value,
+  accent,
+}: {
+  icon: typeof Sun;
+  label: string;
+  value: string;
+  accent: string;
+}) {
   return (
     <div className="rounded-xl border border-border/60 bg-surface/40 backdrop-blur p-3">
       <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-widest text-muted-foreground">
@@ -298,7 +384,10 @@ function DailyGrid() {
             <div className="text-xs uppercase tracking-[0.3em] text-crimson">Dziś · today</div>
             <h2 className="mt-2 font-serif text-3xl md:text-4xl">Twoja codzienna porcja</h2>
           </div>
-          <Link to="/dashboard" className="hidden md:inline-flex items-center gap-1 text-xs text-crimson">
+          <Link
+            to="/dashboard"
+            className="hidden md:inline-flex items-center gap-1 text-xs text-crimson"
+          >
             Full dashboard <ArrowRight className="h-3 w-3" />
           </Link>
         </div>
@@ -310,10 +399,15 @@ function DailyGrid() {
               <div className="font-serif text-3xl">{word.pl}</div>
               <div className="font-mono text-xs text-muted-foreground">/{word.pronunciation}/</div>
             </div>
-            <div className="mt-2 text-sm text-muted-foreground">{word.bg} · {word.en}</div>
+            <div className="mt-2 text-sm text-muted-foreground">
+              {word.bg} · {word.en}
+            </div>
             <div className="mt-4 flex items-center gap-3">
               <SpeakButton text={word.pl} />
-              <Link to="/vocabulary" className="text-xs text-crimson inline-flex items-center gap-1">
+              <Link
+                to="/vocabulary"
+                className="text-xs text-crimson inline-flex items-center gap-1"
+              >
                 Vocabulary <ArrowRight className="h-3 w-3" />
               </Link>
             </div>
@@ -371,13 +465,26 @@ function RecommendedLink() {
   const { phase } = useDayPhase();
   const rec = RECOMMENDED_PATH[phase ?? "morning"];
   return (
-    <Link to={rec.href} className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-md bg-crimson-gradient text-ivory text-sm">
+    <Link
+      to={rec.href}
+      className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-md bg-crimson-gradient text-ivory text-sm"
+    >
       {rec.title} <ArrowRight className="h-3.5 w-3.5" />
     </Link>
   );
 }
 
-function DailyCard({ tag, Icon, accent, children }: { tag: string; Icon: typeof Sun; accent: string; children: React.ReactNode }) {
+function DailyCard({
+  tag,
+  Icon,
+  accent,
+  children,
+}: {
+  tag: string;
+  Icon: typeof Sun;
+  accent: string;
+  children: React.ReactNode;
+}) {
   return (
     <div className="rounded-2xl border border-border/70 bg-card-gradient p-6 hover:border-crimson/40 transition">
       <div className={`flex items-center gap-2 text-xs uppercase tracking-[0.3em] ${accent}`}>
@@ -391,12 +498,36 @@ function DailyCard({ tag, Icon, accent, children }: { tag: string; Icon: typeof 
 // ─── Below-the-fold sections (unchanged) ─────────────────────────────────
 
 const FEATURES = [
-  { icon: Languages, title: "Vocabulary system", body: "Polish, Bulgarian and English side-by-side. Pronunciation, examples, favorites and difficulty tags." },
-  { icon: BookOpen, title: "The seven cases", body: "Mianownik to Wołacz — explained in Bulgarian, with ending tables, prepositions and quizzes." },
-  { icon: Gamepad2, title: "Mind games", body: "Crosswords, memory cards, sentence builders, word chains. Learning that feels like play." },
-  { icon: Brain, title: "AI tutor", body: "Generates quizzes, explains your grammar mistakes, and tailors study suggestions." },
-  { icon: Trophy, title: "Gamified progress", body: "XP, levels, achievements, and streaks that quietly reward consistency." },
-  { icon: Sparkles, title: "Daily ritual", body: "A word of the day, a brain challenge, and a continue-where-you-left-off button." },
+  {
+    icon: Languages,
+    title: "Vocabulary system",
+    body: "Polish, Bulgarian and English side-by-side. Pronunciation, examples, favorites and difficulty tags.",
+  },
+  {
+    icon: BookOpen,
+    title: "The seven cases",
+    body: "Mianownik to Wołacz — explained in Bulgarian, with ending tables, prepositions and quizzes.",
+  },
+  {
+    icon: Gamepad2,
+    title: "Mind games",
+    body: "Crosswords, memory cards, sentence builders, word chains. Learning that feels like play.",
+  },
+  {
+    icon: Brain,
+    title: "AI tutor",
+    body: "Generates quizzes, explains your grammar mistakes, and tailors study suggestions.",
+  },
+  {
+    icon: Trophy,
+    title: "Gamified progress",
+    body: "XP, levels, achievements, and streaks that quietly reward consistency.",
+  },
+  {
+    icon: Sparkles,
+    title: "Daily ritual",
+    body: "A word of the day, a brain challenge, and a continue-where-you-left-off button.",
+  },
 ];
 
 function Features() {
@@ -411,7 +542,10 @@ function Features() {
         </div>
         <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-border/40 rounded-2xl overflow-hidden border border-border/60">
           {FEATURES.map((f) => (
-            <div key={f.title} className="bg-card-gradient p-8 hover:bg-surface-2 transition-colors">
+            <div
+              key={f.title}
+              className="bg-card-gradient p-8 hover:bg-surface-2 transition-colors"
+            >
               <f.icon className="h-6 w-6 text-crimson" />
               <h3 className="mt-5 font-serif text-xl">{f.title}</h3>
               <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{f.body}</p>
@@ -444,12 +578,16 @@ function CasesPreview() {
             The seven Polish cases, demystified.
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Each case explained in Bulgarian with parallel logic, ending tables, prepositions, and short interactive drills.
+            Each case explained in Bulgarian with parallel logic, ending tables, prepositions, and
+            short interactive drills.
           </p>
         </div>
         <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {CASES.map((c, i) => (
-            <div key={c.name} className="group relative rounded-xl border border-border/70 bg-card-gradient p-6 hover:border-crimson/60 transition-all hover:-translate-y-0.5">
+            <div
+              key={c.name}
+              className="group relative rounded-xl border border-border/70 bg-card-gradient p-6 hover:border-crimson/60 transition-all hover:-translate-y-0.5"
+            >
               <div className="font-mono text-xs text-muted-foreground">0{i + 1}</div>
               <div className="mt-3 font-serif text-2xl">{c.name}</div>
               <div className="mt-1 text-sm text-crimson/90 font-mono">{c.q}</div>
@@ -473,7 +611,10 @@ function CTA() {
         <p className="mt-5 text-muted-foreground text-lg max-w-xl mx-auto">
           Five minutes a day. A new word, a small drill, a tiny win.
         </p>
-        <Link to="/dashboard" className="mt-10 inline-flex items-center gap-2 px-7 py-4 rounded-lg bg-crimson-gradient text-ivory shadow-glow hover:opacity-95 transition animate-glow">
+        <Link
+          to="/dashboard"
+          className="mt-10 inline-flex items-center gap-2 px-7 py-4 rounded-lg bg-crimson-gradient text-ivory shadow-glow hover:opacity-95 transition animate-glow"
+        >
           Enter SlavicMind <ArrowRight className="h-4 w-4" />
         </Link>
       </div>

@@ -12,14 +12,30 @@ export const Route = createFileRoute("/daily")({
   head: () => ({
     meta: [
       { title: "Daily Polish Challenge — Word of the Day | SlavicMind" },
-      { name: "description", content: "A daily Polish ritual: word of the day, three quick quests, a micro-quiz, and streak bonuses. Ten focused minutes that compound into fluency." },
+      {
+        name: "description",
+        content:
+          "A daily Polish ritual: word of the day, three quick quests, a micro-quiz, and streak bonuses. Ten focused minutes that compound into fluency.",
+      },
       { property: "og:title", content: "Daily Polish challenge — word of the day" },
-      { property: "og:description", content: "Ten minutes of Polish a day: word of the day, quests, and micro-quizzes." },
-      { property: "og:url", content: "https://tanstack-start-app.slavic-mindstudy.workers.dev/daily" },
+      {
+        property: "og:description",
+        content: "Ten minutes of Polish a day: word of the day, quests, and micro-quizzes.",
+      },
+      {
+        property: "og:url",
+        content: "https://tanstack-start-app.slavic-mindstudy.workers.dev/daily",
+      },
     ],
-    links: [{ rel: "canonical", href: "https://tanstack-start-app.slavic-mindstudy.workers.dev/daily" }],
+    links: [
+      { rel: "canonical", href: "https://tanstack-start-app.slavic-mindstudy.workers.dev/daily" },
+    ],
   }),
-  component: () => (<ClientOnly><Daily /></ClientOnly>),
+  component: () => (
+    <ClientOnly>
+      <Daily />
+    </ClientOnly>
+  ),
 });
 
 // Deterministic word-of-day from date
@@ -61,7 +77,9 @@ function Daily() {
         <div className="absolute inset-0 bg-hero opacity-50 pointer-events-none" />
         <div className="relative mx-auto max-w-5xl px-6 py-12">
           <div className="text-center animate-fade-up">
-            <div className="text-xs uppercase tracking-[0.3em] text-crimson">Codzienne wyzwanie</div>
+            <div className="text-xs uppercase tracking-[0.3em] text-crimson">
+              Codzienne wyzwanie
+            </div>
             <h1 className="mt-3 font-serif text-4xl md:text-6xl">Daily Challenge</h1>
             <Ornament className="mx-auto mt-4 w-72 text-crimson" />
             <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
@@ -71,21 +89,39 @@ function Daily() {
 
           {/* Stats strip */}
           <div className="mt-10 grid sm:grid-cols-3 gap-3">
-            <Stat icon={<Flame className="h-4 w-4 text-crimson" />} value={p.streak} label="day streak" />
+            <Stat
+              icon={<Flame className="h-4 w-4 text-crimson" />}
+              value={p.streak}
+              label="day streak"
+            />
             <Stat icon={<Zap className="h-4 w-4 text-gold" />} value={p.xpToday} label="XP today" />
-            <Stat icon={<Sparkles className="h-4 w-4 text-rose" />} value={p.favorites.length} label="words saved" />
+            <Stat
+              icon={<Sparkles className="h-4 w-4 text-rose" />}
+              value={p.favorites.length}
+              label="words saved"
+            />
           </div>
 
           {/* Word of the Day */}
           <div className="mt-10 rounded-2xl border border-border/70 bg-card-gradient p-8 shadow-elegant">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <div className="text-[10px] uppercase tracking-widest text-rose">Słowo dnia · Word of the Day</div>
+                <div className="text-[10px] uppercase tracking-widest text-rose">
+                  Słowo dnia · Word of the Day
+                </div>
                 <div className="mt-3 font-serif text-5xl md:text-6xl">{word.pl}</div>
-                <div className="mt-2 font-mono text-xs text-muted-foreground">/{word.pronunciation}/</div>
+                <div className="mt-2 font-mono text-xs text-muted-foreground">
+                  /{word.pronunciation}/
+                </div>
                 <div className="mt-4 flex flex-wrap gap-3 text-sm">
-                  <span><span className="text-muted-foreground">BG · </span>{word.bg}</span>
-                  <span><span className="text-muted-foreground">EN · </span>{word.en}</span>
+                  <span>
+                    <span className="text-muted-foreground">BG · </span>
+                    {word.bg}
+                  </span>
+                  <span>
+                    <span className="text-muted-foreground">EN · </span>
+                    {word.en}
+                  </span>
                 </div>
               </div>
               <div className="flex flex-col items-end gap-2">
@@ -110,8 +146,12 @@ function Daily() {
 
           {/* Micro-quiz */}
           <div className="mt-8 rounded-2xl border border-border/70 bg-card-gradient p-8">
-            <div className="text-[10px] uppercase tracking-widest text-rose">Quick quiz · +15 XP</div>
-            <h3 className="mt-2 font-serif text-2xl">Which is the Bulgarian for <span className="text-crimson">{word.pl}</span>?</h3>
+            <div className="text-[10px] uppercase tracking-widest text-rose">
+              Quick quiz · +15 XP
+            </div>
+            <h3 className="mt-2 font-serif text-2xl">
+              Which is the Bulgarian for <span className="text-crimson">{word.pl}</span>?
+            </h3>
             <div className="mt-5 grid sm:grid-cols-2 gap-3">
               {quiz.map((q) => {
                 const picked = answer === q.id;
@@ -123,9 +163,11 @@ function Daily() {
                     onClick={() => pick(q.id)}
                     disabled={!!answer}
                     className={`px-5 py-4 rounded-xl border text-left transition ${
-                      right ? "border-emerald-500/70 bg-emerald-500/10" :
-                      wrong ? "border-crimson/70 bg-crimson/10" :
-                      "border-border/70 hover:border-crimson/60 hover:bg-surface/60"
+                      right
+                        ? "border-emerald-500/70 bg-emerald-500/10"
+                        : wrong
+                          ? "border-crimson/70 bg-crimson/10"
+                          : "border-border/70 hover:border-crimson/60 hover:bg-surface/60"
                     }`}
                   >
                     {q.bg}
@@ -148,14 +190,23 @@ function Daily() {
               return (
                 <div key={id} className="rounded-xl border border-border/70 bg-card-gradient p-5">
                   <div className="flex items-start justify-between">
-                    <div className="text-[10px] uppercase tracking-widest text-rose">+{meta.xp} XP</div>
-                    {done
-                      ? <CheckCircle2 className="h-5 w-5 text-emerald-500" />
-                      : <Circle className="h-5 w-5 text-muted-foreground" />}
+                    <div className="text-[10px] uppercase tracking-widest text-rose">
+                      +{meta.xp} XP
+                    </div>
+                    {done ? (
+                      <CheckCircle2 className="h-5 w-5 text-emerald-500" />
+                    ) : (
+                      <Circle className="h-5 w-5 text-muted-foreground" />
+                    )}
                   </div>
                   <h4 className="mt-2 font-serif text-lg">{meta.title}</h4>
                   <div className="mt-3 h-1.5 rounded-full bg-surface-2 overflow-hidden">
-                    <div className="h-full bg-crimson-gradient transition-all" style={{ width: `${Math.min(100, ((p.quests[id] ?? 0) / meta.total) * 100)}%` }} />
+                    <div
+                      className="h-full bg-crimson-gradient transition-all"
+                      style={{
+                        width: `${Math.min(100, ((p.quests[id] ?? 0) / meta.total) * 100)}%`,
+                      }}
+                    />
                   </div>
                   <div className="mt-2 font-mono text-xs text-muted-foreground">
                     {Math.min(p.quests[id] ?? 0, meta.total)} / {meta.total}
@@ -167,7 +218,11 @@ function Daily() {
 
           {/* CTA */}
           <div className="mt-10 grid sm:grid-cols-3 gap-3">
-            <CTA to="/vocabulary" label="Browse vocabulary" sub="Filter by category, save favorites" />
+            <CTA
+              to="/vocabulary"
+              label="Browse vocabulary"
+              sub="Filter by category, save favorites"
+            />
             <CTA to="/games/battle" label="Vocabulary Battle" sub="3 lives · combo XP" />
             <CTA to="/grammar" label="Grammar drills" sub="Cases, conjugation, aspect" />
           </div>
@@ -177,10 +232,20 @@ function Daily() {
   );
 }
 
-function Stat({ icon, value, label }: { icon: React.ReactNode; value: React.ReactNode; label: string }) {
+function Stat({
+  icon,
+  value,
+  label,
+}: {
+  icon: React.ReactNode;
+  value: React.ReactNode;
+  label: string;
+}) {
   return (
     <div className="rounded-xl border border-border/70 bg-card-gradient p-5 flex items-center gap-3">
-      <div className="h-10 w-10 rounded-lg border border-border/70 bg-surface/60 grid place-items-center">{icon}</div>
+      <div className="h-10 w-10 rounded-lg border border-border/70 bg-surface/60 grid place-items-center">
+        {icon}
+      </div>
       <div>
         <div className="font-mono text-2xl text-ivory">{value}</div>
         <div className="text-[10px] uppercase tracking-widest text-muted-foreground">{label}</div>
@@ -191,7 +256,10 @@ function Stat({ icon, value, label }: { icon: React.ReactNode; value: React.Reac
 
 function CTA({ to, label, sub }: { to: string; label: string; sub: string }) {
   return (
-    <Link to={to} className="group rounded-xl border border-border/70 bg-card-gradient p-5 hover:border-crimson/60 transition flex items-center justify-between">
+    <Link
+      to={to}
+      className="group rounded-xl border border-border/70 bg-card-gradient p-5 hover:border-crimson/60 transition flex items-center justify-between"
+    >
       <div>
         <div className="font-serif text-lg">{label}</div>
         <div className="text-xs text-muted-foreground">{sub}</div>
