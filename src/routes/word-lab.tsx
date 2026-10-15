@@ -10,9 +10,11 @@ import {
   type WordLabKind,
   type WordLabLevel,
 } from "@/data/word-lab";
+import { WORD_HUB_TOPICS, type WordHubItem } from "@/data/word-lab-topics";
 import {
   ArrowLeft,
   BookOpenCheck,
+  Building2,
   CheckCircle2,
   ChevronDown,
   ChevronUp,
@@ -123,6 +125,8 @@ function WordLabPage() {
             </div>
           </section>
 
+          <WordHubTopics />
+
           <section aria-label="Word Lab filters" className="mt-8 space-y-4">
             <div className="relative">
               <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -179,6 +183,184 @@ function WordLabPage() {
         </div>
       </main>
     </div>
+  );
+}
+
+function WordHubTopics() {
+  const topic = WORD_HUB_TOPICS[0];
+  const [query, setQuery] = useState("");
+  const [openSections, setOpenSections] = useState<string[]>(["1-Budynek"]);
+  const [openItems, setOpenItems] = useState<string[]>([]);
+  const needle = query.trim().toLocaleLowerCase("pl-PL");
+
+  const sections = topic.sections
+    .map((section) => ({
+      ...section,
+      items: section.items.filter((entry) =>
+        [entry.pl, entry.bg, entry.note, entry.usage, entry.government]
+          .filter(Boolean)
+          .join(" ")
+          .toLocaleLowerCase("pl-PL")
+          .includes(needle),
+      ),
+    }))
+    .filter((section) => !needle || section.items.length > 0);
+
+  const wordCount = topic.sections.reduce((sum, section) => sum + section.items.length, 0);
+  const toggle = (value: string, setter: React.Dispatch<React.SetStateAction<string[]>>) => {
+    setter((current) =>
+      current.includes(value) ? current.filter((item) => item !== value) : [...current, value],
+    );
+  };
+
+  return (
+    <section className="mt-10 overflow-hidden rounded-2xl border border-gold/30 bg-card-gradient">
+      <div className="border-b border-border/70 p-5 sm:p-7">
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-gold">
+              <Building2 className="h-4 w-4" /> Temat {topic.number} · {topic.level}
+            </div>
+            <h2 className="mt-2 font-serif text-3xl sm:text-4xl">{topic.title}</h2>
+            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+              {topic.description}
+            </p>
+          </div>
+          <div className="rounded-full border border-gold/30 bg-gold/5 px-3 py-1.5 text-xs text-gold">
+            {wordCount} думи и изрази
+          </div>
+        </div>
+
+        <div className="relative mt-5">
+          <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <input
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="Търси miasto, квартал, dotrzeć do…"
+            aria-label="Търси в тема Miasto"
+            className="w-full rounded-lg border border-border/70 bg-surface/50 py-3 pl-11 pr-4 outline-none transition placeholder:text-muted-foreground focus:border-gold/60"
+          />
+        </div>
+      </div>
+
+      <div className="divide-y divide-border/70">
+        {sections.map((section) => {
+          const sectionId = `${section.number ?? "extra"}-${section.title}`;
+          const sectionOpen = needle.length > 0 || openSections.includes(sectionId);
+          return (
+            <div key={sectionId}>
+              <button
+                type="button"
+                onClick={() => toggle(sectionId, setOpenSections)}
+                className="flex min-h-14 w-full items-center justify-between gap-4 px-5 py-4 text-left transition hover:bg-surface/35 sm:px-7"
+                aria-expanded={sectionOpen}
+              >
+                <span className="font-serif text-lg">
+                  {section.number ? `${section.number}. ` : ""}
+                  {section.title}
+                </span>
+                <span className="flex items-center gap-3 text-xs text-muted-foreground">
+                  {section.items.length}
+                  {sectionOpen ? (
+                    <ChevronUp className="h-4 w-4" />
+                  ) : (
+                    <ChevronDown className="h-4 w-4" />
+                  )}
+                </span>
+              </button>
+
+              {sectionOpen && (
+                <div className="grid gap-3 bg-surface/15 px-4 pb-5 sm:grid-cols-2 sm:px-7 lg:grid-cols-3">
+                  {section.items.map((entry) => {
+                    const itemId = `${sectionId}-${entry.pl}`;
+                    return (
+                      <TopicWordCard
+                        key={itemId}
+                        entry={entry}
+                        open={openItems.includes(itemId)}
+                        onToggle={() => toggle(itemId, setOpenItems)}
+                      />
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function TopicWordCard({
+  entry,
+  open,
+  onToggle,
+}: {
+  entry: WordHubItem;
+  open: boolean;
+  onToggle: () => void;
+}) {
+  const grammar = [entry.partOfSpeech, entry.gender, entry.aspect].filter(Boolean);
+
+  return (
+    <article className="self-start rounded-xl border border-border/70 bg-background/45 p-4">
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <div className="font-serif text-xl leading-tight text-ivory">{entry.pl}</div>
+          <div className="mt-1 text-sm text-muted-foreground">{entry.bg}</div>
+        </div>
+        <SpeakButton text={entry.pl} lang="pl-PL" label={`Чуй на полски: ${entry.pl}`} />
+      </div>
+
+      <div className="mt-3 flex flex-wrap gap-1.5">
+        {grammar.map((label) => (
+          <span
+            key={label}
+            className="rounded-full border border-border/70 px-2 py-0.5 text-[10px] uppercase tracking-wide text-muted-foreground"
+          >
+            {label}
+          </span>
+        ))}
+      </div>
+
+      <button
+        type="button"
+        onClick={onToggle}
+        className="mt-3 flex min-h-9 w-full items-center justify-between border-t border-border/60 pt-3 text-left text-xs text-crimson transition hover:text-ivory"
+        aria-expanded={open}
+      >
+        {open ? "Скрий употребата" : "Род, управление и пример"}
+        {open ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
+      </button>
+
+      {open && (
+        <div className="mt-3 space-y-3 text-xs leading-relaxed">
+          {entry.government && (
+            <div>
+              <div className="uppercase tracking-wider text-gold">Управление</div>
+              <div className="mt-1 text-ivory">{entry.government}</div>
+            </div>
+          )}
+          <div>
+            <div className="uppercase tracking-wider text-gold">Употреба</div>
+            <div className="mt-1 text-muted-foreground">{entry.usage}</div>
+            {entry.note && <div className="mt-1 text-muted-foreground">Бележка: {entry.note}</div>}
+          </div>
+          <div className="rounded-lg border border-border/60 bg-surface/30 p-3">
+            <div className="flex items-start justify-between gap-2">
+              <div className="text-sm text-ivory">{entry.example.pl}</div>
+              <SpeakButton
+                text={entry.example.pl}
+                lang="pl-PL"
+                label={`Чуй примера: ${entry.example.pl}`}
+              />
+            </div>
+            <div className="mt-1 text-muted-foreground">{entry.example.bg}</div>
+          </div>
+        </div>
+      )}
+    </article>
   );
 }
 
