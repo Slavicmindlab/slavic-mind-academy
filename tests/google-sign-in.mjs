@@ -16,6 +16,12 @@ try {
       const page = await context.newPage();
       for (const next of ["", "/word-lab", "//untrusted.example", "https://untrusted.example"]) {
         await page.goto(`${base}/auth?${new URLSearchParams({ next })}`);
+        // The SSR button can be visible before React attaches event handlers.
+        await page.waitForFunction(() => window.__lovable_cloud_auth_js_version);
+        await page.getByRole("button", { name: "Create an account", exact: true }).click();
+        await page.getByRole("heading", { name: "Create your account" }).waitFor();
+        await page.getByRole("button", { name: "Sign in", exact: true }).click();
+        await page.getByRole("heading", { name: "Welcome back" }).waitFor();
         const requestPromise = page.waitForRequest(
           (request) => request.isNavigationRequest() && request.url().startsWith("https://"),
         );
