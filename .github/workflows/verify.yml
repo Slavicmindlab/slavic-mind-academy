@@ -13,7 +13,8 @@ permissions:
 
 jobs:
   verify:
-    runs-on: ubuntu-latest
+    # Playwright 1.55 does not support the Ubuntu 26.04 image behind latest.
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     env:
       # CI placeholders keep local environment files out of Git while preserving
@@ -89,6 +90,8 @@ jobs:
             cat /tmp/slavicmind-vite.log
             exit 1
           }
+
+          node tests/google-sign-in.mjs
 
           bun - <<'EOF'
           import { chromium } from "playwright";
