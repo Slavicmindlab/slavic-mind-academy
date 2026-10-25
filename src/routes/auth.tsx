@@ -2,6 +2,7 @@ import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { signInWithGoogle } from "@/lib/google-sign-in";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Loader2, Mail, Lock, Sparkles } from "lucide-react";
 
@@ -93,11 +94,7 @@ function AuthPage() {
     setBusy(true);
 
     try {
-      const { error: oauthError } = await supabase.auth.signInWithOAuth({
-        provider: "google",
-        options: authReturnUrl ? { redirectTo: authReturnUrl } : undefined,
-      });
-      if (oauthError) throw oauthError;
+      await signInWithGoogle(authReturnUrl);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Google sign-in failed");
       setBusy(false);

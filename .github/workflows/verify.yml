@@ -90,6 +90,8 @@ jobs:
             exit 1
           }
 
+          node tests/google-sign-in.mjs
+
           bun - <<'EOF'
           import { chromium } from "playwright";
 
