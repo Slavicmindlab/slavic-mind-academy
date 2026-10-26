@@ -14,6 +14,24 @@ try {
         route.fulfill({ status: 200, contentType: "text/plain", body: "OAuth intercepted" }),
       );
       const page = await context.newPage();
+      for (const [code, message] of [
+        ["server_error", "OAuth server_error"],
+        ["access_denied", "cancelled or access was denied"],
+        ["unexpected_error", "Google sign-in failed"],
+      ]) {
+        // OAuth returns a new document, rather than a hash-only SPA navigation.
+        await page.goto("about:blank");
+        await page.goto(
+          `${base}/auth?next=%2Fword-lab#error=${code}&error_description=PRIVATE_CALLBACK_VALUE&state=PRIVATE_STATE`,
+        );
+        const alert = page.getByRole("alert");
+        await alert.waitFor();
+        assert.ok((await alert.innerText()).includes(message), await alert.innerText());
+        assert.ok(!(await page.locator("body").innerText()).includes("PRIVATE_CALLBACK_VALUE"));
+        assert.equal(new URL(page.url()).hash, "");
+        assert.equal(new URL(page.url()).searchParams.get("next"), "/word-lab");
+        assert.ok(await page.getByRole("button", { name: "Continue with Google" }).isEnabled());
+      }
       for (const next of ["", "/word-lab", "//untrusted.example", "https://untrusted.example"]) {
         await page.goto(`${base}/auth?${new URLSearchParams({ next })}`);
         // The SSR button can be visible before React attaches event handlers.
