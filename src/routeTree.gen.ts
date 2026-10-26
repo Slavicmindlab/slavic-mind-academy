@@ -9,105 +9,50 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as WordLabRouteImport } from './routes/word-lab'
-import { Route as VocabularyRouteImport } from './routes/vocabulary'
-import { Route as StoriesRouteImport } from './routes/stories'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as QuestRouteImport } from './routes/quest'
-import { Route as McpRouteImport } from './routes/mcp'
-import { Route as LearnRouteImport } from './routes/learn'
-import { Route as GrammarRouteImport } from './routes/grammar'
-import { Route as GamesRouteImport } from './routes/games'
-import { Route as DashboardRouteImport } from './routes/dashboard'
-import { Route as DailyRouteImport } from './routes/daily'
-import { Route as ConnectionsRouteImport } from './routes/connections'
-import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as StoriesIndexRouteImport } from './routes/stories.index'
-import { Route as LearnIndexRouteImport } from './routes/learn.index'
-import { Route as GrammarIndexRouteImport } from './routes/grammar.index'
-import { Route as GamesIndexRouteImport } from './routes/games.index'
-import { Route as StoriesIdRouteImport } from './routes/stories.$id'
-import { Route as LearnPolishRouteImport } from './routes/learn.polish'
-import { Route as GuideDifficultyRouteImport } from './routes/guide.difficulty'
-import { Route as GrammarVerbsRouteImport } from './routes/grammar.verbs'
-import { Route as GrammarConnectionsRouteImport } from './routes/grammar.connections'
-import { Route as GrammarConjugationRouteImport } from './routes/grammar.conjugation'
-import { Route as GrammarAspectRouteImport } from './routes/grammar.aspect'
-import { Route as GamesWordchainRouteImport } from './routes/games.wordchain'
-import { Route as GamesSentenceRouteImport } from './routes/games.sentence'
-import { Route as GamesQuizRouteImport } from './routes/games.quiz'
-import { Route as GamesMemoryRouteImport } from './routes/games.memory'
-import { Route as GamesMatchRouteImport } from './routes/games.match'
-import { Route as GamesListeningRouteImport } from './routes/games.listening'
-import { Route as GamesFillblankRouteImport } from './routes/games.fillblank'
-import { Route as GamesCrosswordRouteImport } from './routes/games.crossword'
-import { Route as GamesConjugationRouteImport } from './routes/games.conjugation'
-import { Route as GamesBattleRouteImport } from './routes/games.battle'
-import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as ConnectionsRouteImport } from './routes/connections'
+import { Route as DailyRouteImport } from './routes/daily'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as GamesRouteImport } from './routes/games'
+import { Route as GrammarRouteImport } from './routes/grammar'
+import { Route as LearnRouteImport } from './routes/learn'
+import { Route as McpRouteImport } from './routes/mcp'
+import { Route as QuestRouteImport } from './routes/quest'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as StoriesRouteImport } from './routes/stories'
+import { Route as VocabularyRouteImport } from './routes/vocabulary'
+import { Route as WordLabRouteImport } from './routes/word-lab'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
-import { Route as GrammarCasesCaseRouteImport } from './routes/grammar.cases.$case'
-import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
+import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as GamesIndexRouteImport } from './routes/games.index'
+import { Route as GamesBattleRouteImport } from './routes/games.battle'
+import { Route as GamesConjugationRouteImport } from './routes/games.conjugation'
+import { Route as GamesCrosswordRouteImport } from './routes/games.crossword'
+import { Route as GamesFillblankRouteImport } from './routes/games.fillblank'
+import { Route as GamesListeningRouteImport } from './routes/games.listening'
+import { Route as GamesMatchRouteImport } from './routes/games.match'
+import { Route as GamesMemoryRouteImport } from './routes/games.memory'
+import { Route as GamesQuizRouteImport } from './routes/games.quiz'
+import { Route as GamesSentenceRouteImport } from './routes/games.sentence'
+import { Route as GamesWordchainRouteImport } from './routes/games.wordchain'
+import { Route as GrammarIndexRouteImport } from './routes/grammar.index'
+import { Route as GrammarAspectRouteImport } from './routes/grammar.aspect'
+import { Route as GrammarConjugationRouteImport } from './routes/grammar.conjugation'
+import { Route as GrammarConnectionsRouteImport } from './routes/grammar.connections'
+import { Route as GrammarVerbsRouteImport } from './routes/grammar.verbs'
+import { Route as GuideDifficultyRouteImport } from './routes/guide.difficulty'
+import { Route as LearnIndexRouteImport } from './routes/learn.index'
+import { Route as LearnPolishRouteImport } from './routes/learn.polish'
+import { Route as StoriesIndexRouteImport } from './routes/stories.index'
+import { Route as StoriesIdRouteImport } from './routes/stories.$id'
 import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
+import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
+import { Route as GrammarCasesCaseRouteImport } from './routes/grammar.cases.$case'
 
-const WordLabRoute = WordLabRouteImport.update({
-  id: '/word-lab',
-  path: '/word-lab',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const VocabularyRoute = VocabularyRouteImport.update({
-  id: '/vocabulary',
-  path: '/vocabulary',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const StoriesRoute = StoriesRouteImport.update({
-  id: '/stories',
-  path: '/stories',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const QuestRoute = QuestRouteImport.update({
-  id: '/quest',
-  path: '/quest',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const McpRoute = McpRouteImport.update({
-  id: '/mcp',
-  path: '/mcp',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LearnRoute = LearnRouteImport.update({
-  id: '/learn',
-  path: '/learn',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GrammarRoute = GrammarRouteImport.update({
-  id: '/grammar',
-  path: '/grammar',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GamesRoute = GamesRouteImport.update({
-  id: '/games',
-  path: '/games',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardRoute = DashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DailyRoute = DailyRouteImport.update({
-  id: '/daily',
-  path: '/daily',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ConnectionsRoute = ConnectionsRouteImport.update({
-  id: '/connections',
-  path: '/connections',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -115,109 +60,81 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const ConnectionsRoute = ConnectionsRouteImport.update({
+  id: '/connections',
+  path: '/connections',
   getParentRoute: () => rootRouteImport,
 } as any)
-const StoriesIndexRoute = StoriesIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => StoriesRoute,
+const DailyRoute = DailyRouteImport.update({
+  id: '/daily',
+  path: '/daily',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const LearnIndexRoute = LearnIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => LearnRoute,
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const GrammarIndexRoute = GrammarIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => GrammarRoute,
+const GamesRoute = GamesRouteImport.update({
+  id: '/games',
+  path: '/games',
+  getParentRoute: () => rootRouteImport,
 } as any)
+const GrammarRoute = GrammarRouteImport.update({
+  id: '/grammar',
+  path: '/grammar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LearnRoute = LearnRouteImport.update({
+  id: '/learn',
+  path: '/learn',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuestRoute = QuestRouteImport.update({
+  id: '/quest',
+  path: '/quest',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StoriesRoute = StoriesRouteImport.update({
+  id: '/stories',
+  path: '/stories',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VocabularyRoute = VocabularyRouteImport.update({
+  id: '/vocabulary',
+  path: '/vocabulary',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WordLabRoute = WordLabRouteImport.update({
+  id: '/word-lab',
+  path: '/word-lab',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Char91DotmcpChar93ListToolsRoute =
+  Char91DotmcpChar93ListToolsRouteImport.update({
+    id: '/.mcp/list-tools',
+    path: '/.mcp/list-tools',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const Char91DotwellKnownChar93OauthProtectedResourceRoute =
+  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
+    id: '/.well-known/oauth-protected-resource',
+    path: '/.well-known/oauth-protected-resource',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const GamesIndexRoute = GamesIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => GamesRoute,
-} as any)
-const StoriesIdRoute = StoriesIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => StoriesRoute,
-} as any)
-const LearnPolishRoute = LearnPolishRouteImport.update({
-  id: '/polish',
-  path: '/polish',
-  getParentRoute: () => LearnRoute,
-} as any)
-const GuideDifficultyRoute = GuideDifficultyRouteImport.update({
-  id: '/guide/difficulty',
-  path: '/guide/difficulty',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GrammarVerbsRoute = GrammarVerbsRouteImport.update({
-  id: '/verbs',
-  path: '/verbs',
-  getParentRoute: () => GrammarRoute,
-} as any)
-const GrammarConnectionsRoute = GrammarConnectionsRouteImport.update({
-  id: '/connections',
-  path: '/connections',
-  getParentRoute: () => GrammarRoute,
-} as any)
-const GrammarConjugationRoute = GrammarConjugationRouteImport.update({
-  id: '/conjugation',
-  path: '/conjugation',
-  getParentRoute: () => GrammarRoute,
-} as any)
-const GrammarAspectRoute = GrammarAspectRouteImport.update({
-  id: '/aspect',
-  path: '/aspect',
-  getParentRoute: () => GrammarRoute,
-} as any)
-const GamesWordchainRoute = GamesWordchainRouteImport.update({
-  id: '/wordchain',
-  path: '/wordchain',
-  getParentRoute: () => GamesRoute,
-} as any)
-const GamesSentenceRoute = GamesSentenceRouteImport.update({
-  id: '/sentence',
-  path: '/sentence',
-  getParentRoute: () => GamesRoute,
-} as any)
-const GamesQuizRoute = GamesQuizRouteImport.update({
-  id: '/quiz',
-  path: '/quiz',
-  getParentRoute: () => GamesRoute,
-} as any)
-const GamesMemoryRoute = GamesMemoryRouteImport.update({
-  id: '/memory',
-  path: '/memory',
-  getParentRoute: () => GamesRoute,
-} as any)
-const GamesMatchRoute = GamesMatchRouteImport.update({
-  id: '/match',
-  path: '/match',
-  getParentRoute: () => GamesRoute,
-} as any)
-const GamesListeningRoute = GamesListeningRouteImport.update({
-  id: '/listening',
-  path: '/listening',
-  getParentRoute: () => GamesRoute,
-} as any)
-const GamesFillblankRoute = GamesFillblankRouteImport.update({
-  id: '/fillblank',
-  path: '/fillblank',
-  getParentRoute: () => GamesRoute,
-} as any)
-const GamesCrosswordRoute = GamesCrosswordRouteImport.update({
-  id: '/crossword',
-  path: '/crossword',
-  getParentRoute: () => GamesRoute,
-} as any)
-const GamesConjugationRoute = GamesConjugationRouteImport.update({
-  id: '/conjugation',
-  path: '/conjugation',
   getParentRoute: () => GamesRoute,
 } as any)
 const GamesBattleRoute = GamesBattleRouteImport.update({
@@ -225,22 +142,105 @@ const GamesBattleRoute = GamesBattleRouteImport.update({
   path: '/battle',
   getParentRoute: () => GamesRoute,
 } as any)
-const Char91DotwellKnownChar93OauthProtectedResourceRoute =
-  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
-    id: '/.well-known/oauth-protected-resource',
-    path: '/.well-known/oauth-protected-resource',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const Char91DotmcpChar93ListToolsRoute =
-  Char91DotmcpChar93ListToolsRouteImport.update({
-    id: '/.mcp/list-tools',
-    path: '/.mcp/list-tools',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const GrammarCasesCaseRoute = GrammarCasesCaseRouteImport.update({
-  id: '/cases/$case',
-  path: '/cases/$case',
+const GamesConjugationRoute = GamesConjugationRouteImport.update({
+  id: '/conjugation',
+  path: '/conjugation',
+  getParentRoute: () => GamesRoute,
+} as any)
+const GamesCrosswordRoute = GamesCrosswordRouteImport.update({
+  id: '/crossword',
+  path: '/crossword',
+  getParentRoute: () => GamesRoute,
+} as any)
+const GamesFillblankRoute = GamesFillblankRouteImport.update({
+  id: '/fillblank',
+  path: '/fillblank',
+  getParentRoute: () => GamesRoute,
+} as any)
+const GamesListeningRoute = GamesListeningRouteImport.update({
+  id: '/listening',
+  path: '/listening',
+  getParentRoute: () => GamesRoute,
+} as any)
+const GamesMatchRoute = GamesMatchRouteImport.update({
+  id: '/match',
+  path: '/match',
+  getParentRoute: () => GamesRoute,
+} as any)
+const GamesMemoryRoute = GamesMemoryRouteImport.update({
+  id: '/memory',
+  path: '/memory',
+  getParentRoute: () => GamesRoute,
+} as any)
+const GamesQuizRoute = GamesQuizRouteImport.update({
+  id: '/quiz',
+  path: '/quiz',
+  getParentRoute: () => GamesRoute,
+} as any)
+const GamesSentenceRoute = GamesSentenceRouteImport.update({
+  id: '/sentence',
+  path: '/sentence',
+  getParentRoute: () => GamesRoute,
+} as any)
+const GamesWordchainRoute = GamesWordchainRouteImport.update({
+  id: '/wordchain',
+  path: '/wordchain',
+  getParentRoute: () => GamesRoute,
+} as any)
+const GrammarIndexRoute = GrammarIndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => GrammarRoute,
+} as any)
+const GrammarAspectRoute = GrammarAspectRouteImport.update({
+  id: '/aspect',
+  path: '/aspect',
+  getParentRoute: () => GrammarRoute,
+} as any)
+const GrammarConjugationRoute = GrammarConjugationRouteImport.update({
+  id: '/conjugation',
+  path: '/conjugation',
+  getParentRoute: () => GrammarRoute,
+} as any)
+const GrammarConnectionsRoute = GrammarConnectionsRouteImport.update({
+  id: '/connections',
+  path: '/connections',
+  getParentRoute: () => GrammarRoute,
+} as any)
+const GrammarVerbsRoute = GrammarVerbsRouteImport.update({
+  id: '/verbs',
+  path: '/verbs',
+  getParentRoute: () => GrammarRoute,
+} as any)
+const GuideDifficultyRoute = GuideDifficultyRouteImport.update({
+  id: '/guide/difficulty',
+  path: '/guide/difficulty',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LearnIndexRoute = LearnIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LearnRoute,
+} as any)
+const LearnPolishRoute = LearnPolishRouteImport.update({
+  id: '/polish',
+  path: '/polish',
+  getParentRoute: () => LearnRoute,
+} as any)
+const StoriesIndexRoute = StoriesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => StoriesRoute,
+} as any)
+const StoriesIdRoute = StoriesIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => StoriesRoute,
+} as any)
+const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
+  id: '/.lovable/oauth/consent',
+  path: '/.lovable/oauth/consent',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const Char91DotmcpChar93InvokeToolToolRoute =
   Char91DotmcpChar93InvokeToolToolRouteImport.update({
@@ -248,10 +248,10 @@ const Char91DotmcpChar93InvokeToolToolRoute =
     path: '/.mcp/invoke-tool/$tool',
     getParentRoute: () => rootRouteImport,
   } as any)
-const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
-  id: '/.lovable/oauth/consent',
-  path: '/.lovable/oauth/consent',
-  getParentRoute: () => rootRouteImport,
+const GrammarCasesCaseRoute = GrammarCasesCaseRouteImport.update({
+  id: '/cases/$case',
+  path: '/cases/$case',
+  getParentRoute: () => GrammarRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -526,88 +526,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/word-lab': {
-      id: '/word-lab'
-      path: '/word-lab'
-      fullPath: '/word-lab'
-      preLoaderRoute: typeof WordLabRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/vocabulary': {
-      id: '/vocabulary'
-      path: '/vocabulary'
-      fullPath: '/vocabulary'
-      preLoaderRoute: typeof VocabularyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/stories': {
-      id: '/stories'
-      path: '/stories'
-      fullPath: '/stories'
-      preLoaderRoute: typeof StoriesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/quest': {
-      id: '/quest'
-      path: '/quest'
-      fullPath: '/quest'
-      preLoaderRoute: typeof QuestRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/mcp': {
-      id: '/mcp'
-      path: '/mcp'
-      fullPath: '/mcp'
-      preLoaderRoute: typeof McpRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/learn': {
-      id: '/learn'
-      path: '/learn'
-      fullPath: '/learn'
-      preLoaderRoute: typeof LearnRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/grammar': {
-      id: '/grammar'
-      path: '/grammar'
-      fullPath: '/grammar'
-      preLoaderRoute: typeof GrammarRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/games': {
-      id: '/games'
-      path: '/games'
-      fullPath: '/games'
-      preLoaderRoute: typeof GamesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/daily': {
-      id: '/daily'
-      path: '/daily'
-      fullPath: '/daily'
-      preLoaderRoute: typeof DailyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/connections': {
-      id: '/connections'
-      path: '/connections'
-      fullPath: '/connections'
-      preLoaderRoute: typeof ConnectionsRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -617,165 +540,88 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/stories/': {
-      id: '/stories/'
-      path: '/'
-      fullPath: '/stories/'
-      preLoaderRoute: typeof StoriesIndexRouteImport
-      parentRoute: typeof StoriesRoute
-    }
-    '/learn/': {
-      id: '/learn/'
-      path: '/'
-      fullPath: '/learn/'
-      preLoaderRoute: typeof LearnIndexRouteImport
-      parentRoute: typeof LearnRoute
-    }
-    '/grammar/': {
-      id: '/grammar/'
-      path: '/'
-      fullPath: '/grammar/'
-      preLoaderRoute: typeof GrammarIndexRouteImport
-      parentRoute: typeof GrammarRoute
-    }
-    '/games/': {
-      id: '/games/'
-      path: '/'
-      fullPath: '/games/'
-      preLoaderRoute: typeof GamesIndexRouteImport
-      parentRoute: typeof GamesRoute
-    }
-    '/stories/$id': {
-      id: '/stories/$id'
-      path: '/$id'
-      fullPath: '/stories/$id'
-      preLoaderRoute: typeof StoriesIdRouteImport
-      parentRoute: typeof StoriesRoute
-    }
-    '/learn/polish': {
-      id: '/learn/polish'
-      path: '/polish'
-      fullPath: '/learn/polish'
-      preLoaderRoute: typeof LearnPolishRouteImport
-      parentRoute: typeof LearnRoute
-    }
-    '/guide/difficulty': {
-      id: '/guide/difficulty'
-      path: '/guide/difficulty'
-      fullPath: '/guide/difficulty'
-      preLoaderRoute: typeof GuideDifficultyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/grammar/verbs': {
-      id: '/grammar/verbs'
-      path: '/verbs'
-      fullPath: '/grammar/verbs'
-      preLoaderRoute: typeof GrammarVerbsRouteImport
-      parentRoute: typeof GrammarRoute
-    }
-    '/grammar/connections': {
-      id: '/grammar/connections'
+    '/connections': {
+      id: '/connections'
       path: '/connections'
-      fullPath: '/grammar/connections'
-      preLoaderRoute: typeof GrammarConnectionsRouteImport
-      parentRoute: typeof GrammarRoute
+      fullPath: '/connections'
+      preLoaderRoute: typeof ConnectionsRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/grammar/conjugation': {
-      id: '/grammar/conjugation'
-      path: '/conjugation'
-      fullPath: '/grammar/conjugation'
-      preLoaderRoute: typeof GrammarConjugationRouteImport
-      parentRoute: typeof GrammarRoute
+    '/daily': {
+      id: '/daily'
+      path: '/daily'
+      fullPath: '/daily'
+      preLoaderRoute: typeof DailyRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/grammar/aspect': {
-      id: '/grammar/aspect'
-      path: '/aspect'
-      fullPath: '/grammar/aspect'
-      preLoaderRoute: typeof GrammarAspectRouteImport
-      parentRoute: typeof GrammarRoute
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/games/wordchain': {
-      id: '/games/wordchain'
-      path: '/wordchain'
-      fullPath: '/games/wordchain'
-      preLoaderRoute: typeof GamesWordchainRouteImport
-      parentRoute: typeof GamesRoute
+    '/games': {
+      id: '/games'
+      path: '/games'
+      fullPath: '/games'
+      preLoaderRoute: typeof GamesRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/games/sentence': {
-      id: '/games/sentence'
-      path: '/sentence'
-      fullPath: '/games/sentence'
-      preLoaderRoute: typeof GamesSentenceRouteImport
-      parentRoute: typeof GamesRoute
+    '/grammar': {
+      id: '/grammar'
+      path: '/grammar'
+      fullPath: '/grammar'
+      preLoaderRoute: typeof GrammarRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/games/quiz': {
-      id: '/games/quiz'
-      path: '/quiz'
-      fullPath: '/games/quiz'
-      preLoaderRoute: typeof GamesQuizRouteImport
-      parentRoute: typeof GamesRoute
+    '/learn': {
+      id: '/learn'
+      path: '/learn'
+      fullPath: '/learn'
+      preLoaderRoute: typeof LearnRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/games/memory': {
-      id: '/games/memory'
-      path: '/memory'
-      fullPath: '/games/memory'
-      preLoaderRoute: typeof GamesMemoryRouteImport
-      parentRoute: typeof GamesRoute
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/games/match': {
-      id: '/games/match'
-      path: '/match'
-      fullPath: '/games/match'
-      preLoaderRoute: typeof GamesMatchRouteImport
-      parentRoute: typeof GamesRoute
+    '/quest': {
+      id: '/quest'
+      path: '/quest'
+      fullPath: '/quest'
+      preLoaderRoute: typeof QuestRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/games/listening': {
-      id: '/games/listening'
-      path: '/listening'
-      fullPath: '/games/listening'
-      preLoaderRoute: typeof GamesListeningRouteImport
-      parentRoute: typeof GamesRoute
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/games/fillblank': {
-      id: '/games/fillblank'
-      path: '/fillblank'
-      fullPath: '/games/fillblank'
-      preLoaderRoute: typeof GamesFillblankRouteImport
-      parentRoute: typeof GamesRoute
+    '/stories': {
+      id: '/stories'
+      path: '/stories'
+      fullPath: '/stories'
+      preLoaderRoute: typeof StoriesRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/games/crossword': {
-      id: '/games/crossword'
-      path: '/crossword'
-      fullPath: '/games/crossword'
-      preLoaderRoute: typeof GamesCrosswordRouteImport
-      parentRoute: typeof GamesRoute
+    '/vocabulary': {
+      id: '/vocabulary'
+      path: '/vocabulary'
+      fullPath: '/vocabulary'
+      preLoaderRoute: typeof VocabularyRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/games/conjugation': {
-      id: '/games/conjugation'
-      path: '/conjugation'
-      fullPath: '/games/conjugation'
-      preLoaderRoute: typeof GamesConjugationRouteImport
-      parentRoute: typeof GamesRoute
-    }
-    '/games/battle': {
-      id: '/games/battle'
-      path: '/battle'
-      fullPath: '/games/battle'
-      preLoaderRoute: typeof GamesBattleRouteImport
-      parentRoute: typeof GamesRoute
-    }
-    '/.well-known/oauth-protected-resource': {
-      id: '/.well-known/oauth-protected-resource'
-      path: '/.well-known/oauth-protected-resource'
-      fullPath: '/.well-known/oauth-protected-resource'
-      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
+    '/word-lab': {
+      id: '/word-lab'
+      path: '/word-lab'
+      fullPath: '/word-lab'
+      preLoaderRoute: typeof WordLabRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/.mcp/list-tools': {
@@ -785,12 +631,166 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/grammar/cases/$case': {
-      id: '/grammar/cases/$case'
-      path: '/cases/$case'
-      fullPath: '/grammar/cases/$case'
-      preLoaderRoute: typeof GrammarCasesCaseRouteImport
+    '/.well-known/oauth-protected-resource': {
+      id: '/.well-known/oauth-protected-resource'
+      path: '/.well-known/oauth-protected-resource'
+      fullPath: '/.well-known/oauth-protected-resource'
+      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/games/': {
+      id: '/games/'
+      path: '/'
+      fullPath: '/games/'
+      preLoaderRoute: typeof GamesIndexRouteImport
+      parentRoute: typeof GamesRoute
+    }
+    '/games/battle': {
+      id: '/games/battle'
+      path: '/battle'
+      fullPath: '/games/battle'
+      preLoaderRoute: typeof GamesBattleRouteImport
+      parentRoute: typeof GamesRoute
+    }
+    '/games/conjugation': {
+      id: '/games/conjugation'
+      path: '/conjugation'
+      fullPath: '/games/conjugation'
+      preLoaderRoute: typeof GamesConjugationRouteImport
+      parentRoute: typeof GamesRoute
+    }
+    '/games/crossword': {
+      id: '/games/crossword'
+      path: '/crossword'
+      fullPath: '/games/crossword'
+      preLoaderRoute: typeof GamesCrosswordRouteImport
+      parentRoute: typeof GamesRoute
+    }
+    '/games/fillblank': {
+      id: '/games/fillblank'
+      path: '/fillblank'
+      fullPath: '/games/fillblank'
+      preLoaderRoute: typeof GamesFillblankRouteImport
+      parentRoute: typeof GamesRoute
+    }
+    '/games/listening': {
+      id: '/games/listening'
+      path: '/listening'
+      fullPath: '/games/listening'
+      preLoaderRoute: typeof GamesListeningRouteImport
+      parentRoute: typeof GamesRoute
+    }
+    '/games/match': {
+      id: '/games/match'
+      path: '/match'
+      fullPath: '/games/match'
+      preLoaderRoute: typeof GamesMatchRouteImport
+      parentRoute: typeof GamesRoute
+    }
+    '/games/memory': {
+      id: '/games/memory'
+      path: '/memory'
+      fullPath: '/games/memory'
+      preLoaderRoute: typeof GamesMemoryRouteImport
+      parentRoute: typeof GamesRoute
+    }
+    '/games/quiz': {
+      id: '/games/quiz'
+      path: '/quiz'
+      fullPath: '/games/quiz'
+      preLoaderRoute: typeof GamesQuizRouteImport
+      parentRoute: typeof GamesRoute
+    }
+    '/games/sentence': {
+      id: '/games/sentence'
+      path: '/sentence'
+      fullPath: '/games/sentence'
+      preLoaderRoute: typeof GamesSentenceRouteImport
+      parentRoute: typeof GamesRoute
+    }
+    '/games/wordchain': {
+      id: '/games/wordchain'
+      path: '/wordchain'
+      fullPath: '/games/wordchain'
+      preLoaderRoute: typeof GamesWordchainRouteImport
+      parentRoute: typeof GamesRoute
+    }
+    '/grammar/': {
+      id: '/grammar/'
+      path: '/'
+      fullPath: '/grammar/'
+      preLoaderRoute: typeof GrammarIndexRouteImport
       parentRoute: typeof GrammarRoute
+    }
+    '/grammar/aspect': {
+      id: '/grammar/aspect'
+      path: '/aspect'
+      fullPath: '/grammar/aspect'
+      preLoaderRoute: typeof GrammarAspectRouteImport
+      parentRoute: typeof GrammarRoute
+    }
+    '/grammar/conjugation': {
+      id: '/grammar/conjugation'
+      path: '/conjugation'
+      fullPath: '/grammar/conjugation'
+      preLoaderRoute: typeof GrammarConjugationRouteImport
+      parentRoute: typeof GrammarRoute
+    }
+    '/grammar/connections': {
+      id: '/grammar/connections'
+      path: '/connections'
+      fullPath: '/grammar/connections'
+      preLoaderRoute: typeof GrammarConnectionsRouteImport
+      parentRoute: typeof GrammarRoute
+    }
+    '/grammar/verbs': {
+      id: '/grammar/verbs'
+      path: '/verbs'
+      fullPath: '/grammar/verbs'
+      preLoaderRoute: typeof GrammarVerbsRouteImport
+      parentRoute: typeof GrammarRoute
+    }
+    '/guide/difficulty': {
+      id: '/guide/difficulty'
+      path: '/guide/difficulty'
+      fullPath: '/guide/difficulty'
+      preLoaderRoute: typeof GuideDifficultyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learn/': {
+      id: '/learn/'
+      path: '/'
+      fullPath: '/learn/'
+      preLoaderRoute: typeof LearnIndexRouteImport
+      parentRoute: typeof LearnRoute
+    }
+    '/learn/polish': {
+      id: '/learn/polish'
+      path: '/polish'
+      fullPath: '/learn/polish'
+      preLoaderRoute: typeof LearnPolishRouteImport
+      parentRoute: typeof LearnRoute
+    }
+    '/stories/': {
+      id: '/stories/'
+      path: '/'
+      fullPath: '/stories/'
+      preLoaderRoute: typeof StoriesIndexRouteImport
+      parentRoute: typeof StoriesRoute
+    }
+    '/stories/$id': {
+      id: '/stories/$id'
+      path: '/$id'
+      fullPath: '/stories/$id'
+      preLoaderRoute: typeof StoriesIdRouteImport
+      parentRoute: typeof StoriesRoute
+    }
+    '/.lovable/oauth/consent': {
+      id: '/.lovable/oauth/consent'
+      path: '/.lovable/oauth/consent'
+      fullPath: '/.lovable/oauth/consent'
+      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/.mcp/invoke-tool/$tool': {
       id: '/.mcp/invoke-tool/$tool'
@@ -799,12 +799,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/.lovable/oauth/consent': {
-      id: '/.lovable/oauth/consent'
-      path: '/.lovable/oauth/consent'
-      fullPath: '/.lovable/oauth/consent'
-      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
-      parentRoute: typeof rootRouteImport
+    '/grammar/cases/$case': {
+      id: '/grammar/cases/$case'
+      path: '/cases/$case'
+      fullPath: '/grammar/cases/$case'
+      preLoaderRoute: typeof GrammarCasesCaseRouteImport
+      parentRoute: typeof GrammarRoute
     }
   }
 }
